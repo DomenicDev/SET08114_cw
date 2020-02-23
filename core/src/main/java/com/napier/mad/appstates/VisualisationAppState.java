@@ -122,7 +122,7 @@ public class VisualisationAppState extends BaseAppState {
     private Material createSimpleUnshadedMaterial() {
         // create material instance
         Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        material.setColor("Color", ColorRGBA.Brown);
+        material.setColor("Color", ColorRGBA.White);
 
         // apply texture sample
         Texture texture = assetManager.loadTexture("Interface/cat.jpg");

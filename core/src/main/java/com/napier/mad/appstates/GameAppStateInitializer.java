@@ -11,7 +11,9 @@ public class GameAppStateInitializer extends BaseAppState {
     private CameraAppState cameraAppState;
     private PhysicsAppState physicsAppState;
     private PhysicsPushAppState physicsPushAppState;
+    private SceneAppState sceneAppState;
     private VisualisationAppState visualisationAppState;
+    private SkyAppState skyAppState;
     private InputAppState inputAppState;
 
     private AppStateManager stateManager;
@@ -25,6 +27,8 @@ public class GameAppStateInitializer extends BaseAppState {
         this.cameraAppState = new CameraAppState();
         this.physicsAppState = new PhysicsAppState();
         this.physicsPushAppState = new PhysicsPushAppState();
+        this.sceneAppState = new SceneAppState();
+        this.skyAppState = new SkyAppState();
         this.visualisationAppState = new VisualisationAppState();
         this.inputAppState = new InputAppState();
 
@@ -32,6 +36,8 @@ public class GameAppStateInitializer extends BaseAppState {
         stateManager.attach(cameraAppState);
         stateManager.attach(physicsAppState);
         stateManager.attach(physicsPushAppState);
+        stateManager.attach(sceneAppState);
+        stateManager.attach(skyAppState);
         stateManager.attach(visualisationAppState);
         stateManager.attach(inputAppState);
 
@@ -48,6 +54,8 @@ public class GameAppStateInitializer extends BaseAppState {
         this.stateManager.detach(physicsAppState);
         this.stateManager.detach(physicsPushAppState);
         this.stateManager.detach(inputAppState);
+        this.stateManager.detach(sceneAppState);
+        this.stateManager.detach(skyAppState);
     }
 
     @Override

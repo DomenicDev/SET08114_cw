@@ -48,7 +48,7 @@ public class InputAppState extends BaseAppState implements TouchListener {
         if (PUSH.equals(name)) {
             if (event.getType().equals(TouchEvent.Type.TAP)) {
                 EntityId pushEntity = entityData.createEntity();
-                entityData.setComponent(pushEntity, new PhysicsPushComponent(new EntityId(0), new Vector3f(0.2f, 1, 0).normalizeLocal(), 5));
+                entityData.setComponent(pushEntity, new PhysicsPushComponent(new EntityId(0), new Vector3f(0, 1, 0).normalizeLocal(), 10));
 
             }
         }

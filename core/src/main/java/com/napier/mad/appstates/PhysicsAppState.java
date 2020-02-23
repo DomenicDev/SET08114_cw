@@ -4,8 +4,11 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionGroupListener;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
@@ -41,6 +44,14 @@ public class PhysicsAppState extends BaseAppState {
         this.bulletAppState = new BulletAppState();
         this.bulletAppState.setDebugEnabled(false);
         stateManager.attach(bulletAppState);
+        this.bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, -15, 0));
+
+        this.bulletAppState.getPhysicsSpace().addCollisionGroupListener(new PhysicsCollisionGroupListener() {
+            @Override
+            public boolean collide(PhysicsCollisionObject nodeA, PhysicsCollisionObject nodeB) {
+                return false;
+            }
+        }, 1);
 
         this.physicsEntities = entityData.getEntities(RigidBodyComponent.class, PositionComponent.class);
     }
@@ -94,6 +105,7 @@ public class PhysicsAppState extends BaseAppState {
         RigidBodyControl rigidBodyControl = createRigidBodyControl(rigidBodyComponent);
         applyLocation(positionComponent, rigidBodyControl);
 
+
         // add control to physics space and global map
         this.bulletAppState.getPhysicsSpace().add(rigidBodyControl);
         this.rigidBodies.put(entityId, rigidBodyControl);
@@ -107,6 +119,7 @@ public class PhysicsAppState extends BaseAppState {
         if (collisionShape == null) {
             LOGGER.warning("no collision shape for shape data created. Data: " + collisionShapeData);
         }
+        collisionShape.setScale(Vector3f.ZERO);
 
         // create rigid body control and apply values
         RigidBodyControl control = new RigidBodyControl();
