@@ -60,6 +60,8 @@ project(":core") {
     dependencies {
         implementation "org.jmonkeyengine:jme3-core:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-bullet:$JMonkey_version"
+        implementation "org.jmonkeyengine:jme3-niftygui:$JMonkey_version"
+
        /* implementation "org.jmonkeyengine:jme3-jbullet:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-terrain:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-niftygui:$JMonkey_version"

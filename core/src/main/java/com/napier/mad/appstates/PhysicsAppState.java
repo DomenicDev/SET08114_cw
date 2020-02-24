@@ -42,16 +42,19 @@ public class PhysicsAppState extends BaseAppState {
         this.entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
 
         this.bulletAppState = new BulletAppState();
-        this.bulletAppState.setDebugEnabled(false);
+        this.bulletAppState.setDebugEnabled(true);
         stateManager.attach(bulletAppState);
-        this.bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, -15, 0));
+        this.bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, -10, 0));
 
+        /*
         this.bulletAppState.getPhysicsSpace().addCollisionGroupListener(new PhysicsCollisionGroupListener() {
             @Override
             public boolean collide(PhysicsCollisionObject nodeA, PhysicsCollisionObject nodeB) {
                 return false;
             }
         }, 1);
+
+         */
 
         this.physicsEntities = entityData.getEntities(RigidBodyComponent.class, PositionComponent.class);
     }
@@ -119,7 +122,6 @@ public class PhysicsAppState extends BaseAppState {
         if (collisionShape == null) {
             LOGGER.warning("no collision shape for shape data created. Data: " + collisionShapeData);
         }
-        collisionShape.setScale(Vector3f.ZERO);
 
         // create rigid body control and apply values
         RigidBodyControl control = new RigidBodyControl();

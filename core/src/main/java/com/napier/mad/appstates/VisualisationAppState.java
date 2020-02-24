@@ -65,6 +65,10 @@ public class VisualisationAppState extends BaseAppState {
         }
     }
 
+    public Spatial getModel(EntityId entityId) {
+        return this.models.get(entityId);
+    }
+
     private void addEntityModel(Entity entity) {
         // look for type
         ModelComponent.ModelType type = entity.get(ModelComponent.class).getModelType();
@@ -73,7 +77,7 @@ public class VisualisationAppState extends BaseAppState {
             LOGGER.warning("null defined as model type for " + entity.getId());
             return;
         }
-
+        Node entityNode = new Node("EntityNode[" + entity.getId() + "]");
         Spatial model = null;
         if (type.equals(ModelComponent.ModelType.Ball)) {
             model = createBall();
@@ -87,8 +91,11 @@ public class VisualisationAppState extends BaseAppState {
             LOGGER.warning("model is null, returning...");
         }
 
-        this.modelsNode.attachChild(model);
-        this.models.put(entity.getId(), model);
+        entityNode.setUserData("EntityId", entity.getId().getId());
+        entityNode.attachChild(model);
+
+        this.modelsNode.attachChild(entityNode);
+        this.models.put(entity.getId(), entityNode);
 
         // call update to apply initial position
         applyPositionToModel(entity);
@@ -114,7 +121,7 @@ public class VisualisationAppState extends BaseAppState {
     }
 
     private Spatial createPlatform() {
-        Geometry platformGeometry = new Geometry("Platform", new Box(2f, 0.1f, 1));
+        Geometry platformGeometry = new Geometry("Platform", new Box(2f, 0.1f, 2));
         platformGeometry.setMaterial(createSimpleUnshadedMaterial());
         return platformGeometry;
     }

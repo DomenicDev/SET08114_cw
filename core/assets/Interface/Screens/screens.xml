@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
+    <useStyles filename="nifty-default-styles.xml"/>
+    <useControls filename="nifty-default-controls.xml"/>
+
+    <screen id="start" controller="com.napier.mad.screens.MainGameScreenController">
+        <layer childLayout="vertical">
+            <!-- ... -->
+            <panel height="*" />
+            <panel align="center" width="98%" height="10%" childLayout="horizontal">
+                <panel childLayout="center" width="50%">
+                    <control id="leftDrift" label="LEFT" name="button" width="95%" height="50%" >
+                        <interact onClick="onClickLeft()" />
+                    </control>
+                </panel>
+                <panel childLayout="center" width="50%">
+                    <control id="rightDrift" name="button" width="95%" height="50%" label="RIGHT">
+                        <interact onClick="onClickRight()" />
+                    </control>
+                </panel>
+            </panel>
+
+        </layer>
+    </screen>
+    <screen id="hud">
+        <!-- ... -->
+    </screen>
+</nifty>

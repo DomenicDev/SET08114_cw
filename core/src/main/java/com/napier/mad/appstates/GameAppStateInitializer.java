@@ -11,10 +11,12 @@ public class GameAppStateInitializer extends BaseAppState {
     private CameraAppState cameraAppState;
     private PhysicsAppState physicsAppState;
     private PhysicsPushAppState physicsPushAppState;
+    private PhysicalCharacterMovement physicalCharacterMovement;
     private SceneAppState sceneAppState;
     private VisualisationAppState visualisationAppState;
     private SkyAppState skyAppState;
     private InputAppState inputAppState;
+    private NiftyAppState niftyAppState;
 
     private AppStateManager stateManager;
 
@@ -26,20 +28,24 @@ public class GameAppStateInitializer extends BaseAppState {
         this.entityDataAppState = new EntityDataAppState();
         this.cameraAppState = new CameraAppState();
         this.physicsAppState = new PhysicsAppState();
+        this.physicalCharacterMovement = new PhysicalCharacterMovement();
         this.physicsPushAppState = new PhysicsPushAppState();
         this.sceneAppState = new SceneAppState();
         this.skyAppState = new SkyAppState();
         this.visualisationAppState = new VisualisationAppState();
         this.inputAppState = new InputAppState();
+        this.niftyAppState = new NiftyAppState();
 
         stateManager.attach(entityDataAppState);
-        stateManager.attach(cameraAppState);
         stateManager.attach(physicsAppState);
+        stateManager.attach(physicalCharacterMovement);
         stateManager.attach(physicsPushAppState);
         stateManager.attach(sceneAppState);
         stateManager.attach(skyAppState);
         stateManager.attach(visualisationAppState);
         stateManager.attach(inputAppState);
+        stateManager.attach(cameraAppState);
+        stateManager.attach(niftyAppState);
 
         // for now...
         stateManager.attach(new GameStarterAppState());
@@ -51,11 +57,13 @@ public class GameAppStateInitializer extends BaseAppState {
         this.stateManager.detach(entityDataAppState);
         this.stateManager.detach(cameraAppState);
         this.stateManager.detach(visualisationAppState);
+        this.stateManager.detach(physicalCharacterMovement);
         this.stateManager.detach(physicsAppState);
         this.stateManager.detach(physicsPushAppState);
         this.stateManager.detach(inputAppState);
         this.stateManager.detach(sceneAppState);
         this.stateManager.detach(skyAppState);
+        this.stateManager.detach(niftyAppState);
     }
 
     @Override
