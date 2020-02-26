@@ -15,7 +15,7 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
 
-        getFlyByCamera().setEnabled(true);
+        getFlyByCamera().setEnabled(false);
 
         cam.setLocation(new Vector3f(0, 4, -8));
 

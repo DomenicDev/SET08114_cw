@@ -77,6 +77,9 @@ public class ModelLoaderAppState extends BaseAppState {
             playerBox.setMaterial(mat);
             return playerBox;
         }
+        if (type == ModelType.Empty) {
+            return assetManager.loadModel("Models/Empty.j3o");
+        }
 
         return null;
     }

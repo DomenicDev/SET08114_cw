@@ -58,16 +58,15 @@ public class ModelAttachAppState extends BaseAppState {
             LOGGER.warning("node for child entity does not exist");
             return;
         }
+        childNode.removeFromParent();
         if (parentId != null) {
             Node parentNode = modelLoaderAppState.getModelNode(parentId);
             if (parentNode == null) {
                 LOGGER.warning("node for parent entity does not exist.");
                 return;
             }
-            System.out.println("attaching " + childNode.getName() + " to " + parentNode.getName());
             parentNode.attachChild(childNode);
         } else {
-            System.out.println("hier " + childNode.getName());
             getState(SceneAppState.class).getSceneNode().attachChild(childNode);
         }
 

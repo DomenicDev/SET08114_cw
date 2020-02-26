@@ -32,7 +32,7 @@ public class CameraAppState extends BaseAppState {
         this.cam.setLocation(START_LOCATION);
         this.cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
         this.cam.setParallelProjection(false);
-        this.cam.setFrustumPerspective(90f, 19.5f/9.0f, 0.2f, 50f);
+        this.cam.setFrustumPerspective(105f, 19.5f/9.0f, 0.2f, 50f);
         this.cam.resize(cam.getWidth(), cam.getHeight(), true);
 
     }
@@ -44,8 +44,7 @@ public class CameraAppState extends BaseAppState {
     @Override
     public void update(float tpf) {
      //   if (entityToChase != null) {
-            if (spatialToChase == null) {
-                if (true) return;
+            if (spatialToChase != null && camNode == null) {
                 // load reference to spatial to chase
             //    spatialToChase = this.visualisationAppState.getModel(entityToChase);
                 // chase

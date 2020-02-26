@@ -1,7 +1,9 @@
 package com.napier.mad.anchors;
 
+import com.simsilica.es.EntityId;
+
 public interface AnchorListener {
 
-    void onFinish();
+    void onFinish(EntityId anchorId);
 
 }

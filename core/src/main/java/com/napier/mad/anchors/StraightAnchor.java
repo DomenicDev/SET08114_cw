@@ -7,10 +7,12 @@ public class StraightAnchor extends AnchorLogic {
 
     private float distance;
     private float time;
+    private Vector3f startLocation;
 
 
-    public StraightAnchor(float distance) {
+    public StraightAnchor(float distance, Vector3f startLocation) {
         this.distance = distance;
+        this.startLocation = startLocation;
     }
 
     @Override
@@ -19,15 +21,17 @@ public class StraightAnchor extends AnchorLogic {
     }
 
     @Override
-    public void update(float tpf) {
+    public void updateMovement(float tpf) {
         time += tpf;
 
         float movedDistance = time* speed;
+
         if (movedDistance >= distance) {
-            movedDistance = distance;
+            //    movedDistance = distance;
             onMovementFinished();
         }
-        onUpdateTransform(new LocalTransformComponent(new Vector3f(0, 0, movedDistance)));
+
+        onUpdateTransform(new LocalTransformComponent(startLocation.add(startLocation.getX(), startLocation.getY(), movedDistance)));
 
     }
 

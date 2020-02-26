@@ -6,6 +6,7 @@ import com.napier.mad.anchors.AnchorListener;
 import com.napier.mad.anchors.AnchorLogic;
 import com.napier.mad.anchors.StraightAnchor;
 import com.napier.mad.components.AnchorComponent;
+import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.constants.Constants;
 import com.napier.mad.types.AnchorMovementType;
 import com.simsilica.es.Entity;
@@ -32,7 +33,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
-        this.anchors = entityData.getEntities(AnchorComponent.class);
+        this.anchors = entityData.getEntities(AnchorComponent.class, LocalTransformComponent.class);
 
     }
 
@@ -42,6 +43,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
 
             for (Entity e : anchors.getAddedEntities()) {
                 add(e);
+                System.out.println("added " + e);
             }
 
             for (Entity e : anchors.getRemovedEntities()) {
@@ -63,6 +65,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
     private void add(Entity e) {
         EntityId anchorId = e.getId();
         AnchorComponent anchorComponent = e.get(AnchorComponent.class);
+        LocalTransformComponent localTransform = e.get(LocalTransformComponent.class);
         float speed = anchorComponent.getSpeed();
         AnchorMovementType movementType = anchorComponent.getMovementType();
 
@@ -70,7 +73,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
 
         if (movementType == AnchorMovementType.Linear) {
             // create straight movement control
-            anchorLogic = new StraightAnchor(Constants.TILE_LENGTH);
+            anchorLogic = new StraightAnchor(Constants.TILE_LENGTH, localTransform.getLocation());
         }
 
         if (anchorLogic == null) {
@@ -118,9 +121,9 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
     // ---------- LISTENER METHODS ---------------- //
 
     @Override
-    public void onFinish() {
+    public void onFinish(EntityId anchorId) {
         for (AnchorListener listener : anchorListeners) {
-            listener.onFinish();
+            listener.onFinish(anchorId);
         }
     }
 }

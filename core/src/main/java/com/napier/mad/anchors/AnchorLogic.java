@@ -15,12 +15,22 @@ public abstract class AnchorLogic {
     protected EntityId anchorEntityId;
     protected float speed;
 
+    private boolean finished = false;
+
     abstract void onEntityEnter();
 
-    public abstract void update(float tpf);
+    public void update(float tpf) {
+        if (finished) {
+            return;
+        }
+        updateMovement(tpf);
+    }
+
+    protected abstract void updateMovement(float tpf);
 
     public void onMovementFinished() {
-        listener.onFinish();
+        this.finished = true;
+        listener.onFinish(anchorEntityId);
     }
 
     public void setListener(AnchorListener listener) {
