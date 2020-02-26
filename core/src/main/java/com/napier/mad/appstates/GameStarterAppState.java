@@ -5,7 +5,7 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.AttachedToComponent;
 import com.napier.mad.components.ModelComponent;
-import com.napier.mad.components.WorldTransformComponent;
+import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.constants.Constants;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.EntityData;
@@ -23,8 +23,9 @@ public class GameStarterAppState extends BaseAppState {
         for (int i = 0; i < 10; i++) {
             EntityId straight = entityData.createEntity();
             entityData.setComponents(straight,
-                    new WorldTransformComponent(new Vector3f(0, 0, i*TILE_LENGTH), Constants.UP),
-                    new ModelComponent(ModelType.Road_Straight));
+                    new LocalTransformComponent(new Vector3f(0, 0, i*TILE_LENGTH), Constants.UP),
+                    new ModelComponent(ModelType.Road_Straight),
+                    new AttachedToComponent());
         }
 
         EntityId player = entityData.createEntity();

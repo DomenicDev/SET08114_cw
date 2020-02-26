@@ -6,7 +6,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.napier.mad.components.ModelComponent;
-import com.napier.mad.components.WorldTransformComponent;
+import com.napier.mad.components.LocalTransformComponent;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -15,7 +15,7 @@ import com.simsilica.es.EntitySet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WorldTransformEntityRendererAppState extends BaseAppState {
+public class LocalTransformAppState extends BaseAppState {
 
     private Map<EntityId, Node> entityIdNodeMap = new HashMap<>();
     private EntitySet entities;
@@ -27,7 +27,7 @@ public class WorldTransformEntityRendererAppState extends BaseAppState {
         this.sceneAppState = getState(SceneAppState.class);
         this.modelLoaderAppState = getState(ModelLoaderAppState.class);
         EntityData entityData = getState(EntityDataAppState.class).getEntityData();
-        this.entities = entityData.getEntities(WorldTransformComponent.class, ModelComponent.class);
+        this.entities = entityData.getEntities(LocalTransformComponent.class, ModelComponent.class);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class WorldTransformEntityRendererAppState extends BaseAppState {
 
     private void updateModel(Entity e) {
         // get data from component
-        WorldTransformComponent transformComponent = e.get(WorldTransformComponent.class);
+        LocalTransformComponent transformComponent = e.get(LocalTransformComponent.class);
         Vector3f worldLocation = transformComponent.getLocation();
         Quaternion worldRotation = transformComponent.getRotation();
         Vector3f worldScale = transformComponent.getScale();
