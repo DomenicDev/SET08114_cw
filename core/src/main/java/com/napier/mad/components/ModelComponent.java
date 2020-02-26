@@ -1,21 +1,17 @@
 package com.napier.mad.components;
 
+import com.napier.mad.types.ModelType;
 import com.simsilica.es.EntityComponent;
 
 public class ModelComponent implements EntityComponent {
 
-    public enum ModelType {
-        Ball,
-        Platform;
+    private ModelType type;
+
+    public ModelComponent(ModelType type) {
+        this.type = type;
     }
 
-    private ModelType modelType;
-
-    public ModelComponent(ModelType modelType) {
-        this.modelType = modelType;
-    }
-
-    public ModelType getModelType() {
-        return modelType;
+    public ModelType getType() {
+        return type;
     }
 }

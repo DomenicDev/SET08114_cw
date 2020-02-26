@@ -21,10 +21,7 @@ public class CameraAppState extends BaseAppState {
 
     private static final Vector3f START_LOCATION = new Vector3f(0, 0.5f, 10);
 
-    private EntityId entityToChase;
     private Spatial spatialToChase;
-
-    private VisualisationAppState visualisationAppState;
 
     @Override
     protected void initialize(Application app) {
@@ -38,20 +35,18 @@ public class CameraAppState extends BaseAppState {
         this.cam.setFrustumPerspective(90f, 19.5f/9.0f, 0.2f, 50f);
         this.cam.resize(cam.getWidth(), cam.getHeight(), true);
 
-        // get application states for later use
-        this.visualisationAppState = getStateManager().getState(VisualisationAppState.class);
     }
 
-    public void chase(EntityId entityId) {
-        this.entityToChase = entityId;
+    public void chase(Spatial spatialToChase) {
+        this.spatialToChase = spatialToChase;
     }
 
     @Override
     public void update(float tpf) {
-        if (entityToChase != null) {
+     //   if (entityToChase != null) {
             if (spatialToChase == null) {
                 // load reference to spatial to chase
-                spatialToChase = this.visualisationAppState.getModel(entityToChase);
+            //    spatialToChase = this.visualisationAppState.getModel(entityToChase);
                 // chase
                 this.camNode = new CameraNode("Camera Node", cam);
 //This mode means that camera copies the movements of the target:
@@ -86,7 +81,7 @@ public class CameraAppState extends BaseAppState {
             }
 
 
-        }
+     //   }
     }
 
 
