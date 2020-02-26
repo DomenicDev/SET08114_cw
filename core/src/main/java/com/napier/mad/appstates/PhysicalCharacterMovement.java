@@ -3,6 +3,8 @@ package com.napier.mad.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.PlayerMovementComponent;
 import com.napier.mad.components.RigidBodyComponent;

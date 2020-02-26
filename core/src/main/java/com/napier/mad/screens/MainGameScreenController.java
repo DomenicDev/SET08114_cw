@@ -9,6 +9,12 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 public class MainGameScreenController implements ScreenController {
 
+    private ScreenEventListener listener;
+
+
+    public MainGameScreenController(ScreenEventListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void bind(@Nonnull Nifty nifty, @Nonnull Screen screen) {
@@ -17,10 +23,12 @@ public class MainGameScreenController implements ScreenController {
 
     public void onClickLeft() {
         System.out.println("LEFT BUTTON CLICKED");
+        this.listener.onSwipeLeft();
     }
 
     public void onClickRight() {
         System.out.println("RIGHT BUTTON CLICKED");
+        this.listener.onSwipeRight();
     }
 
     @Override

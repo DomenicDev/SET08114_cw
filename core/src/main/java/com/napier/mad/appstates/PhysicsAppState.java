@@ -10,6 +10,7 @@ import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.PositionComponent;
@@ -42,9 +43,12 @@ public class PhysicsAppState extends BaseAppState {
         this.entityData = stateManager.getState(EntityDataAppState.class).getEntityData();
 
         this.bulletAppState = new BulletAppState();
-        this.bulletAppState.setDebugEnabled(true);
+        this.bulletAppState.setDebugEnabled(false);
         stateManager.attach(bulletAppState);
         this.bulletAppState.getPhysicsSpace().setGravity(new Vector3f(0, -10, 0));
+
+
+
 
         /*
         this.bulletAppState.getPhysicsSpace().addCollisionGroupListener(new PhysicsCollisionGroupListener() {
@@ -57,6 +61,10 @@ public class PhysicsAppState extends BaseAppState {
          */
 
         this.physicsEntities = entityData.getEntities(RigidBodyComponent.class, PositionComponent.class);
+    }
+
+    public BulletAppState getBulletAppState() {
+        return this.bulletAppState;
     }
 
     @Override

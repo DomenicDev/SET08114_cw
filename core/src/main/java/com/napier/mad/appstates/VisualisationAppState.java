@@ -7,6 +7,7 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -31,7 +32,7 @@ public class VisualisationAppState extends BaseAppState {
     private static final int DEFAULT_MODEL_LOCATION_Z = 0;
 
     private EntitySet entities;
-    private Map<EntityId, Spatial> models = new HashMap<>();
+    private Map<EntityId, Node> models = new HashMap<>();
     private AssetManager assetManager;
     private Node modelsNode;
 
@@ -65,7 +66,7 @@ public class VisualisationAppState extends BaseAppState {
         }
     }
 
-    public Spatial getModel(EntityId entityId) {
+    public Node getModel(EntityId entityId) {
         return this.models.get(entityId);
     }
 
@@ -115,7 +116,7 @@ public class VisualisationAppState extends BaseAppState {
 
 
     private Spatial createBall() {
-        Geometry ballGeometry = new Geometry("Ball", new Sphere(32, 32, 0.4f, true, false));
+        Geometry ballGeometry = new Geometry("Ball", new Sphere(32, 32, 1f, true, false));
         ballGeometry.setMaterial(createSimpleUnshadedMaterial());
         return ballGeometry;
     }
@@ -141,7 +142,6 @@ public class VisualisationAppState extends BaseAppState {
         // get scene model
         EntityId entityId = entity.getId();
         Spatial model = this.models.get(entityId);
-
         // apply position vector
         PositionComponent position = entity.get(PositionComponent.class);
         model.setLocalTranslation(position.getLocation());

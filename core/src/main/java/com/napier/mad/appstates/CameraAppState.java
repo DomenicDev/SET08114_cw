@@ -17,6 +17,7 @@ public class CameraAppState extends BaseAppState {
 
     private Camera cam;
     private InputManager inputManager;
+    private CameraNode camNode;
 
     private static final Vector3f START_LOCATION = new Vector3f(0, 0.5f, 10);
 
@@ -52,13 +53,13 @@ public class CameraAppState extends BaseAppState {
                 // load reference to spatial to chase
                 spatialToChase = this.visualisationAppState.getModel(entityToChase);
                 // chase
-                CameraNode camNode = new CameraNode("Camera Node", cam);
+                this.camNode = new CameraNode("Camera Node", cam);
 //This mode means that camera copies the movements of the target:
                 camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
 //Attach the camNode to the target:
                 ((Node) spatialToChase).attachChild(camNode);
 //Move camNode, e.g. behind and above the target:
-                camNode.setLocalTranslation(new Vector3f(5, 3, 0));
+                camNode.setLocalTranslation(new Vector3f(-0, 5, -8));
 //Rotate the camNode to look at the target:
                 camNode.lookAt(spatialToChase.getLocalTranslation(), Vector3f.UNIT_Y);
                 /*
@@ -75,11 +76,19 @@ public class CameraAppState extends BaseAppState {
 
                  */
                 return;
+            } else {
+
+                if (camNode != null) {
+
+                }
+
+
             }
 
 
         }
     }
+
 
     @Override
     protected void cleanup(Application app) {

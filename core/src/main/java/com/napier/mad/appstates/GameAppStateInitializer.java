@@ -12,11 +12,15 @@ public class GameAppStateInitializer extends BaseAppState {
     private PhysicsAppState physicsAppState;
     private PhysicsPushAppState physicsPushAppState;
     private PhysicalCharacterMovement physicalCharacterMovement;
+    private PhysicsCharacterAppState physicsCharacterAppState;
     private SceneAppState sceneAppState;
     private VisualisationAppState visualisationAppState;
     private SkyAppState skyAppState;
     private InputAppState inputAppState;
     private NiftyAppState niftyAppState;
+
+    private TileModelLoaderAppState tileModelLoaderAppState;
+
 
     private AppStateManager stateManager;
 
@@ -30,22 +34,28 @@ public class GameAppStateInitializer extends BaseAppState {
         this.physicsAppState = new PhysicsAppState();
         this.physicalCharacterMovement = new PhysicalCharacterMovement();
         this.physicsPushAppState = new PhysicsPushAppState();
+        this.physicsCharacterAppState = new PhysicsCharacterAppState();
         this.sceneAppState = new SceneAppState();
         this.skyAppState = new SkyAppState();
         this.visualisationAppState = new VisualisationAppState();
         this.inputAppState = new InputAppState();
         this.niftyAppState = new NiftyAppState();
 
+        this.tileModelLoaderAppState = new TileModelLoaderAppState();
+
         stateManager.attach(entityDataAppState);
         stateManager.attach(physicsAppState);
         stateManager.attach(physicalCharacterMovement);
         stateManager.attach(physicsPushAppState);
+
         stateManager.attach(sceneAppState);
         stateManager.attach(skyAppState);
         stateManager.attach(visualisationAppState);
+        stateManager.attach(physicsCharacterAppState);
         stateManager.attach(inputAppState);
         stateManager.attach(cameraAppState);
         stateManager.attach(niftyAppState);
+        stateManager.attach(tileModelLoaderAppState);
 
         // for now...
         stateManager.attach(new GameStarterAppState());
@@ -64,6 +74,7 @@ public class GameAppStateInitializer extends BaseAppState {
         this.stateManager.detach(sceneAppState);
         this.stateManager.detach(skyAppState);
         this.stateManager.detach(niftyAppState);
+        this.stateManager.detach(tileModelLoaderAppState);
     }
 
     @Override

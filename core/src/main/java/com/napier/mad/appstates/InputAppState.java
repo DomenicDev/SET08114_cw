@@ -9,7 +9,9 @@ import com.jme3.input.controls.TouchListener;
 import com.jme3.input.controls.TouchTrigger;
 import com.jme3.input.event.TouchEvent;
 import com.jme3.math.Vector3f;
+import com.napier.mad.components.PhysicsCharacterComponent;
 import com.napier.mad.components.PhysicsPushComponent;
+import com.napier.mad.components.PlayerMovementComponent;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 
@@ -20,6 +22,8 @@ public class InputAppState extends BaseAppState implements TouchListener {
     private EntityData entityData;
 
     public static final String PUSH = "PUSH";
+
+    private EntityId playerEntityId = new EntityId(0); // for now, replace later
 
     @Override
     protected void initialize(Application app) {
@@ -48,9 +52,26 @@ public class InputAppState extends BaseAppState implements TouchListener {
         if (PUSH.equals(name)) {
             if (event.getType().equals(TouchEvent.Type.TAP)) {
                 EntityId pushEntity = entityData.createEntity();
-                entityData.setComponent(pushEntity, new PhysicsPushComponent(new EntityId(0), new Vector3f(0, 1, 0).normalizeLocal(), 10));
+            //    entityData.setComponent(pushEntity, new PhysicsPushComponent(new EntityId(0), new Vector3f(0, 1, 0).normalizeLocal(), 10));
 
             }
         }
+    }
+
+    public void onSwipeLeft() {
+        //PlayerMovementComponent movementComponent = entityData.getComponent(playerEntityId, PlayerMovementComponent.class);
+        //Vector3f newDir = movementComponent.getDirection().normalize().crossLocal(Vector3f.UNIT_Y).negateLocal();
+        //entityData.setComponent(playerEntityId, new PlayerMovementComponent(newDir, movementComponent.getSpeed()));
+
+
+        PhysicsCharacterComponent charComp = entityData.getComponent(playerEntityId, PhysicsCharacterComponent.class);
+        Vector3f newWalkDir = charComp.getWalkDirection().cross(Vector3f.UNIT_Y).negateLocal();
+        entityData.setComponent(playerEntityId, new PhysicsCharacterComponent(charComp.getRadius(), charComp.getHeight(), charComp.getMass(), newWalkDir, newWalkDir.normalize()));
+
+
+    }
+
+    public void onSwipeRight() {
+
     }
 }
