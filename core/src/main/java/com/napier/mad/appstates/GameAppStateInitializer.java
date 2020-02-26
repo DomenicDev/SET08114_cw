@@ -28,7 +28,9 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new SceneAppState());
         add(new SkyAppState());
         add(new ModelLoaderAppState());
+        add(new ModelAttachAppState());
         add(new WorldTransformEntityRendererAppState());
+        add(new CameraAppState());
     }
 
     private void add(AppState appState) {

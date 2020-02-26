@@ -3,8 +3,15 @@ package com.napier.mad.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
+import com.jme3.material.Material;
+import com.jme3.material.MaterialDef;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Box;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.Entity;
@@ -49,6 +56,7 @@ public class ModelLoaderAppState extends BaseAppState {
         ModelComponent modelComp = e.get(ModelComponent.class);
         ModelType type = modelComp.getType();
         Spatial model = loadActualModel(type);
+        resetTransform(model);
         Node modelNode = new Node("Entity-Node[" + entityId.getId() + "]");
         modelNode.attachChild(model);
         this.entityModelMap.put(e.getId(), modelNode);
@@ -61,8 +69,29 @@ public class ModelLoaderAppState extends BaseAppState {
         if (type == ModelType.Road_Corner) {
             return getChildFrom(ROAD_TILE_FILE, "road-corner");
         }
+        if (type == ModelType.Player) {
+            // for now lets create a player as cube
+            Geometry playerBox = new Geometry("PlayerGeom", new Box(0.5f, 2f, 0.7f));
+            Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+            mat.setColor("Color", ColorRGBA.Blue);
+            playerBox.setMaterial(mat);
+            return playerBox;
+        }
 
         return null;
+    }
+
+    /**
+     * Reset models transform that might be modified when loaded within a scene
+     * @param model
+     */
+    private void resetTransform(Spatial model) {
+        if (model == null) {
+            return;
+        }
+        model.setLocalTranslation(0, 0,0 );
+        model.setLocalRotation(new Quaternion(new float[]{0,0,0}));
+        model.setLocalScale(Vector3f.UNIT_XYZ);
     }
 
     private Spatial getChildFrom(String fileName, String childName) {

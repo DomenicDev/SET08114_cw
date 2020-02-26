@@ -9,33 +9,15 @@ import com.napier.mad.appstates.GameAppStateInitializer;
 
 public class Main extends SimpleApplication {
 
-    private Geometry geom;
 
     private Quaternion rotation = new Quaternion();
 
     @Override
     public void simpleInitApp() {
-        /*
-        Box b = new Box(1, 1, 1);
-        this.geom = new Geometry("Box", b);
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.White);
-
-        Texture cube1Tex = assetManager.loadTexture(
-                "Interface/cat.jpg");
-        mat.setTexture("ColorMap", cube1Tex);
-
-        geom.setMaterial(mat);
-        rootNode.attachChild(geom);
-
-
-         */
-
-
 
         getFlyByCamera().setEnabled(true);
 
-        cam.setLocation(new Vector3f(2, 4, 0));
+        cam.setLocation(new Vector3f(0, 4, -8));
 
         stateManager.attach(new GameAppStateInitializer());
 

@@ -3,6 +3,7 @@ package com.napier.mad.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.math.Vector3f;
+import com.napier.mad.components.AttachedToComponent;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.WorldTransformComponent;
 import com.napier.mad.constants.Constants;
@@ -18,13 +19,19 @@ public class GameStarterAppState extends BaseAppState {
     protected void initialize(Application app) {
         EntityData entityData = getState(EntityDataAppState.class).getEntityData();
         // init some entities
-        float TILE_LENGTH = 8f;
-        for (int i = 0; i < 5; i++) {
+        float TILE_LENGTH = Constants.TILE_LENGTH;
+        for (int i = 0; i < 10; i++) {
             EntityId straight = entityData.createEntity();
             entityData.setComponents(straight,
                     new WorldTransformComponent(new Vector3f(0, 0, i*TILE_LENGTH), Constants.UP),
                     new ModelComponent(ModelType.Road_Straight));
         }
+
+        EntityId player = entityData.createEntity();
+        entityData.setComponents(player,
+                new ModelComponent(ModelType.Player),
+                new AttachedToComponent(new EntityId(1))
+        );
     }
 
     @Override

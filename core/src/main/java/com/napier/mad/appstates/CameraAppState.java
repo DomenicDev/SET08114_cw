@@ -19,7 +19,7 @@ public class CameraAppState extends BaseAppState {
     private InputManager inputManager;
     private CameraNode camNode;
 
-    private static final Vector3f START_LOCATION = new Vector3f(0, 0.5f, 10);
+    private static final Vector3f START_LOCATION = new Vector3f(0, 5f, 10);
 
     private Spatial spatialToChase;
 
@@ -45,6 +45,7 @@ public class CameraAppState extends BaseAppState {
     public void update(float tpf) {
      //   if (entityToChase != null) {
             if (spatialToChase == null) {
+                if (true) return;
                 // load reference to spatial to chase
             //    spatialToChase = this.visualisationAppState.getModel(entityToChase);
                 // chase
