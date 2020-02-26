@@ -53,17 +53,24 @@ public class ModelAttachAppState extends BaseAppState {
         EntityId childId = e.getId();
         AttachedToComponent attachComponent = e.get(AttachedToComponent.class);
         EntityId parentId = attachComponent.getParentId();
-        Node parentNode = modelLoaderAppState.getModelNode(parentId);
-        if (parentNode == null) {
-            LOGGER.warning("node for parent entity does not exist.");
-            return;
-        }
         Node childNode = modelLoaderAppState.getModelNode(childId);
         if (childNode == null) {
             LOGGER.warning("node for child entity does not exist");
             return;
         }
-        parentNode.attachChild(childNode);
+        if (parentId != null) {
+            Node parentNode = modelLoaderAppState.getModelNode(parentId);
+            if (parentNode == null) {
+                LOGGER.warning("node for parent entity does not exist.");
+                return;
+            }
+            System.out.println("attaching " + childNode.getName() + " to " + parentNode.getName());
+            parentNode.attachChild(childNode);
+        } else {
+            System.out.println("hier " + childNode.getName());
+            getState(SceneAppState.class).getSceneNode().attachChild(childNode);
+        }
+
         this.attachedModels.put(childId, childNode);
     }
 

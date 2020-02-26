@@ -14,6 +14,7 @@ public class GameAppStateInitializer extends BaseAppState {
     @Override
     protected void initialize(Application app) {
         initEntityAppStates();
+        add(new AnchorMovementAppState());
         initViewAppStates();
         add(new GameStarterAppState());
 

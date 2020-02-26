@@ -10,6 +10,14 @@ public class LocalTransformComponent implements EntityComponent {
     private Quaternion rotation;
     private Vector3f scale;
 
+    public LocalTransformComponent() {
+        this(new Vector3f(0,0,0));
+    }
+
+    public LocalTransformComponent(Vector3f location) {
+        this(location, new Quaternion(new float[] {0,0,0}));
+    }
+
     public LocalTransformComponent(Vector3f location, Quaternion rotation) {
         this(location, rotation, Vector3f.UNIT_XYZ.clone());
     }

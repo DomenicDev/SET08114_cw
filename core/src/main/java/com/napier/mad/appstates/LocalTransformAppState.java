@@ -51,22 +51,21 @@ public class LocalTransformAppState extends BaseAppState {
     private void addModel(Entity e) {
         Node modelNode = modelLoaderAppState.getModelNode(e.getId());
         this.entityIdNodeMap.put(e.getId(), modelNode);
-        getSceneNode().attachChild(modelNode);
         updateModel(e);
     }
 
     private void updateModel(Entity e) {
         // get data from component
         LocalTransformComponent transformComponent = e.get(LocalTransformComponent.class);
-        Vector3f worldLocation = transformComponent.getLocation();
-        Quaternion worldRotation = transformComponent.getRotation();
-        Vector3f worldScale = transformComponent.getScale();
+        Vector3f location = transformComponent.getLocation();
+        Quaternion rotation = transformComponent.getRotation();
+        Vector3f scale = transformComponent.getScale();
 
         // apply to model
         Node modelNode = entityIdNodeMap.get(e.getId());
-        modelNode.setLocalTranslation(worldLocation);
-        modelNode.setLocalRotation(worldRotation);
-        modelNode.setLocalScale(worldScale);
+        modelNode.setLocalTranslation(location);
+        modelNode.setLocalRotation(rotation);
+        modelNode.setLocalScale(scale);
     }
 
     private void removeModel(Entity e) {
