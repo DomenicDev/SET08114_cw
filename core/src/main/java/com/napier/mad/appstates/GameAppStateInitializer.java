@@ -14,8 +14,9 @@ public class GameAppStateInitializer extends BaseAppState {
     @Override
     protected void initialize(Application app) {
         initEntityAppStates();
-        add(new AnchorMovementAppState());
+        initGameAppStates();
         initViewAppStates();
+      //  add(new RandomMapCreationAppState());
         add(new GameStarterAppState());
 
         addToStateManager();
@@ -23,6 +24,13 @@ public class GameAppStateInitializer extends BaseAppState {
 
     private void initEntityAppStates() {
         add(new EntityDataAppState());
+    }
+
+    private void initGameAppStates() {
+        add(new StartFollowPathAppState());
+        add(new AutoFollowMovementAppState());
+        add(new AnchorMovementAppState());
+        add(new NewMovementAppState());
     }
 
     private void initViewAppStates() {

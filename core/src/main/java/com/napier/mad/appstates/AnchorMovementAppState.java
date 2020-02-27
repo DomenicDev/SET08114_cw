@@ -43,7 +43,6 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
 
             for (Entity e : anchors.getAddedEntities()) {
                 add(e);
-                System.out.println("added " + e);
             }
 
             for (Entity e : anchors.getRemovedEntities()) {

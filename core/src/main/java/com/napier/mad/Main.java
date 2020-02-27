@@ -18,6 +18,7 @@ public class Main extends SimpleApplication {
         getFlyByCamera().setEnabled(false);
 
         cam.setLocation(new Vector3f(0, 4, -8));
+        cam.lookAt(new Vector3f(), Vector3f.UNIT_Y);
 
         stateManager.attach(new GameAppStateInitializer());
 
