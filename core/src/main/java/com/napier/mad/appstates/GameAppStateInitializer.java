@@ -32,6 +32,8 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new AnchorMovementAppState());
         add(new NewMovementAppState());
         add(new RandomAutoPathExtender());
+        add(new DecayAppState());
+        add(new PathDecayAppState());
     }
 
     private void initViewAppStates() {

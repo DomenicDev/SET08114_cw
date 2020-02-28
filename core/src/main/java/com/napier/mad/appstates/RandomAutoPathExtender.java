@@ -96,7 +96,13 @@ public class RandomAutoPathExtender extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
+        this.followers.release();
+        this.followers.clear();
+        this.followers = null;
 
+        this.paths.release();
+        this.paths.clear();
+        this.paths = null;
     }
 
     @Override
