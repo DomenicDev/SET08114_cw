@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.napier.mad.anchors.AnchorListener;
 import com.napier.mad.anchors.AnchorLogic;
+import com.napier.mad.anchors.RotationAnchor;
 import com.napier.mad.anchors.StraightAnchor;
 import com.napier.mad.components.AnchorComponent;
 import com.napier.mad.components.LocalTransformComponent;
@@ -73,6 +74,10 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
         if (movementType == AnchorMovementType.Linear) {
             // create straight movement control
             anchorLogic = new StraightAnchor(Constants.TILE_LENGTH, localTransform.getLocation());
+        } else if (movementType == AnchorMovementType.CornerToLeft) {
+            anchorLogic = new RotationAnchor(localTransform, 4, 0, 4, 4);
+        } else if (movementType == AnchorMovementType.CornerToRight) {
+            anchorLogic = new RotationAnchor(localTransform, -4, 0, -4, 0);
         }
 
         if (anchorLogic == null) {

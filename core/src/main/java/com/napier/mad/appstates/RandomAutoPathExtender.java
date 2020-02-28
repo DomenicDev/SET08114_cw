@@ -85,7 +85,14 @@ public class RandomAutoPathExtender extends BaseAppState {
             Vector3f newLocation = transformLast.getLocation().add(0, 0, Constants.TILE_LENGTH);
             Quaternion rotation = transformLast.getRotation();
 
-            EntityId next = EntityFactory.createStraightRoad(entityData, newLocation, rotation);
+            double random = Math.random();
+            EntityId next;
+
+            if (random <= 0.4f) {
+                next = EntityFactory.createCornerToLeft(entityData, newLocation, rotation);
+            } else {
+                next = EntityFactory.createStraightRoad(entityData, newLocation, rotation);
+            }
 
             // add created entities to path
             path.add(next);

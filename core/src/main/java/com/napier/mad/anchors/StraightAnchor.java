@@ -8,6 +8,7 @@ public class StraightAnchor extends AnchorLogic {
     private float distance;
     private float time;
     private Vector3f startLocation;
+    private Vector3f newLocation = new Vector3f();
 
 
     public StraightAnchor(float distance, Vector3f startLocation) {
@@ -31,7 +32,8 @@ public class StraightAnchor extends AnchorLogic {
             onMovementFinished();
         }
 
-        onUpdateTransform(new LocalTransformComponent(startLocation.add(startLocation.getX(), startLocation.getY(), movedDistance)));
+        newLocation.set(startLocation.getX(), startLocation.getY(), startLocation.getZ() + movedDistance);
+        onUpdateTransform(new LocalTransformComponent(newLocation));
 
     }
 

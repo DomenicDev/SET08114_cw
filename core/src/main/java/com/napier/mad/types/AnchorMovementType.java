@@ -5,7 +5,10 @@ import com.jme3.math.Vector3f;
 
 public enum AnchorMovementType {
 
-    Linear(new Vector3f(0, 0, -4), new Quaternion(new float[]{0,0,0}));
+    // TODO FIX 1
+    Linear(new Vector3f(0, 1, -4), new Quaternion(new float[]{0,0,0})),
+    CornerToLeft(new Vector3f(0, 1, -4), new Quaternion().fromAngles(0,0,0)),
+    CornerToRight(new Vector3f(0, 1, -4), new Quaternion().fromAngles(0, 0, 0));
 
     public Vector3f location;
     public Quaternion rotation;

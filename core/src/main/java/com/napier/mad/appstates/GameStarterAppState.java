@@ -199,7 +199,7 @@ public class GameStarterAppState extends BaseAppState {
         System.out.println("player " + player);
         entityData.setComponents(player,
                 new ModelComponent(ModelType.Player),
-                new LocalTransformComponent(new Vector3f(0f, 2, 0)),
+                new LocalTransformComponent(new Vector3f(0f, 0, 0)),
                 new FollowPathComponent(pathId),
                 new AttachedToComponent()
         );
