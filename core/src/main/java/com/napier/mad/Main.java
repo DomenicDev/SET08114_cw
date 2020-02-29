@@ -9,42 +9,15 @@ import com.napier.mad.appstates.GameAppStateInitializer;
 
 public class Main extends SimpleApplication {
 
-
-    private Quaternion rotation = new Quaternion();
-
     @Override
     public void simpleInitApp() {
-
         getFlyByCamera().setEnabled(false);
-
-        cam.setLocation(new Vector3f(0, 4, -8));
-        cam.lookAt(new Vector3f(), Vector3f.UNIT_Y);
-
         stateManager.attach(new GameAppStateInitializer());
-
-    //    stateManager.attach(new GameAppStateInitializer());
-
-
-    }
-
-    public void setRotationOfCube(float x, float y, float z, float w) {
-        rotation.set(x, y, z, w);
-    }
-
-
-    @Override
-    public void simpleUpdate(float tpf) {
-      //  this.geom.rotate(2 * tpf, 1 * tpf, 0);
-
-//        this.geom.rotate(x * tpf, y * tpf, z * tpf);
-   //     this.geom.setLocalRotation(new Quaternion().fromAngles(x, y, z));
-   //     this.geom.setLocalRotation(rotation);
-     //   setRotationOfCube(0, 0, 0);
-
     }
 
     @Override
-    public void simpleRender(RenderManager rm) {
+    public void simpleUpdate(float tpf) {}
 
-    }
+    @Override
+    public void simpleRender(RenderManager rm) {}
 }
