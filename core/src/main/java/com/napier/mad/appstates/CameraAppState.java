@@ -54,9 +54,9 @@ public class CameraAppState extends BaseAppState {
 //Attach the camNode to the target:
                 ((Node) spatialToChase).attachChild(camNode);
 //Move camNode, e.g. behind and above the target:
-                camNode.setLocalTranslation(new Vector3f(-0, 5, -8));
+                camNode.setLocalTranslation(new Vector3f(-0, 2.5f, -2));
 //Rotate the camNode to look at the target:
-                camNode.lookAt(spatialToChase.getLocalTranslation(), Vector3f.UNIT_Y);
+                camNode.lookAt(spatialToChase.getLocalTranslation().add(0, 1, 0), Vector3f.UNIT_Y);
                 /*
                 ChaseCamera chaseCamera = new ChaseCamera(cam, spatialToChase, inputManager);
                 chaseCamera.setSmoothMotion(true);

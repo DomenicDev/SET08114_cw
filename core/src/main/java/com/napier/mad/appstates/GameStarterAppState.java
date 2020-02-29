@@ -209,7 +209,7 @@ public class GameStarterAppState extends BaseAppState {
         EntityId player = entityData.createEntity();
         System.out.println("player " + player);
         entityData.setComponents(player,
-                new ModelComponent(ModelType.Player),
+                new ModelComponent(ModelType.Car),
                 new LocalTransformComponent(new Vector3f(0f, 0, 0)),
                 new FollowPathComponent(pathId),
                 new AttachedToComponent(),
