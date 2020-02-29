@@ -127,7 +127,7 @@ public class RandomAutoPathExtender extends BaseAppState {
         }
 
         // get last entity
-        EntityId lastEntityId = path.get(path.size()-1);
+        EntityId lastEntityId =  getLast(path); //path.get(path.size()-1);
    //     Direction lastDirection = getDirection(lastEntityId);
    //     Vector3f lastLocation = getLocation(lastEntityId);
    //     Quaternion lastRotation = getRotation(lastEntityId);
@@ -138,8 +138,10 @@ public class RandomAutoPathExtender extends BaseAppState {
         if (random < 0.3 && random >= 0) {
             toBeAdded.addAll(generateStraightLineAfterEntity(lastEntityId, 5));
           //  toBeAdded = generateStraightLine(getNextLocation(lastLocation, lastDirection), lastRotation, lastDirection, 5);
-        } else if (random < 1 && random >= 0.3) {
-            toBeAdded.addAll(generateStraightCornerStraight(lastEntityId));
+        } else if (random < 0.6 && random >= 0.3) {
+            toBeAdded.addAll(generateStraightCornerLeftStraight(lastEntityId));
+        }  else {
+            toBeAdded.addAll(generateStraightCornerRightStraight(lastEntityId));
         }
 
         // add generated entities to path
@@ -149,7 +151,7 @@ public class RandomAutoPathExtender extends BaseAppState {
         entityData.setComponent(pathId, new PathComponent(path));
     }
 
-    private List<EntityId> generateStraightCornerStraight(EntityId lastEntityId) {
+    private List<EntityId> generateStraightCornerLeftStraight(EntityId lastEntityId) {
         List<EntityId> result = new ArrayList<>();
         // add straight road first
         List<EntityId> startStraight = generateStraightLineAfterEntity(lastEntityId, 3);
@@ -167,11 +169,33 @@ public class RandomAutoPathExtender extends BaseAppState {
         return result;
     }
 
+    private List<EntityId> generateStraightCornerRightStraight(EntityId lastEntityId) {
+        List<EntityId> result = new ArrayList<>();
+        List<EntityId> startStraight = generateStraightLineAfterEntity(lastEntityId, 3);
+        directionEntities.applyChanges();
+        EntityId cornerRight = generateCornerToRight(getLast(startStraight));
+        directionEntities.applyChanges();
+        Direction newDirection = getDirectionAfterTurnRight(getDirection(cornerRight));
+        Quaternion newRotation = getQuaternionFromDirection(newDirection);
+        List<EntityId> endStraight = generateStraightLineAfterEntity(getLocation(cornerRight), newRotation, newDirection, 3);
+        result.addAll(startStraight);
+        result.add(cornerRight);
+        result.addAll(endStraight);
+        return result;
+    }
+
     private EntityId generateCornerToLeft(EntityId lastEntityId) {
         Direction lastDirection = getDirection(lastEntityId);
         Vector3f lastLocation = getLocation(lastEntityId);
         Quaternion lastRotation = getRotation(lastEntityId);
         return EntityFactory.createCornerToLeft(entityData, getNextLocation(lastLocation, lastDirection), lastRotation, lastDirection);
+    }
+
+    private EntityId generateCornerToRight(EntityId lastEntityId) {
+        Direction lastDirection = getDirection(lastEntityId);
+        Vector3f lastLocation = getLocation(lastEntityId);
+        Quaternion lastRotation = getRotation(lastEntityId);
+        return EntityFactory.createCornerToRight(entityData, getNextLocation(lastLocation, lastDirection), lastRotation, lastDirection);
     }
 
     private List<EntityId> generateStraightLineAfterEntity(Vector3f location, Quaternion rotation, Direction direction, int count) {
@@ -223,6 +247,22 @@ public class RandomAutoPathExtender extends BaseAppState {
         }
         if (lastDirection == Direction.EAST) {
             return Direction.NORTH;
+        }
+        return Direction.NORTH;
+    }
+
+    private Direction getDirectionAfterTurnRight(Direction lastDirection) {
+        if (lastDirection == Direction.NORTH) {
+            return Direction.EAST;
+        }
+        if (lastDirection == Direction.WEST) {
+            return Direction.NORTH;
+        }
+        if (lastDirection == Direction.SOUTH) {
+            return Direction.WEST;
+        }
+        if (lastDirection == Direction.EAST) {
+            return Direction.SOUTH;
         }
         return Direction.NORTH;
     }

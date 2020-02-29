@@ -59,7 +59,7 @@ project(":core") {
     apply plugin: "java"
     dependencies {
         implementation "org.jmonkeyengine:jme3-core:$JMonkey_version"
-        implementation "org.jmonkeyengine:jme3-bullet:$JMonkey_version"
+    //    implementation "org.jmonkeyengine:jme3-bullet:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-niftygui:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-effects:$JMonkey_version"
 

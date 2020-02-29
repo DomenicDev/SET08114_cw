@@ -33,6 +33,9 @@ public class GameInputAppState extends BaseAppState {
     }
 
     public void moveLeft() {
+        if (!isInitialized()) {
+            return;
+        }
         if (lastMove == MoveType.Left) {
             return;
         }
@@ -44,6 +47,9 @@ public class GameInputAppState extends BaseAppState {
     }
 
     public void standStill() {
+        if (!isInitialized()) {
+            return;
+        }
         if (lastMove == MoveType.Still) {
             return;
         }
@@ -53,6 +59,9 @@ public class GameInputAppState extends BaseAppState {
     }
 
     public void moveRight() {
+        if (!isInitialized()) {
+            return;
+        }
         if (lastMove == MoveType.Right) {
             return;
         }

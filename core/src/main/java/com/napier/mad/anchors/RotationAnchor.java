@@ -71,7 +71,6 @@ public class RotationAnchor extends AnchorLogic {
         float newXOffset = FastMath.cos(v) * -distanceX;
         float newZOffset = FastMath.sin(v) * distanceY;
 
-        System.out.println();
 
         // compute new location
         float newX = centerCircle.x + newXOffset;
@@ -79,7 +78,8 @@ public class RotationAnchor extends AnchorLogic {
         newTransform.set(newX, startY, newZ);
 
         // rotate entity in this direction its moving
-        newRotation.fromAngles(0, v, 0);
+        float angle = v * (centerCircle.x < 0 ? -1 : 1);
+        newRotation.fromAngleNormalAxis(angle, Vector3f.UNIT_Y);
 
 
         onUpdateTransform(new LocalTransformComponent(newTransform, newRotation));

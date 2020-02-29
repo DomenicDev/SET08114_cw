@@ -77,7 +77,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
         } else if (movementType == AnchorMovementType.CornerToLeft) {
             anchorLogic = new RotationAnchor(localTransform, 4, 0, 4, 4);
         } else if (movementType == AnchorMovementType.CornerToRight) {
-            anchorLogic = new RotationAnchor(localTransform, -4, 0, -4, 0);
+            anchorLogic = new RotationAnchor(localTransform, -4, 0, -4, 4);
         }
 
         if (anchorLogic == null) {
