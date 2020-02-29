@@ -5,6 +5,7 @@ public enum ModelType {
     Empty,
     Player,
     Road_Straight,
-    Road_Corner;
+    Road_Corner_Left,
+    Road_Corner_Right;
 
 }

@@ -4,7 +4,6 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
-import com.jme3.material.MaterialDef;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -66,8 +65,11 @@ public class ModelLoaderAppState extends BaseAppState {
         if (type == ModelType.Road_Straight) {
             return getChildFrom(ROAD_TILE_FILE, "road-straight.low");
         }
-        if (type == ModelType.Road_Corner) {
-            return getChildFrom(ROAD_TILE_FILE, "road-corner");
+        if (type == ModelType.Road_Corner_Left) {
+            return getChildFrom(ROAD_TILE_FILE, "road-corner-left");
+        }
+        if (type == ModelType.Road_Corner_Right) {
+            return getChildFrom(ROAD_TILE_FILE, "road-corner-right");
         }
         if (type == ModelType.Player) {
             // for now lets create a player as cube

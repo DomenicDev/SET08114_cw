@@ -30,7 +30,7 @@ public class EntityFactory {
     public static EntityId createCornerToLeft(EntityData entityData, Vector3f location, Quaternion quaternion, Direction direction) {
         EntityId cornerLeft = entityData.createEntity();
         entityData.setComponents(cornerLeft,
-                new ModelComponent(ModelType.Road_Corner),
+                new ModelComponent(ModelType.Road_Corner_Left),
                 new LocalTransformComponent(location, quaternion),
                 new AttachedToComponent(),
                 new MovableComponent(AnchorMovementType.CornerToLeft),

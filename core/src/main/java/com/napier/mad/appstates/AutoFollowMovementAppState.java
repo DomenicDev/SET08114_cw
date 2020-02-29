@@ -88,8 +88,6 @@ public class AutoFollowMovementAppState extends BaseAppState {
         // go on next movable object
         EntityId nextMovable = path.get(indexNextMovable);
         this.entityData.setComponent(movingEntityId, new MoveOnComponent(nextMovable, Constants.DEFAULT_SPEED));
-
-        LOGGER.info(movableEntityId + " now moves on " + nextMovable);
     }
 
     @Override

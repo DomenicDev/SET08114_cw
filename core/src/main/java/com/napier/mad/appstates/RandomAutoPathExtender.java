@@ -27,7 +27,7 @@ public class RandomAutoPathExtender extends BaseAppState {
 
     private static final Logger LOGGER = Logger.getLogger(RandomAutoPathExtender.class.getName());
 
-    private static final int GENERATION_TRIGGER_REMAINING_ENTITIES = 1;
+    private static final int GENERATION_TRIGGER_REMAINING_ENTITIES = 15;
 
     private EntityData entityData;
     private EntitySet paths;

@@ -32,7 +32,7 @@ public class CameraAppState extends BaseAppState {
         this.cam.setLocation(START_LOCATION);
         this.cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
         this.cam.setParallelProjection(false);
-        this.cam.setFrustumPerspective(90f, 19.5f/9.0f, 0.2f, 50f);
+        this.cam.setFrustumPerspective(90f, 19.5f/9.0f, 0.2f, 150f);
         this.cam.resize(cam.getWidth(), cam.getHeight(), true);
 
     }
