@@ -12,6 +12,6 @@ public class Constants {
 
     public static final float TILE_LENGTH = 8f;
 
-    public static final float DEFAULT_SPEED = 3f;
+    public static final float DEFAULT_SPEED = 8f;
 
 }

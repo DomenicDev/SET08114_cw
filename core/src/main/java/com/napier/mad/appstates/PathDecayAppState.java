@@ -61,7 +61,7 @@ public class PathDecayAppState extends BaseAppState {
             PathComponent pathComponent = pathEntity.get(PathComponent.class);
             List<EntityId> path = pathComponent.getPath();
             if (path.contains(usedEntity)) {
-                entityData.setComponent(usedEntity, new DecayComponent(0.3f));
+                entityData.setComponent(usedEntity, new DecayComponent(2f));
             }
         }
     }
