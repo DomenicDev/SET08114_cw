@@ -88,12 +88,7 @@ public class ModelLoaderAppState extends BaseAppState {
         }
         if (type == ModelType.Coin) {
             // for now lets create a player as cube
-            Geometry coin = new Geometry("PlayerGeom", new Sphere(32, 32, 0.5f));
-            coin.setLocalTranslation(0, 1f, 0);
-            Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-            mat.setColor("Color", ColorRGBA.Blue);
-            coin.setMaterial(mat);
-            return coin;
+            return assetManager.loadModel("Models/Coins.j3o");
         }
 
         return null;
