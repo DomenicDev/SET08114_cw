@@ -37,6 +37,8 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new SideMovementAppState());
         add(new ItemGeneratorAppState());
         add(new DeleteAttachedEntitiesAppState());
+        add(new ItemCollectorAppState());
+        add(new CollisionAppState());
     }
 
     private void initViewAppStates() {

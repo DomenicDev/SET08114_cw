@@ -117,6 +117,5 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
         // we create a new entity to inform about the movement-finished event
         EntityId finishedEntity = entityData.createEntity();
         entityData.setComponent(finishedEntity, new OnMovementFinishedComponent(movable, movedEntity));
-        LOGGER.info("Movement finished for " + movedEntity);
     }
 }

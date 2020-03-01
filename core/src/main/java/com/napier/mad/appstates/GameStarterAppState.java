@@ -2,12 +2,15 @@ package com.napier.mad.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.napier.mad.anchors.AnchorListener;
 import com.napier.mad.components.AnchorComponent;
 import com.napier.mad.components.AttachedToComponent;
+import com.napier.mad.components.CollectorComponent;
+import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DecayPathComponent;
 import com.napier.mad.components.FollowPathComponent;
 import com.napier.mad.components.ModelComponent;
@@ -213,7 +216,9 @@ public class GameStarterAppState extends BaseAppState {
                 new LocalTransformComponent(new Vector3f(0f, 0, 0)),
                 new FollowPathComponent(pathId),
                 new AttachedToComponent(),
-                new PlayerControlled()
+                new PlayerControlled(),
+                new CollectorComponent(),
+                new CollisionShapeComponent(new BoxCollisionShape(new Vector3f(1f, 1f, 1f)))
         );
 
         this.player = player;

@@ -1,8 +1,10 @@
 package com.napier.mad.factory;
 
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.AttachedToComponent;
+import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
 import com.napier.mad.components.DirectionComponent;
 import com.napier.mad.components.ItemComponent;
@@ -60,7 +62,8 @@ public class EntityFactory {
                 new ModelComponent(ModelType.Coin),
                 new LocalTransformComponent(localTranslation),
                 new AttachedToComponent(parentEntityId),
-                new ItemComponent(5));
+                new ItemComponent(5),
+                new CollisionShapeComponent(new BoxCollisionShape(new Vector3f(0.5f, 0.5f, 0.5f))));
         return coin;
     }
 
