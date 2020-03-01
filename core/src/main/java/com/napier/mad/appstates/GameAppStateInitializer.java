@@ -35,10 +35,11 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new DecayAppState());
         add(new PathDecayAppState());
         add(new SideMovementAppState());
+        add(new CollisionAppState());
         add(new ItemGeneratorAppState());
         add(new DeleteAttachedEntitiesAppState());
         add(new ItemCollectorAppState());
-        add(new CollisionAppState());
+        add(new WorldTransformAppState());
     }
 
     private void initViewAppStates() {
@@ -49,6 +50,7 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new LocalTransformAppState());
         add(new CameraAppState());
         add(new ItemRotationAppState());
+        add(new DebugCollisionBoxAppState());
     }
 
     private void initInputAppStates() {

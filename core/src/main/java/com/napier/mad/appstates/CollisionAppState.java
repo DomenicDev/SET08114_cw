@@ -2,17 +2,12 @@ package com.napier.mad.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
-import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.PhysicsCollisionGroupListener;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Quaternion;
+import com.jme3.bounding.BoundingBox;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
 import com.napier.mad.components.CollisionEventComponent;
 import com.napier.mad.components.CollisionShapeComponent;
-import com.napier.mad.components.ModelComponent;
+import com.napier.mad.components.DecayComponent;
+import com.napier.mad.components.WorldTransformComponent;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
@@ -21,25 +16,16 @@ import com.simsilica.es.EntitySet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CollisionAppState extends BaseAppState implements PhysicsCollisionGroupListener {
+public class CollisionAppState extends BaseAppState {
 
     private EntityData entityData;
     private EntitySet collidables;
-
-    private BulletAppState bulletAppState;
-    private Map<EntityId, RigidBodyControl> rigidBodyControlMap = new HashMap<>();
-
-    private static final int COLLISION_GROUP = 10;
+    private Map<EntityId, BoundingBox> boundingBoxMap = new HashMap<>();
 
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
-        this.collidables = entityData.getEntities(CollisionShapeComponent.class, ModelComponent.class);
-
-        this.bulletAppState = new BulletAppState();
-        getStateManager().attach(bulletAppState);
-        this.bulletAppState.getPhysicsSpace().addCollisionGroupListener(this, COLLISION_GROUP);
-        this.bulletAppState.setDebugEnabled(true);
+        this.collidables = entityData.getEntities(CollisionShapeComponent.class, WorldTransformComponent.class);
     }
 
     @Override
@@ -47,65 +33,71 @@ public class CollisionAppState extends BaseAppState implements PhysicsCollisionG
         if (collidables.applyChanges()) {
 
             for (Entity e : collidables.getAddedEntities()) {
-                addCollisionBox(e);
+                addBoundingBox(e);
+            }
+
+            for (Entity e : collidables.getChangedEntities()) {
+                updateBoundingBox(e);
             }
 
             for (Entity e : collidables.getRemovedEntities()) {
-                removeCollisionBox(e);
+                removeBoundingBox(e);
             }
         }
 
-        for (Entity e : collidables) {
-            updateCollisionShape(e.getId());
+        checkForCollisions();
+    }
+
+    private void addBoundingBox(Entity e) {
+        CollisionShapeComponent shapeComponent = e.get(CollisionShapeComponent.class);
+        WorldTransformComponent worldTransformComponent = e.get(WorldTransformComponent.class);
+        Vector3f worldTranslation = worldTransformComponent.getWorldTransform().getTranslation();
+        Vector3f halfExtends = shapeComponent.getBoundingBoxHalfExtends();
+        BoundingBox boundingBox = new BoundingBox(worldTranslation, halfExtends.x, halfExtends.y, halfExtends.z);
+        this.boundingBoxMap.put(e.getId(), boundingBox);
+    }
+
+    private void updateBoundingBox(Entity e) {
+        WorldTransformComponent worldTransformComponent = e.get(WorldTransformComponent.class);
+        Vector3f worldTranslation = worldTransformComponent.getWorldTransform().getTranslation();
+        BoundingBox boundingBox = this.boundingBoxMap.get(e.getId());
+        boundingBox.setCenter(worldTranslation);
+    }
+
+    private void removeBoundingBox(Entity e) {
+        this.boundingBoxMap.remove(e.getId());
+    }
+
+    private void checkForCollisions() {
+        for (Map.Entry<EntityId, BoundingBox> e : boundingBoxMap.entrySet()) {
+            EntityId entityId = e.getKey();
+            BoundingBox boundingBox = e.getValue();
+
+            for (Map.Entry<EntityId, BoundingBox> other : boundingBoxMap.entrySet()) {
+                EntityId otherEntityId = other.getKey();
+                if (entityId.equals(otherEntityId)) {
+                    continue;
+                }
+                BoundingBox otherBoundingBox = other.getValue();
+                if (boundingBox.intersects(otherBoundingBox)) {
+                    createCollisionEntity(entityId, otherEntityId);
+                }
+            }
+
         }
     }
 
-    private void addCollisionBox(Entity e) {
-        EntityId entityId = e.getId();
-        CollisionShapeComponent collisionShapeComponent = e.get(CollisionShapeComponent.class);
-        BoxCollisionShape shape = collisionShapeComponent.getBoxCollisionShape();
-        RigidBodyControl rbc = new RigidBodyControl(shape, 0);
-        rbc.setUserObject(e.getId());
-        rbc.setCollisionGroup(COLLISION_GROUP);
-        updateCollisionShape(entityId);
-
-        this.bulletAppState.getPhysicsSpace().add(rbc);
-        this.rigidBodyControlMap.put(entityId, rbc);
-    }
-
-    private void updateCollisionShape(EntityId entityId) {
-        RigidBodyControl rbc = rigidBodyControlMap.get(entityId);
-        if (rbc == null) {
-            return;
-        }
-        ModelLoaderAppState modelLoaderAppState = getState(ModelLoaderAppState.class);
-        if (modelLoaderAppState == null) {
-            return;
-        }
-        // get updated values
-        Node modelNode = modelLoaderAppState.getModelNode(entityId);
-        if (modelNode == null) {
-            return;
-        }
-        Vector3f location = modelNode.getWorldTranslation();
-        Quaternion rotation = modelNode.getWorldRotation();
-
-        // apply transform
-        rbc.setPhysicsLocation(location);
-        rbc.setPhysicsRotation(rotation);
-    }
-
-    private void removeCollisionBox(Entity e) {
-        EntityId entityId = e.getId();
-        RigidBodyControl rbc = rigidBodyControlMap.remove(entityId);
-        if (rbc != null) {
-            this.bulletAppState.getPhysicsSpace().remove(rbc);
-        }
+    private void createCollisionEntity(EntityId entityIdA, EntityId entityIdB) {
+        EntityId collision = entityData.createEntity();
+        entityData.setComponents(collision, new CollisionEventComponent(entityIdA, entityIdB),new DecayComponent());
     }
 
     @Override
     protected void cleanup(Application app) {
-
+        this.collidables.release();
+        this.collidables.clear();
+        this.collidables = null;
+        this.boundingBoxMap.clear();
     }
 
     @Override
@@ -118,18 +110,5 @@ public class CollisionAppState extends BaseAppState implements PhysicsCollisionG
 
     }
 
-    @Override
-    public boolean collide(PhysicsCollisionObject nodeA, PhysicsCollisionObject nodeB) {
-        EntityId entityIdA = getEntityId(nodeA);
-        EntityId entityIdB = getEntityId(nodeB);
 
-        // create collision entity
-        EntityId collision = entityData.createEntity();
-        entityData.setComponents(collision, new CollisionEventComponent(entityIdA, entityIdB));
-        return false;
-    }
-
-    private EntityId getEntityId(PhysicsCollisionObject object) {
-        return (EntityId) object.getUserObject();
-    }
 }

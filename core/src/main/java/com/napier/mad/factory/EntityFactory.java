@@ -63,7 +63,7 @@ public class EntityFactory {
                 new LocalTransformComponent(localTranslation),
                 new AttachedToComponent(parentEntityId),
                 new ItemComponent(5),
-                new CollisionShapeComponent(new BoxCollisionShape(new Vector3f(0.5f, 0.5f, 0.5f))));
+                new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f)));
         return coin;
     }
 

@@ -218,7 +218,7 @@ public class GameStarterAppState extends BaseAppState {
                 new AttachedToComponent(),
                 new PlayerControlled(),
                 new CollectorComponent(),
-                new CollisionShapeComponent(new BoxCollisionShape(new Vector3f(1f, 1f, 1f)))
+                new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f))
         );
 
         this.player = player;
