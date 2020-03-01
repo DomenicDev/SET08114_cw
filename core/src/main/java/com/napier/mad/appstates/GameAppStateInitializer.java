@@ -17,7 +17,6 @@ public class GameAppStateInitializer extends BaseAppState {
         initGameAppStates();
         initViewAppStates();
         initInputAppStates();
-        add(new GameStarterAppState());
 
         addToStateManager();
     }

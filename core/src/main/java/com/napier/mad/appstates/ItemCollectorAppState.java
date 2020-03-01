@@ -56,8 +56,10 @@ public class ItemCollectorAppState extends BaseAppState {
 
     private void collectItem(EntityId collectorId, EntityId itemId) {
         ItemComponent itemComponent = items.getEntity(itemId).get(ItemComponent.class);
-        float points = itemComponent.getPoints();
-        // todo... add to score
+        int points = itemComponent.getPoints();
+
+        // add to score
+        getState(MainGameAppState.class).addToScore(points);
 
         entityData.setComponent(itemId, new DecayComponent());
     }

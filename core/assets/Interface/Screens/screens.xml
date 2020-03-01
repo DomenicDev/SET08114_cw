@@ -3,26 +3,31 @@
     <useStyles filename="nifty-default-styles.xml"/>
     <useControls filename="nifty-default-controls.xml"/>
 
-    <screen id="start" controller="com.napier.mad.screens.MainGameScreenController">
+    <!-- GAME START SCREEN -->
+    <screen id="start" controller="com.napier.mad.screens.StartScreenController">
+        <layer childLayout="center">
+            <panel align="center" width="80%" height="10%" childLayout="horizontal">
+                <control id="startButton" name="button" label="Start" width="95%" height="90%">
+                    <interact onClick="onClickStartGame()" />
+                </control>
+            </panel>
+        </layer>
+    </screen>
+
+    <!-- HUD SCREEN -->
+    <screen id="hud" controller="com.napier.mad.screens.HudScreenController">
         <layer childLayout="vertical">
-            <!-- ... -->
-            <panel height="*" />
-            <panel align="center" width="98%" height="10%" childLayout="horizontal">
-                <panel childLayout="center" width="50%">
-                    <control id="leftDrift" label="LEFT" name="button" width="95%" height="50%" >
-                        <interact onClick="onClickLeft()" />
-                    </control>
+            <panel childLayout="horizontal" width="100%" height="200px" backgroundColor="#020202">
+                <panel childLayout="center" width="80%" height="100%">
+                    <text id="score" align="center" valign="center" font="Interface/Fonts/ManjariBold.fnt" text="Score" width="100%" height="100%" />
                 </panel>
-                <panel childLayout="center" width="50%">
-                    <control id="rightDrift" name="button" width="95%" height="50%" label="RIGHT">
-                        <interact onClick="onClickRight()" />
+                <panel childLayout="center" width="20%" height="100%">
+                    <control name="pauseButton" width="95%" height="95%">
+                        <interact onClick="pauseGame()" />
                     </control>
                 </panel>
             </panel>
 
         </layer>
-    </screen>
-    <screen id="hud">
-        <!-- ... -->
     </screen>
 </nifty>

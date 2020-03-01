@@ -13,7 +13,9 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CollisionAppState extends BaseAppState {
@@ -69,18 +71,29 @@ public class CollisionAppState extends BaseAppState {
     }
 
     private void checkForCollisions() {
+        // we use the following to not count collisions twice
+        List<EntityId> alreadyCollided = new ArrayList<>();
         for (Map.Entry<EntityId, BoundingBox> e : boundingBoxMap.entrySet()) {
             EntityId entityId = e.getKey();
             BoundingBox boundingBox = e.getValue();
 
+            if (alreadyCollided.contains(entityId)) {
+                continue;
+            }
+
             for (Map.Entry<EntityId, BoundingBox> other : boundingBoxMap.entrySet()) {
                 EntityId otherEntityId = other.getKey();
-                if (entityId.equals(otherEntityId)) {
+                if (entityId.equals(otherEntityId) || alreadyCollided.contains(otherEntityId)) {
                     continue;
                 }
                 BoundingBox otherBoundingBox = other.getValue();
                 if (boundingBox.intersects(otherBoundingBox)) {
                     createCollisionEntity(entityId, otherEntityId);
+
+                    // the following entities have collided and
+                    // can thus not collide with other entities
+                    alreadyCollided.add(entityId);
+                    alreadyCollided.add(otherEntityId);
                 }
             }
 
