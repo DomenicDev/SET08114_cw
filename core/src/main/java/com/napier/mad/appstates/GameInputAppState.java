@@ -94,7 +94,8 @@ public class GameInputAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.playerControlledEntities.release();
+        this.playerControlledEntities.clear();
     }
 
     @Override

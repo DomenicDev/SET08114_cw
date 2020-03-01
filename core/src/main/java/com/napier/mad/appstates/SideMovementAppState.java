@@ -62,7 +62,8 @@ public class SideMovementAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.sideMovingEntities.release();
+        this.sideMovingEntities.clear();
     }
 
     @Override

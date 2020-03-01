@@ -64,6 +64,7 @@ public class ItemRotationAppState extends BaseAppState {
     protected void cleanup(Application app) {
         this.itemsToRotate.release();
         this.itemsToRotate.clear();
+        this.controlMap.clear();
     }
 
     @Override

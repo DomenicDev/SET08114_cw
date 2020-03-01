@@ -92,16 +92,17 @@ public class AutoFollowMovementAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.follows.release();
+        this.follows.clear();
+        this.paths.release();
+        this.paths.clear();
+        this.finishedMovements.release();
+        this.finishedMovements.clear();
     }
 
     @Override
-    protected void onEnable() {
-
-    }
+    protected void onEnable() {}
 
     @Override
-    protected void onDisable() {
-
-    }
+    protected void onDisable() {}
 }

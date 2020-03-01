@@ -21,6 +21,7 @@ import com.simsilica.es.EntitySet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class RandomAutoPathExtender extends BaseAppState {
@@ -33,6 +34,8 @@ public class RandomAutoPathExtender extends BaseAppState {
     private EntitySet paths;
     private EntitySet followers;
     private EntitySet directionEntities;
+
+    private Random random = new Random();
 
     @Override
     protected void initialize(Application app) {
@@ -84,32 +87,9 @@ public class RandomAutoPathExtender extends BaseAppState {
         int remainingTiles = path.size() - currentIndex;
 
         if (remainingTiles <= GENERATION_TRIGGER_REMAINING_ENTITIES) {
-
             // extend path
-            // TODO ...
             EntityId lastPathEntity = path.get(path.size()-1);
-            LocalTransformComponent transformLast = entityData.getComponent(lastPathEntity, LocalTransformComponent.class);
-
-            /*
-            Vector3f newLocation = transformLast.getLocation().add(0, 0, Constants.TILE_LENGTH);
-            Quaternion rotation = transformLast.getRotation();
-
-            double random = Math.random();
-            EntityId next;
-
-            if (random <= 0.4f) {
-                next = EntityFactory.createCornerToLeft(entityData, newLocation, rotation);
-            } else {
-                next = EntityFactory.createStraightRoad(entityData, newLocation, rotation);
-            }
-
-            // add created entities to path
-            path.add(next);
-               entityData.setComponent(pathId, new PathComponent(path));
-             */
-
             generateAndAttachNewTiles(pathId);
-
         }
 
     }
@@ -127,11 +107,7 @@ public class RandomAutoPathExtender extends BaseAppState {
         }
 
         // get last entity
-        EntityId lastEntityId =  getLast(path); //path.get(path.size()-1);
-   //     Direction lastDirection = getDirection(lastEntityId);
-   //     Vector3f lastLocation = getLocation(lastEntityId);
-   //     Quaternion lastRotation = getRotation(lastEntityId);
-
+        EntityId lastEntityId =  getLast(path);
         List<EntityId> toBeAdded = new ArrayList<>();
 
         double random = random();
@@ -208,7 +184,6 @@ public class RandomAutoPathExtender extends BaseAppState {
         Vector3f lastLocation = getLocation(lastEntityId);
         Quaternion lastRotation = getRotation(lastEntityId);
         return generateStraightLineAfterEntity(lastLocation, lastRotation, lastDirection, count);
-    //    return generateStraightLine(getNextLocation(lastLocation, lastDirection), lastRotation, lastDirection, count);
     }
 
     private List<EntityId> generateStraightLine(Vector3f firstEntityLocation, Quaternion rotation, Direction direction, int count) {
@@ -233,7 +208,6 @@ public class RandomAutoPathExtender extends BaseAppState {
         }
         return list.get(list.size()-1);
     }
-
 
     private Direction getDirectionAfterTurnLeft(Direction lastDirection) {
         if (lastDirection == Direction.NORTH) {
@@ -323,7 +297,7 @@ public class RandomAutoPathExtender extends BaseAppState {
     }
 
     private double random() {
-        return Math.random();
+        return random.nextDouble();
     }
 
     @Override
@@ -335,6 +309,10 @@ public class RandomAutoPathExtender extends BaseAppState {
         this.paths.release();
         this.paths.clear();
         this.paths = null;
+
+        this.directionEntities.release();
+        this.directionEntities.clear();
+        this.directionEntities = null;
     }
 
     @Override

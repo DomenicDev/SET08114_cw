@@ -36,7 +36,9 @@ public class DecayAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.decayingEntities.release();
+        this.decayingEntities.clear();
+        this.decayingEntities = null;
     }
 
     @Override

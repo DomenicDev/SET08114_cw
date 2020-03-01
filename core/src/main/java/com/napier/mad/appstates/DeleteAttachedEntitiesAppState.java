@@ -48,7 +48,10 @@ public class DeleteAttachedEntitiesAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.attachedEntities.release();
+        this.attachedEntities.clear();
+        this.parents.release();
+        this.parents.clear();
     }
 
     @Override

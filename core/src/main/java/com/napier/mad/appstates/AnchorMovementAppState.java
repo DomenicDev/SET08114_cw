@@ -35,7 +35,6 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
         this.anchors = entityData.getEntities(AnchorComponent.class, LocalTransformComponent.class);
-
     }
 
     @Override
@@ -47,11 +46,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
             }
 
             for (Entity e : anchors.getRemovedEntities()) {
-                // TODO
-            }
-
-            for (Entity e : anchors.getRemovedEntities()) {
-                // TODO
+                remove(e);
             }
 
         }
@@ -94,8 +89,8 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
         this.anchorLogicMap.put(anchorId, anchorLogic);
     }
 
-    private void move() {
-
+    private void remove(Entity e) {
+        this.anchorLogicMap.remove(e.getId());
     }
 
     public void addAnchorListener(AnchorListener listener) {
@@ -109,7 +104,10 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
 
     @Override
     protected void cleanup(Application app) {
-
+        this.anchors.release();
+        this.anchors.clear();
+        this.anchorListeners.clear();
+        this.anchorLogicMap.clear();
     }
 
     @Override

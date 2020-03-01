@@ -81,7 +81,12 @@ public class PathDecayAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.decayingPaths.release();
+        this.decayingPaths.clear();
+        this.movables.release();
+        this.movables.clear();
+        this.finishedMovements.release();
+        this.finishedMovements.clear();
     }
 
     @Override

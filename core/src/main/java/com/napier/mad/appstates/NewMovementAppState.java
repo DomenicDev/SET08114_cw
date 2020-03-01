@@ -7,6 +7,7 @@ import com.jme3.math.Vector3f;
 import com.napier.mad.anchors.AnchorListener;
 import com.napier.mad.components.AnchorComponent;
 import com.napier.mad.components.AttachedToComponent;
+import com.napier.mad.components.DecayComponent;
 import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MoveOnComponent;
@@ -34,13 +35,16 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
     private Map<EntityId, EntityId> anchorToMovingEntity = new HashMap<>();
     private Map<EntityId, EntityId> anchorToMovable = new HashMap<>();
 
+    private AnchorMovementAppState anchorMovementAppState;
+
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
         this.movables = entityData.getEntities(MovableComponent.class);
         this.movingEntities = entityData.getEntities(MoveOnComponent.class);
 
-        getState(AnchorMovementAppState.class).addAnchorListener(this);
+        this.anchorMovementAppState = getState(AnchorMovementAppState.class);
+        this.anchorMovementAppState.addAnchorListener(this);
     }
 
     @Override
@@ -58,7 +62,7 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
             }
 
             for (Entity e : movingEntities.getRemovedEntities()) {
-
+                remove(e);
             }
 
         }
@@ -83,6 +87,10 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
         anchorToMovable.put(anchor, movableId);
     }
 
+    private void remove(Entity e) {
+
+    }
+
     private EntityId createAnchor(AnchorMovementType movementType, float speed, EntityId parent, EntityId movingEntity) {
         EntityId anchor = entityData.createEntity();
         entityData.setComponents(anchor,
@@ -95,7 +103,14 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
 
     @Override
     protected void cleanup(Application app) {
+        this.anchorMovementAppState.removeAnchorListener(this);
+        this.movingEntities.release();
+        this.movingEntities.clear();
+        this.movables.release();
+        this.movables.clear();
 
+        this.anchorToMovable.clear();
+        this.anchorToMovingEntity.clear();
     }
 
     @Override
@@ -111,11 +126,14 @@ public class NewMovementAppState extends BaseAppState implements AnchorListener 
     @Override
     public void onFinish(EntityId anchorId) {
         // get data of moving and movable entity
-        EntityId movable = this.anchorToMovable.get(anchorId);
-        EntityId movedEntity = this.anchorToMovingEntity.get(anchorId);
+        EntityId movable = this.anchorToMovable.remove(anchorId);
+        EntityId movedEntity = this.anchorToMovingEntity.remove(anchorId);
 
         // we create a new entity to inform about the movement-finished event
         EntityId finishedEntity = entityData.createEntity();
         entityData.setComponent(finishedEntity, new OnMovementFinishedComponent(movable, movedEntity));
+
+        // remove anchor entity
+        entityData.setComponent(anchorId, new DecayComponent());
     }
 }

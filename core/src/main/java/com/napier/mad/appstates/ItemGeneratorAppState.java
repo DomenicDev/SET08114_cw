@@ -65,7 +65,9 @@ public class ItemGeneratorAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.movables.release();
+        this.movables.clear();
+        this.movables = null;
     }
 
     @Override

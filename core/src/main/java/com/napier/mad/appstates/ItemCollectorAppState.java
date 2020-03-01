@@ -64,7 +64,10 @@ public class ItemCollectorAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.items.release();
+        this.items.clear();
+        this.collectors.release();
+        this.collectors.clear();
     }
 
     @Override
