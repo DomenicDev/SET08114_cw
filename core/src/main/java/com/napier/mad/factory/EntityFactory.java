@@ -3,7 +3,9 @@ package com.napier.mad.factory;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.AttachedToComponent;
+import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
 import com.napier.mad.components.DirectionComponent;
+import com.napier.mad.components.ItemComponent;
 import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
@@ -23,7 +25,8 @@ public class EntityFactory {
                 new LocalTransformComponent(location, rotation),
                 new AttachedToComponent(),
                 new MovableComponent(AnchorMovementType.Linear),
-                new DirectionComponent(direction));
+                new DirectionComponent(direction),
+                new DeleteAttachedEntitiesOnRemoveComponent());
         return road;
     }
 
@@ -34,7 +37,8 @@ public class EntityFactory {
                 new LocalTransformComponent(location, quaternion),
                 new AttachedToComponent(),
                 new MovableComponent(AnchorMovementType.CornerToLeft),
-                new DirectionComponent(direction));
+                new DirectionComponent(direction),
+                new DeleteAttachedEntitiesOnRemoveComponent());
         return cornerLeft;
     }
 
@@ -45,8 +49,19 @@ public class EntityFactory {
                 new LocalTransformComponent(location, rotation),
                 new AttachedToComponent(),
                 new MovableComponent(AnchorMovementType.CornerToRight),
-                new DirectionComponent(direction));
+                new DirectionComponent(direction),
+                new DeleteAttachedEntitiesOnRemoveComponent());
         return cornerLeft;
+    }
+
+    public static EntityId createCoin(EntityData entityData, EntityId parentEntityId, Vector3f localTranslation) {
+        EntityId coin = entityData.createEntity();
+        entityData.setComponents(coin,
+                new ModelComponent(ModelType.Coin),
+                new LocalTransformComponent(localTranslation),
+                new AttachedToComponent(parentEntityId),
+                new ItemComponent(5));
+        return coin;
     }
 
 

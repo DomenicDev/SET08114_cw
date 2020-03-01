@@ -3,6 +3,7 @@ package com.napier.mad.types;
 public enum ModelType {
 
     Empty,
+    Coin,
     Player,
     Car,
     Road_Straight,

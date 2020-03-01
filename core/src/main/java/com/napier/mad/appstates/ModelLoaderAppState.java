@@ -11,6 +11,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Sphere;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.Entity;
@@ -84,6 +85,15 @@ public class ModelLoaderAppState extends BaseAppState {
         }
         if (type == ModelType.Empty) {
             return assetManager.loadModel("Models/Empty.j3o");
+        }
+        if (type == ModelType.Coin) {
+            // for now lets create a player as cube
+            Geometry coin = new Geometry("PlayerGeom", new Sphere(32, 32, 0.5f));
+            coin.setLocalTranslation(0, 1f, 0);
+            Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+            mat.setColor("Color", ColorRGBA.Blue);
+            coin.setMaterial(mat);
+            return coin;
         }
 
         return null;

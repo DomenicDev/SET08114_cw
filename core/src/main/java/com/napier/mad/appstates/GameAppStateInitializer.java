@@ -16,7 +16,6 @@ public class GameAppStateInitializer extends BaseAppState {
         initEntityAppStates();
         initGameAppStates();
         initViewAppStates();
-      //  add(new RandomMapCreationAppState());
         initInputAppStates();
         add(new GameStarterAppState());
 
@@ -36,6 +35,8 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new DecayAppState());
         add(new PathDecayAppState());
         add(new SideMovementAppState());
+        add(new ItemGeneratorAppState());
+        add(new DeleteAttachedEntitiesAppState());
     }
 
     private void initViewAppStates() {
@@ -45,6 +46,7 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new ModelAttachAppState());
         add(new LocalTransformAppState());
         add(new CameraAppState());
+        add(new ItemRotationAppState());
     }
 
     private void initInputAppStates() {
