@@ -1,7 +1,5 @@
 package com.napier.mad.screens;
 
-import com.napier.mad.appstates.NiftyAppState;
-
 import javax.annotation.Nonnull;
 
 import de.lessvoid.nifty.Nifty;
@@ -10,10 +8,10 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 public class StartScreenController implements ScreenController {
 
-    public NiftyAppState niftyAppState;
+    private GuiEventListener eventListener;
 
-    public StartScreenController(NiftyAppState niftyAppState) {
-        this.niftyAppState = niftyAppState;
+    public StartScreenController(GuiEventListener eventListener) {
+        this.eventListener = eventListener;
     }
 
     @Override
@@ -25,7 +23,7 @@ public class StartScreenController implements ScreenController {
      * Called from GUI
      */
     public void onClickStartGame() {
-        niftyAppState.startGame();
+        eventListener.startGame();
     }
 
     @Override

@@ -40,7 +40,6 @@ public class GameInputAppState extends BaseAppState {
             return;
         }
         // move
-        System.out.println("move left...");
         this.lastMove = MoveType.Left;
         refreshSideMovementComponent(lastMove);
 
@@ -53,7 +52,6 @@ public class GameInputAppState extends BaseAppState {
         if (lastMove == MoveType.Still) {
             return;
         }
-        System.out.println("stand still...");
         this.lastMove = MoveType.Still;
         refreshSideMovementComponent(lastMove);
     }
@@ -65,7 +63,6 @@ public class GameInputAppState extends BaseAppState {
         if (lastMove == MoveType.Right) {
             return;
         }
-        System.out.println("move right");
         this.lastMove = MoveType.Right;
         refreshSideMovementComponent(lastMove);
     }

@@ -3,6 +3,7 @@ package com.napier.mad.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.napier.mad.game.GameEventListener;
+import com.napier.mad.game.PlayerStatistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,13 @@ public class MainGameAppState extends BaseAppState {
     private int score = 0;
     private GameAppStateInitializer initializer;
     private NiftyAppState niftyAppState;
+    private Application app;
 
     private List<GameEventListener> gameEventListeners = new ArrayList<>();
 
     @Override
     protected void initialize(Application app) {
+        this.app = app;
         this.initializer = new GameAppStateInitializer();
         getStateManager().attach(initializer);
 
@@ -44,11 +47,33 @@ public class MainGameAppState extends BaseAppState {
     }
 
     public void startGame() {
-        getStateManager().attach(new GameStarterAppState());
+        for (GameEventListener listener : gameEventListeners) {
+            listener.onGameStarted();
+        }
+    }
+
+    public void restartGame() {
+        getStateManager().detach(initializer);
+        this.initializer = new GameAppStateInitializer();
+        getStateManager().attach(initializer);
+        startGame();
     }
 
     public void setGameOver() {
+        initializer.setEnabled(false);
+        PlayerStatistics playerStats = new PlayerStatistics(getScore(), 1000);
+        for (GameEventListener listener : gameEventListeners) {
+            listener.onGameOver(playerStats);
+        }
+    }
 
+
+    public void togglePauseGame() {
+        initializer.setEnabled(!initializer.isEnabled());
+    }
+
+    public void stopGame() {
+        app.stop();
     }
 
     @Override
@@ -59,11 +84,12 @@ public class MainGameAppState extends BaseAppState {
 
     @Override
     protected void onEnable() {
-
+        startGame();
     }
 
     @Override
     protected void onDisable() {
 
     }
+
 }

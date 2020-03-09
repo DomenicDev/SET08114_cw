@@ -159,7 +159,10 @@ public class WorldTransformAppState extends BaseAppState {
             // we also need to update the world transform for all children entities
             if (parentToChildrenMap.containsKey(entityId)) {
                 for (EntityId childId : parentToChildrenMap.get(entityId)) {
-                    updateTransform(entities.getEntity(childId));
+                    Entity childEntity = entities.getEntity(childId);
+                    if (childEntity != null)  {
+                        updateTransform(entities.getEntity(childId));
+                    }
                 }
             }
         }

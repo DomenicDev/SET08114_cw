@@ -10,15 +10,22 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 public class HudScreenController implements ScreenController {
 
-    private Element textElement;
+    private Screen screen;
 
     @Override
     public void bind(@Nonnull Nifty nifty, @Nonnull Screen screen) {
-        this.textElement = screen.findElementById("score");
+        this.screen = screen;
     }
 
     public void setScore(int score) {
-        this.textElement.getRenderer(TextRenderer.class).setText("Score: " + score);
+        if (screen == null) return;
+        Element scoreElement =  screen.findElementById("score");
+        if (scoreElement == null) return;
+        TextRenderer textRenderer = scoreElement.getRenderer(TextRenderer.class);
+        if (textRenderer != null)  {
+            textRenderer.setText("Score: " + score);
+        }
+
     }
 
     @Override

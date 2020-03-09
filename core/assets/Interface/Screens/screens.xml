@@ -22,12 +22,34 @@
                     <text id="score" align="center" valign="center" font="Interface/Fonts/ManjariBold.fnt" text="Score" width="100%" height="100%" />
                 </panel>
                 <panel childLayout="center" width="20%" height="100%">
-                    <control name="pauseButton" width="95%" height="95%">
+                    <control name="pauseButton" width="95%" height="95%" label="Pause">
                         <interact onClick="pauseGame()" />
                     </control>
                 </panel>
             </panel>
-
         </layer>
     </screen>
+
+    <!-- GAME OVER SCREEN -->
+    <!-- Lets the user return to main menu or restart the game -->
+    <screen id="game_over" controller="com.napier.mad.screens.GameOverScreenController">
+        <layer childLayout="center" backgroundColor="#0004" width="100%" height="100%">
+            <panel width="100%" height="100%"/>
+        </layer>
+        <layer childLayout="center" width="100%" height="100%">
+            <panel childLayout="center" width="90%" height="60%" backgroundColor="#0002AE04">
+                <panel childLayout="vertical">
+                    <control id="restartGame" name="button" align="center" label="Restart" width="50%" height="200px">
+                        <interact onClick="onClickRestart()" />
+                    </control>
+                    <panel height="50px" align="center" valign="center"/>
+                    <control id="backToMenuButton" name="button" align="center" label="Back to Lobby" width="50%" height="200px">
+                        <interact onClick="onClickBackToMenu()" />
+                    </control>
+                </panel>
+
+            </panel>
+        </layer>
+    </screen>
+
 </nifty>

@@ -1,16 +1,20 @@
 package com.napier.mad.factory;
 
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.napier.mad.components.AliveStateComponent;
 import com.napier.mad.components.AttachedToComponent;
+import com.napier.mad.components.CollectorComponent;
 import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
+import com.napier.mad.components.FollowPathComponent;
+import com.napier.mad.components.ObstacleComponent;
 import com.napier.mad.components.DirectionComponent;
 import com.napier.mad.components.ItemComponent;
 import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
+import com.napier.mad.components.PlayerControlled;
 import com.napier.mad.types.AnchorMovementType;
 import com.napier.mad.types.Direction;
 import com.napier.mad.types.ModelType;
@@ -19,6 +23,20 @@ import com.simsilica.es.EntityId;
 
 public class EntityFactory {
 
+    public static EntityId createPlayer(EntityData entityData, EntityId pathId) {
+        EntityId player = entityData.createEntity();
+        entityData.setComponents(player,
+                new ModelComponent(ModelType.Car),
+                new LocalTransformComponent(new Vector3f(0f, 0, 0)),
+                new FollowPathComponent(pathId),
+                new AttachedToComponent(),
+                new PlayerControlled(),
+                new AliveStateComponent(true),
+                new CollectorComponent(),
+                new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f))
+        );
+        return player;
+    }
 
     public static EntityId createStraightRoad(EntityData entityData, Vector3f location, Quaternion rotation, Direction direction) {
         EntityId road = entityData.createEntity();
@@ -67,5 +85,15 @@ public class EntityFactory {
         return coin;
     }
 
+    public static EntityId createObstacle(EntityData entityData, EntityId parentEntityId, Vector3f localTranslation) {
+        EntityId obstacle = entityData.createEntity();
+        entityData.setComponents(obstacle,
+                new ModelComponent(ModelType.Empty),
+                new LocalTransformComponent(localTranslation),
+                new AttachedToComponent(parentEntityId),
+                new CollisionShapeComponent(new Vector3f(0.8f, 0.3f, 0.8f)),
+                new ObstacleComponent());
+        return obstacle;
+    }
 
 }

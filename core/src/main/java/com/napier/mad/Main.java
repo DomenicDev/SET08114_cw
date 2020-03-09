@@ -7,13 +7,27 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
 import com.napier.mad.appstates.GameAppStateInitializer;
 import com.napier.mad.appstates.MainGameAppState;
+import com.napier.mad.game.GameEventListener;
 
 public class Main extends SimpleApplication {
+
+    private GameEventListener gameEventListener;
+
+    public Main() {
+    }
+
+    public Main(GameEventListener gameEventListener) {
+        this.gameEventListener = gameEventListener;
+    }
 
     @Override
     public void simpleInitApp() {
         getFlyByCamera().setEnabled(false);
-        stateManager.attach(new MainGameAppState());
+
+        // create main game app state
+        MainGameAppState mainGameAppState = new MainGameAppState();
+        if (gameEventListener != null) mainGameAppState.addGameEventListener(gameEventListener);
+        stateManager.attach(mainGameAppState);
     }
 
     @Override

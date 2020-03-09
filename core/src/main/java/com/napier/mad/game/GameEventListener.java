@@ -6,6 +6,6 @@ public interface GameEventListener {
 
     void onScoreChanged(int newScore);
 
-    void onGameOver();
+    void onGameOver(PlayerStatistics playerStatistics);
 
 }

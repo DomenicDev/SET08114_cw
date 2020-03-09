@@ -20,6 +20,13 @@ public class ItemGeneratorAppState extends BaseAppState {
     private EntityData entityData;
     private EntitySet movables;
 
+    private Random createRandom = new Random();
+    private Random randomCoinLine = new Random();
+
+    // we want to wait a little before the first obstacle is created
+    // to make sure the player does not run into one at the right beginning
+    private int initialObstacleWaitCounter = 5;
+
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
@@ -42,25 +49,46 @@ public class ItemGeneratorAppState extends BaseAppState {
         ModelComponent modelComponent = e.get(ModelComponent.class);
         ModelType modelType = modelComponent.getType();
 
-        double random = Math.random(); // change to some better random method
+        double random = createRandom.nextDouble(); // change to some better random method
 
         if (random < 0.4) {
             return;
         }
 
-        if (modelType == ModelType.Road_Straight) {
-            // generate coins
-            generateCoinsInLine(movableId, modelType);
+        if (random < 0.7) {
+            if (modelType == ModelType.Road_Straight) {
+                // generate coins
+                generateCoinsInLine(movableId, modelType);
+            }
+        }
+
+        if (0.7 < random && random < 1) {
+            if (initialObstacleWaitCounter > 0) {
+                initialObstacleWaitCounter--;
+            } else {
+                generateObstacle(movableId, modelType);
+            }
         }
 
     }
 
+    private void generateObstacle(EntityId movableId, ModelType modelType) {
+        if (modelType == ModelType.Road_Straight) {
+            float x = generateRandomXOffset();
+            float z = 0;
+            EntityFactory.createObstacle(entityData, movableId, new Vector3f(x, 1.5f, z));
+        }
+    }
+
     private void generateCoinsInLine(EntityId movableId, ModelType modelType) {
-        Random r = new Random();
-        float x = 1.5f - r.nextInt(3);
+        float x = generateRandomXOffset();
         for (int i = 0; i < 4; i++) {
             EntityFactory.createCoin(entityData, movableId, new Vector3f(x, 1.5f, (-Constants.TILE_LENGTH / 2) + i * Constants.TILE_LENGTH / 4f));
         }
+    }
+
+    private float generateRandomXOffset() {
+        return 1.5f - randomCoinLine.nextInt(3);
     }
 
     @Override

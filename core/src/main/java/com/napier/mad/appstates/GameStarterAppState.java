@@ -27,6 +27,8 @@ import java.util.List;
 
 public class GameStarterAppState extends BaseAppState {
 
+
+
     @Override
     protected void initialize(Application app) {
         EntityData entityData = getState(EntityDataAppState.class).getEntityData();
@@ -49,18 +51,7 @@ public class GameStarterAppState extends BaseAppState {
                 new DecayPathComponent(0));
 
         // create player and let player follow that path
-        EntityId player = entityData.createEntity();
-        entityData.setComponents(player,
-                new ModelComponent(ModelType.Car),
-                new LocalTransformComponent(new Vector3f(0f, 0, 0)),
-                new FollowPathComponent(pathId),
-                new AttachedToComponent(),
-                new PlayerControlled(),
-                new CollectorComponent(),
-                new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f))
-        );
-
-        this.player = player;
+        this.player = EntityFactory.createPlayer(entityData, pathId);
 
     }
 

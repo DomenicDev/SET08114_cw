@@ -18,7 +18,13 @@ public class GameAppStateInitializer extends BaseAppState {
         initViewAppStates();
         initInputAppStates();
 
+        initGameStarter();
+
         addToStateManager();
+    }
+
+    private void initGameStarter() {
+        add(new GameStarterAppState());
     }
 
     private void initEntityAppStates() {
@@ -38,6 +44,8 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new ItemGeneratorAppState());
         add(new DeleteAttachedEntitiesAppState());
         add(new ItemCollectorAppState());
+        add(new ObstacleCollisionAppState());
+        add(new PlayerAliveAppState());
         add(new WorldTransformAppState());
     }
 
@@ -79,11 +87,15 @@ public class GameAppStateInitializer extends BaseAppState {
 
     @Override
     protected void onEnable() {
-
+        for (AppState appState : appStates) {
+            appState.setEnabled(true);
+        }
     }
 
     @Override
     protected void onDisable() {
-
+        for (AppState appState : appStates) {
+            appState.setEnabled(false);
+        }
     }
 }

@@ -9,15 +9,16 @@ import android.os.Bundle;
 import com.jme3.app.AndroidHarness;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
-import com.napier.mad.Main;
 import com.napier.mad.appstates.GameInputAppState;
+import com.napier.mad.game.GameEventListener;
+import com.napier.mad.game.PlayerStatistics;
 
 public class AndroidLauncher extends AndroidHarness implements SensorEventListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // init game
-        app=new Main();
+        app=new Main(new AndroidGameEventHandler());
         super.onCreate(savedInstanceState);
 
         // setup sensor listener

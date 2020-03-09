@@ -127,7 +127,6 @@ public class ModelLoaderAppState extends BaseAppState {
         this.modelEntities = null;
 
         this.entityModelMap.clear();
-        this.entityModelMap = null;
         this.assetManager.clearCache();
     }
 
