@@ -46,7 +46,8 @@ public class PlayerAliveAppState extends BaseAppState {
 
     @Override
     protected void cleanup(Application app) {
-
+        this.playerControlled.release();
+        this.playerControlled.clear();
     }
 
     @Override
