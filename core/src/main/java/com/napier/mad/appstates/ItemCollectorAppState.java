@@ -5,6 +5,7 @@ import com.jme3.app.state.BaseAppState;
 import com.napier.mad.components.CollectorComponent;
 import com.napier.mad.components.CollisionEventComponent;
 import com.napier.mad.components.DecayComponent;
+import com.napier.mad.components.ItemCollectedEventComponent;
 import com.napier.mad.components.ItemComponent;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
@@ -55,13 +56,18 @@ public class ItemCollectorAppState extends BaseAppState {
     }
 
     private void collectItem(EntityId collectorId, EntityId itemId) {
-        ItemComponent itemComponent = items.getEntity(itemId).get(ItemComponent.class);
-        int points = itemComponent.getPoints();
+      //  ItemComponent itemComponent = items.getEntity(itemId).get(ItemComponent.class);
+      //  int points = itemComponent.getPoints();
 
+        EntityId collectionEntity = entityData.createEntity();
+        entityData.setComponent(collectionEntity, new ItemCollectedEventComponent(collectorId, itemId));
+        /*
         // add to score
         getState(MainGameAppState.class).addToScore(points);
 
         entityData.setComponent(itemId, new DecayComponent());
+
+         */
     }
 
     @Override

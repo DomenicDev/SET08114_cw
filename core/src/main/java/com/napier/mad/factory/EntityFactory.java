@@ -15,6 +15,7 @@ import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
 import com.napier.mad.components.PlayerControlled;
+import com.napier.mad.components.ScoreComponent;
 import com.napier.mad.types.AnchorMovementType;
 import com.napier.mad.types.Direction;
 import com.napier.mad.types.ModelType;
@@ -33,6 +34,7 @@ public class EntityFactory {
                 new PlayerControlled(),
                 new AliveStateComponent(true),
                 new CollectorComponent(),
+                new ScoreComponent(),
                 new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f))
         );
         return player;

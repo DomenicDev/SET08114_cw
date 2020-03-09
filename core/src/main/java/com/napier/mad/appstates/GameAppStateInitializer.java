@@ -17,14 +17,9 @@ public class GameAppStateInitializer extends BaseAppState {
         initGameAppStates();
         initViewAppStates();
         initInputAppStates();
-
         initGameStarter();
 
         addToStateManager();
-    }
-
-    private void initGameStarter() {
-        add(new GameStarterAppState());
     }
 
     private void initEntityAppStates() {
@@ -41,7 +36,10 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new PathDecayAppState());
         add(new SideMovementAppState());
         add(new CollisionAppState());
+        add(new JumpAppState());
         add(new ItemGeneratorAppState());
+        add(new ScoreAppState());
+        add(new PlayerAppState());
         add(new DeleteAttachedEntitiesAppState());
         add(new ItemCollectorAppState());
         add(new ObstacleCollisionAppState());
@@ -62,6 +60,10 @@ public class GameAppStateInitializer extends BaseAppState {
 
     private void initInputAppStates() {
         add(new GameInputAppState());
+    }
+
+    private void initGameStarter() {
+        add(new GameStarterAppState());
     }
 
     private void add(AppState appState) {

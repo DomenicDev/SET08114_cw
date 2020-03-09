@@ -35,8 +35,8 @@ public class MainGameAppState extends BaseAppState {
         this.gameEventListeners.remove(listener);
     }
 
-    public void addToScore(int scorePoints) {
-        this.score += scorePoints;
+    public void setNewScore(int newScore) {
+        this.score = newScore;
         for (GameEventListener listener : gameEventListeners) {
             listener.onScoreChanged(getScore());
         }

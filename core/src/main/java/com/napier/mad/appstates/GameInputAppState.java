@@ -2,6 +2,7 @@ package com.napier.mad.appstates;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
+import com.napier.mad.components.JumpComponent;
 import com.napier.mad.components.PlayerControlled;
 import com.napier.mad.components.SideMovementComponent;
 import com.simsilica.es.Entity;
@@ -68,7 +69,19 @@ public class GameInputAppState extends BaseAppState {
     }
 
     public void jump() {
-        System.out.println("jump");
+        if (!isInitialized()) {
+            return;
+        }
+        for (Entity e : playerControlledEntities) {
+            JumpComponent jumpComponent = entityData.getComponent(e.getId(), JumpComponent.class);
+            if (jumpComponent == null) {
+                entityData.setComponent(e.getId(), new JumpComponent(true));
+            } else {
+                if (!jumpComponent.isJumping()) {
+                    entityData.setComponent(e.getId(), new JumpComponent(true));
+                }
+            }
+        }
     }
 
     private void refreshSideMovementComponent(MoveType type) {

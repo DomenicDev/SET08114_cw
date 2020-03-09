@@ -6,12 +6,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.MotionEvent;
+
 import com.jme3.app.AndroidHarness;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.napier.mad.appstates.GameInputAppState;
-import com.napier.mad.game.GameEventListener;
-import com.napier.mad.game.PlayerStatistics;
 
 public class AndroidLauncher extends AndroidHarness implements SensorEventListener {
 
@@ -33,6 +33,27 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_MOVE) {
+            float movedY = event.getY();
+            if (movedY >= 30) {
+                GameInputAppState inputAppState = getGameInputAppState();
+                if (inputAppState != null) {
+                    inputAppState.jump();
+                }
+                return true;
+            }
+
+        }
+        return super.onTouchEvent(event);
+    }
+
+    private GameInputAppState getGameInputAppState() {
+        return app.getStateManager().getState(GameInputAppState.class);
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         float[] q = new float[4];
         SensorManager.getQuaternionFromVector(q, sensorEvent.values);
@@ -47,7 +68,7 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
         if (app == null) {
             return;
         }
-        GameInputAppState inputAppState = app.getStateManager().getState(GameInputAppState.class);
+        GameInputAppState inputAppState = getGameInputAppState();
         if (inputAppState == null) {
             // game is not ready yet for taking input
             return;
