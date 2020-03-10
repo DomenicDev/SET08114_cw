@@ -1,10 +1,12 @@
 package com.napier.mad;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.collision.Collidable;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Box;
 import com.napier.mad.appstates.GameAppStateInitializer;
 import com.napier.mad.appstates.MainGameAppState;
 import com.napier.mad.game.GameEventListener;
