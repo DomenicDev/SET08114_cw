@@ -18,7 +18,7 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // init game
-        app=new Main(new AndroidGameEventHandler());
+        app=new Main(new AndroidGameEventHandler(this));
         super.onCreate(savedInstanceState);
 
         // setup sensor listener
