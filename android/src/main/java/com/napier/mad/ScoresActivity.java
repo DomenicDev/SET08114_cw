@@ -22,6 +22,9 @@ public class ScoresActivity extends Activity {
     private PlayerStatsSQLiteDBHelper localDB;
     private FirebaseGameScoreHandler globalDb;
 
+    private Button localButton;
+    private Button globalButton;
+
     private boolean showGlobal = false;
 
     @Override
@@ -44,7 +47,7 @@ public class ScoresActivity extends Activity {
             }
         });
 
-        Button localButton = findViewById(R.id.score_activity_local_button);
+        localButton = findViewById(R.id.score_activity_local_button);
         localButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +55,7 @@ public class ScoresActivity extends Activity {
             }
         });
 
-        Button globalButton = findViewById(R.id.score_activity_global_button);
+        globalButton = findViewById(R.id.score_activity_global_button);
         globalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,8 +78,7 @@ public class ScoresActivity extends Activity {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<FirebaseScoreEntry> results = queryDocumentSnapshots.toObjects(FirebaseScoreEntry.class);
                 List<GameResult> gameResults = convertToGameResults(results);
-                setResultsToShow(gameResults);
-                showGlobal = true;
+                setResultsToShow(gameResults, true);
             }
         });
 
@@ -96,15 +98,23 @@ public class ScoresActivity extends Activity {
 
     public void loadAndShowLocalResults() {
         List<GameResult> results = localDB.getResults();
-        setResultsToShow(results);
-        this.showGlobal = false;
+        setResultsToShow(results, false);
+
     }
 
-    private void setResultsToShow(Collection<GameResult> results) {
+    private void setResultsToShow(Collection<GameResult> results, boolean showGlobal) {
+        this.showGlobal = showGlobal;
         this.resultsToShow.clear();
         this.resultsToShow.addAll(results);
 
         resultArrayAdapter.clear();
         resultArrayAdapter.addAll(results);
+
+        updateButtons();
+    }
+
+    private void updateButtons() {
+        localButton.setHovered(!showGlobal);
+        globalButton.setHovered(showGlobal);
     }
 }
