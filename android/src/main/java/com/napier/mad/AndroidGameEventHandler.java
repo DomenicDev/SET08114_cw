@@ -1,7 +1,10 @@
 package com.napier.mad;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.jme.game.R;
 import com.napier.mad.game.GameEventListener;
 import com.napier.mad.game.PlayerStatistics;
 
@@ -9,21 +12,19 @@ public class AndroidGameEventHandler implements GameEventListener {
 
     private PlayerStatsSQLiteDBHelper db;
     private FirebaseGameScoreHandler globalDbHandler;
+    private Activity activity;
 
-    AndroidGameEventHandler(Context context) {
-        this.db = new PlayerStatsSQLiteDBHelper(context);
-        this.globalDbHandler = new FirebaseGameScoreHandler(context);
+    AndroidGameEventHandler(Activity activity) {
+        this.activity = activity;
+        this.db = new PlayerStatsSQLiteDBHelper(activity);
+        this.globalDbHandler = new FirebaseGameScoreHandler(activity);
     }
 
     @Override
-    public void onGameStarted() {
-
-    }
+    public void onGameStarted() {}
 
     @Override
-    public void onScoreChanged(int newScore) {
-
-    }
+    public void onScoreChanged(int newScore) {}
 
     @Override
     public void onGameOver(PlayerStatistics playerStatistics) {
@@ -35,14 +36,21 @@ public class AndroidGameEventHandler implements GameEventListener {
     }
 
     private void storeOnLocalDatabase(PlayerStatistics playerStatistics) {
-        String username = "Domenic"; // todo: read name from settings or so
+        String username = getPlayerName();
         this.db.insertResult(username, playerStatistics.getScore());
         System.out.println(this.db.getResults());
     }
 
     private void uploadScoreToGlobalDatabase(PlayerStatistics playerStatistics) {
-        String username = "Domenic";
+        String username = getPlayerName();
         this.globalDbHandler.uploadScore(username, playerStatistics.getScore());
+    }
+
+    private String getPlayerName() {
+        SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
+        String playerNameKey = activity.getResources().getString(R.string.saved_player_name_key);
+        String defaultName = activity.getResources().getString(R.string.saved_player_name_default);
+        return preferences.getString(playerNameKey, defaultName);
     }
 
 }

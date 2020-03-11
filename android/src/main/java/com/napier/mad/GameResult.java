@@ -3,9 +3,9 @@ package com.napier.mad;
 public class GameResult {
 
     private String playerName;
-    private int score;
+    private Long score;
 
-    public GameResult(String playerName, int score) {
+    public GameResult(String playerName, Long score) {
         this.playerName = playerName;
         this.score = score;
     }
@@ -14,7 +14,7 @@ public class GameResult {
         return playerName;
     }
 
-    public int getScore() {
+    public Long getScore() {
         return score;
     }
 

@@ -2,14 +2,109 @@ package com.napier.mad;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.jme.game.R;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class ScoresActivity extends Activity {
+
+    private ArrayAdapter<GameResult> resultArrayAdapter;
+    private List<GameResult> resultsToShow = new ArrayList<>();
+    private PlayerStatsSQLiteDBHelper localDB;
+    private FirebaseGameScoreHandler globalDb;
+
+    private boolean showGlobal = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
+
+        this.localDB = new PlayerStatsSQLiteDBHelper(this);
+        this.globalDb = new FirebaseGameScoreHandler(this);
+
+        this.resultArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, resultsToShow);
+        ListView listView = findViewById(R.id.score_list_view);
+        listView.setAdapter(resultArrayAdapter);
+
+        Button homeButton = findViewById(R.id.score_activity_home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Button localButton = findViewById(R.id.score_activity_local_button);
+        localButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAndShowLocalResults();
+            }
+        });
+
+        Button globalButton = findViewById(R.id.score_activity_global_button);
+        globalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAndShowGlobalResults();
+            }
+        });
+
+
+        // show local results on activity startup
+        loadAndShowLocalResults();
+    }
+
+    private void loadAndShowGlobalResults() {
+        if (showGlobal) {
+            // save some storage
+            return;
+        }
+        globalDb.getTop100(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<FirebaseScoreEntry> results = queryDocumentSnapshots.toObjects(FirebaseScoreEntry.class);
+                List<GameResult> gameResults = convertToGameResults(results);
+                setResultsToShow(gameResults);
+                showGlobal = true;
+            }
+        });
+
+
+    }
+
+    private List<GameResult> convertToGameResults(List<FirebaseScoreEntry> firebaseEntries) {
+        List<GameResult> results = new ArrayList<>();
+        for (FirebaseScoreEntry entry : firebaseEntries) {
+            String playerName = entry.getName();
+            Long value = entry.getScore();
+            GameResult gameResult = new GameResult(playerName, value);
+            results.add(gameResult);
+        }
+        return results;
+    }
+
+    public void loadAndShowLocalResults() {
+        List<GameResult> results = localDB.getResults();
+        setResultsToShow(results);
+        this.showGlobal = false;
+    }
+
+    private void setResultsToShow(Collection<GameResult> results) {
+        this.resultsToShow.clear();
+        this.resultsToShow.addAll(results);
+
+        resultArrayAdapter.clear();
+        resultArrayAdapter.addAll(results);
     }
 }

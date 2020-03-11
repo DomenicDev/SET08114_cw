@@ -6,4 +6,8 @@
     <string name="credits">Credits</string>
     <string name="close">Exit</string>
     <string name="description_image_main_menu">Start Image in Main Menu</string>
+    <string name="high_scores">Highscores</string>
+    <string name="font_family_game_button">sans-serif-medium</string>
+    <string name="saved_player_name_key">SAVED_PLAYER_NAME</string>
+    <string name="saved_player_name_default">Runner</string>
 </resources>

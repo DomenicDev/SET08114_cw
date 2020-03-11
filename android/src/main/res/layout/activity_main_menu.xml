@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/green_background"
+    tools:context=".MainMenuActivity">
+
+    <Button
+        android:id="@+id/main_menu_exit_button"
+        android:layout_gravity="end"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/exit_button"/>
+
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="40dp"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/app_name"
+        android:background="@drawable/header_logo"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/main_menu_start_game_button"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@drawable/game_button"
+            android:text="@string/start_game"
+            android:fontFamily="@string/font_family_game_button"
+            android:textSize="@dimen/text_size_game_button"
+            android:textColor="@color/colorDarkGameButton" />
+
+        <Button
+            android:id="@+id/high_score_button"
+            android:layout_margin="15dp"
+            android:fontFamily="@string/font_family_game_button"
+            android:textColor="@color/colorDarkGameButton"
+            android:textSize="@dimen/text_size_game_button"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@drawable/game_button"
+            android:text="@string/high_scores"/>
+
+        <Button
+            android:id="@+id/credits_button"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:text="@string/credits"
+            android:fontFamily="@string/font_family_game_button"
+            android:textSize="@dimen/text_size_game_button"
+            android:background="@drawable/game_button"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="0dp"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp">
+
+        <Button
+            android:id="@+id/main_menu_options_button"
+            android:layout_gravity="bottom"
+            android:layout_width="@dimen/icon_button_size"
+            android:layout_height="@dimen/icon_button_size"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/options_button"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

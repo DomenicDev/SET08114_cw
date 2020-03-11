@@ -1,27 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Scores">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="@drawable/green_background"
+    tools:context=".ScoresActivity">
 
-    <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/panel_empty">
+
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:text="@string/high_scores"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="70dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/score_activity_local_button"
+                    android:layout_marginEnd="15dp"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/game_button"
+                    android:text="Local"/>
+
+                <Button
+                    android:id="@+id/score_activity_global_button"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/game_button"
+                    android:text="Global"/>
+
+
+            </LinearLayout>
 
             <ListView
-                android:id="@+id/scores"
+                android:id="@+id/score_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="340dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/score_activity_home_button"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/home_button" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

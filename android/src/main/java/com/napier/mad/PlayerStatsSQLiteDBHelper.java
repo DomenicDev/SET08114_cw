@@ -29,7 +29,7 @@ public class PlayerStatsSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + RESULT_TABLE_NAME + " ( " +
                 RESULT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 RESULT_COLUMN_NAME + " TEXT, " +
-                RESULT_COLUMN_SCORE + " INT " + ");");
+                RESULT_COLUMN_SCORE + " LONG " + ");");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class PlayerStatsSQLiteDBHelper extends SQLiteOpenHelper {
         List<GameResult> results = new ArrayList<>();
         while (cursor.moveToNext()) {
             String playerName = cursor.getString(0);
-            int score = cursor.getInt(1);
+            Long score = cursor.getLong(1);
             GameResult gameResult = new GameResult(playerName, score);
             results.add(gameResult);
         }
