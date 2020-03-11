@@ -32,13 +32,24 @@ public class ScoresActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
 
+        // create instances for accessing game results later
         this.localDB = new PlayerStatsSQLiteDBHelper(this);
         this.globalDb = new FirebaseGameScoreHandler(this);
 
-        this.resultArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, resultsToShow);
+        // we use are own adapter type for this list
+        this.resultArrayAdapter = new ScoreListAdapter(this, resultsToShow);
+
         ListView listView = findViewById(R.id.score_list_view);
         listView.setAdapter(resultArrayAdapter);
 
+        // create button instances
+        initButtons();
+
+        // show local results on activity startup
+        loadAndShowLocalResults();
+    }
+
+    private void initButtons() {
         Button homeButton = findViewById(R.id.score_activity_home_button);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +73,11 @@ public class ScoresActivity extends Activity {
                 loadAndShowGlobalResults();
             }
         });
-
-
-        // show local results on activity startup
-        loadAndShowLocalResults();
     }
 
     private void loadAndShowGlobalResults() {
         if (showGlobal) {
-            // save some storage
+            // already shown, no need to show them again
             return;
         }
         globalDb.getTop100(new OnSuccessListener<QuerySnapshot>() {
@@ -81,8 +88,6 @@ public class ScoresActivity extends Activity {
                 setResultsToShow(gameResults, true);
             }
         });
-
-
     }
 
     private List<GameResult> convertToGameResults(List<FirebaseScoreEntry> firebaseEntries) {
@@ -99,7 +104,6 @@ public class ScoresActivity extends Activity {
     public void loadAndShowLocalResults() {
         List<GameResult> results = localDB.getResults();
         setResultsToShow(results, false);
-
     }
 
     private void setResultsToShow(Collection<GameResult> results, boolean showGlobal) {
@@ -117,4 +121,6 @@ public class ScoresActivity extends Activity {
         localButton.setHovered(!showGlobal);
         globalButton.setHovered(showGlobal);
     }
+
+
 }
