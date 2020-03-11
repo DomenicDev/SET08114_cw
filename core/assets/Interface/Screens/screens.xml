@@ -28,6 +28,13 @@
                 </panel>
             </panel>
         </layer>
+        <layer childLayout="center">
+            <panel width="100%" height="100%" backgroundColor="#000000">
+                <effect>
+                    <onStartScreen neverStopRendering="true" name="fade" start="#f" end="#0" length="1500" />
+                </effect>
+            </panel>
+        </layer>
     </screen>
 
     <!-- GAME OVER SCREEN -->
