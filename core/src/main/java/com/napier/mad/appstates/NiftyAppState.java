@@ -32,7 +32,7 @@ public class NiftyAppState extends BaseAppState implements GameEventListener {
 
         // create controller instances
         this.startScreenController = new StartScreenController(niftyListener);
-        this.hudScreenController = new HudScreenController();
+        this.hudScreenController = new HudScreenController(niftyListener);
         this.gameOverScreenController = new GameOverScreenController(niftyListener);
 
         // setup nifty screens
@@ -74,6 +74,7 @@ public class NiftyAppState extends BaseAppState implements GameEventListener {
     @Override
     public void onGameOver(PlayerStatistics playerStatistics) {
         nifty.gotoScreen("game_over");
+        gameOverScreenController.setScore(playerStatistics.getScore());
     }
 
     private class NiftyGuiEventHandler implements GuiEventListener {

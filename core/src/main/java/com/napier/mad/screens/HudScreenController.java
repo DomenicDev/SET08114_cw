@@ -11,6 +11,11 @@ import de.lessvoid.nifty.screen.ScreenController;
 public class HudScreenController implements ScreenController {
 
     private Screen screen;
+    private GuiEventListener listener;
+
+    public HudScreenController(GuiEventListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void bind(@Nonnull Nifty nifty, @Nonnull Screen screen) {
@@ -23,9 +28,13 @@ public class HudScreenController implements ScreenController {
         if (scoreElement == null) return;
         TextRenderer textRenderer = scoreElement.getRenderer(TextRenderer.class);
         if (textRenderer != null)  {
-            textRenderer.setText("Score: " + score);
+            textRenderer.setText(String.valueOf(score));
         }
 
+    }
+
+    public void onClickPauseGame() {
+        listener.pauseGame();
     }
 
     @Override
