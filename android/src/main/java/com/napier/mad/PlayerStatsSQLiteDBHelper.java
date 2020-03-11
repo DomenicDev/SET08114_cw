@@ -49,7 +49,8 @@ public class PlayerStatsSQLiteDBHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT " + RESULT_COLUMN_NAME + ", " + RESULT_COLUMN_SCORE +
                 " FROM " + RESULT_TABLE_NAME +
-                " ORDER BY " + RESULT_COLUMN_SCORE + " DESC", null);
+                " ORDER BY " + RESULT_COLUMN_SCORE + " DESC " +
+                " LIMIT 20", null);
 
         List<GameResult> results = new ArrayList<>();
         while (cursor.moveToNext()) {
