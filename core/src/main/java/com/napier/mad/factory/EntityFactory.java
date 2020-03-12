@@ -7,6 +7,7 @@ import com.napier.mad.components.AttachedToComponent;
 import com.napier.mad.components.CollectorComponent;
 import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
+import com.napier.mad.components.DestroyPassedEntityOnFinishedMovementComponent;
 import com.napier.mad.components.FollowPathComponent;
 import com.napier.mad.components.ObstacleComponent;
 import com.napier.mad.components.DirectionComponent;
@@ -35,7 +36,8 @@ public class EntityFactory {
                 new AliveStateComponent(true),
                 new CollectorComponent(),
                 new ScoreComponent(),
-                new CollisionShapeComponent(new Vector3f(0.35f, 1f, 0.35f))
+                new DestroyPassedEntityOnFinishedMovementComponent(1.5f),
+                new CollisionShapeComponent(new Vector3f(0.35f, 1f, 0.35f), 0.5f)
         );
         return player;
     }

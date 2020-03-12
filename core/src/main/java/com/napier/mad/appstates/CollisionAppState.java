@@ -55,15 +55,16 @@ public class CollisionAppState extends BaseAppState {
         WorldTransformComponent worldTransformComponent = e.get(WorldTransformComponent.class);
         Vector3f worldTranslation = worldTransformComponent.getWorldTransform().getTranslation();
         Vector3f halfExtends = shapeComponent.getBoundingBoxHalfExtends();
-        BoundingBox boundingBox = new BoundingBox(worldTranslation, halfExtends.x, halfExtends.y, halfExtends.z);
+        BoundingBox boundingBox = new BoundingBox(worldTranslation.add(0, shapeComponent.getyOffset(), 0), halfExtends.x, halfExtends.y, halfExtends.z);
         this.boundingBoxMap.put(e.getId(), boundingBox);
     }
 
     private void updateBoundingBox(Entity e) {
+        CollisionShapeComponent shapeComponent = e.get(CollisionShapeComponent.class);
         WorldTransformComponent worldTransformComponent = e.get(WorldTransformComponent.class);
         Vector3f worldTranslation = worldTransformComponent.getWorldTransform().getTranslation();
         BoundingBox boundingBox = this.boundingBoxMap.get(e.getId());
-        boundingBox.setCenter(worldTranslation);
+        boundingBox.setCenter(worldTranslation.add(0, shapeComponent.getyOffset(), 0));
     }
 
     private void removeBoundingBox(Entity e) {

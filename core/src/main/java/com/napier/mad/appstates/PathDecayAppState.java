@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.napier.mad.components.DecayComponent;
 import com.napier.mad.components.DecayPathComponent;
+import com.napier.mad.components.DestroyPassedEntityOnFinishedMovementComponent;
 import com.napier.mad.components.MovableComponent;
 import com.napier.mad.components.OnMovementFinishedComponent;
 import com.napier.mad.components.PathComponent;
@@ -26,6 +27,7 @@ public class PathDecayAppState extends BaseAppState {
     private EntitySet finishedMovements;
     private EntitySet decayingPaths;
     private EntitySet movables;
+    private EntitySet pathDestroyingMovingEntities; // when these entities pass a road, the tile gets destroyed
 
     @Override
     protected void initialize(Application app) {
@@ -33,11 +35,13 @@ public class PathDecayAppState extends BaseAppState {
         this.finishedMovements = entityData.getEntities(OnMovementFinishedComponent.class);
         this.decayingPaths = entityData.getEntities(PathComponent.class, DecayPathComponent.class);
         this.movables = entityData.getEntities(MovableComponent.class);
+        this.pathDestroyingMovingEntities = entityData.getEntities(DestroyPassedEntityOnFinishedMovementComponent.class);
     }
 
     @Override
     public void update(float tpf) {
         this.decayingPaths.applyChanges();
+        this.pathDestroyingMovingEntities.applyChanges();
 
         if (this.finishedMovements.applyChanges()) {
             for (Entity e : finishedMovements.getAddedEntities()) {
@@ -55,13 +59,22 @@ public class PathDecayAppState extends BaseAppState {
     private void handleFinishedMovement(Entity e) {
         OnMovementFinishedComponent finishedComponent = e.get(OnMovementFinishedComponent.class);
         EntityId usedEntity = finishedComponent.getMovableEntityId(); // the road entity
+        EntityId movingEntityId = finishedComponent.getMovingEntityId();
+
+        if (!pathDestroyingMovingEntities.containsId(movingEntityId)) {
+            // this entity does not destroy the tile after passing
+            return;
+        }
+
+        Entity movingEntity = pathDestroyingMovingEntities.getEntity(movingEntityId);
+        float timeToLive = movingEntity.get(DestroyPassedEntityOnFinishedMovementComponent.class).getTimeToLive();
 
         // look if that entity is part of a path
         for (Entity pathEntity : decayingPaths) {
             PathComponent pathComponent = pathEntity.get(PathComponent.class);
             List<EntityId> path = pathComponent.getPath();
             if (path.contains(usedEntity)) {
-                entityData.setComponent(usedEntity, new DecayComponent(2f));
+                entityData.setComponent(usedEntity, new DecayComponent(timeToLive));
             }
         }
     }

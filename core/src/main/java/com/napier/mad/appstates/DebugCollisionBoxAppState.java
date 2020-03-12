@@ -69,7 +69,8 @@ public class DebugCollisionBoxAppState extends BaseAppState {
     }
 
     private void updateBox(Entity e) {
-        Vector3f updatedTranslation = e.get(WorldTransformComponent.class).getWorldTransform().getTranslation();
+        CollisionShapeComponent shapeComponent = e.get(CollisionShapeComponent.class);
+        Vector3f updatedTranslation = e.get(WorldTransformComponent.class).getWorldTransform().getTranslation().add(0, shapeComponent.getyOffset(), 0);
         this.visibleBoxes.get(e.getId()).setLocalTranslation(updatedTranslation);
     }
 
