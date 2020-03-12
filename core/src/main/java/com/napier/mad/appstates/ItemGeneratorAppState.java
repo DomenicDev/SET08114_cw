@@ -76,7 +76,7 @@ public class ItemGeneratorAppState extends BaseAppState {
         if (modelType == ModelType.Road_Straight) {
             float x = generateRandomXOffset();
             float z = 0;
-            EntityFactory.createObstacle(entityData, movableId, new Vector3f(x, 1.5f, z));
+            EntityFactory.createStaticCar(entityData, movableId, new Vector3f(x, 1.0f, z));
         }
     }
 

@@ -40,11 +40,23 @@ public class EntityFactory {
                 new CollectorComponent(),
                 new ScoreComponent(),
                 new MovementSpeedComponent(Constants.DEFAULT_SPEED),
-                new AccelerateComponent(0.04f),
-                new DestroyPassedEntityOnFinishedMovementComponent(1.5f),
-                new CollisionShapeComponent(new Vector3f(0.35f, 1f, 0.35f), 0.5f)
+                new AccelerateComponent(Constants.DEFAULT_PLAYER_ACCELERATION),
+                new DestroyPassedEntityOnFinishedMovementComponent(2f),
+                new CollisionShapeComponent(new Vector3f(0.35f, 0.8f, 0.35f), 0.8f)
         );
         return player;
+    }
+
+    public static EntityId createStaticCar(EntityData entityData, EntityId parentId, Vector3f localTranslation) {
+        EntityId movingCar = entityData.createEntity();
+        entityData.setComponents(movingCar,
+                new ModelComponent(ModelType.Car),
+                new LocalTransformComponent(localTranslation),
+                new AttachedToComponent(parentId),
+                new ObstacleComponent(),
+                new CollisionShapeComponent(new Vector3f(0.6f, 0.3f, 0.6f), 0.5f)
+        );
+        return movingCar;
     }
 
     public static EntityId createStraightRoad(EntityData entityData, Vector3f location, Quaternion rotation, Direction direction) {

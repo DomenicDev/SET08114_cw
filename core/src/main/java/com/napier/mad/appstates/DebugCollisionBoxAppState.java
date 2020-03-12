@@ -55,8 +55,9 @@ public class DebugCollisionBoxAppState extends BaseAppState {
 
     private void addBox(Entity e) {
         WorldTransformComponent worldTransformComponent = e.get(WorldTransformComponent.class);
-        Vector3f center = worldTransformComponent.getWorldTransform().getTranslation();
         CollisionShapeComponent collisionShapeComponent = e.get(CollisionShapeComponent.class);
+        Vector3f center = worldTransformComponent.getWorldTransform().getTranslation();
+        center.addLocal(0, collisionShapeComponent.getyOffset(), 0);
         Vector3f halfExtends = collisionShapeComponent.getBoundingBoxHalfExtends();
         BoundingBox boundingBox = new BoundingBox(center, halfExtends.x, halfExtends.y, halfExtends.z);
         Geometry geom = WireBox.makeGeometry(boundingBox);

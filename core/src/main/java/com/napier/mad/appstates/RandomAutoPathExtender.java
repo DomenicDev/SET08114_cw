@@ -251,11 +251,11 @@ public class RandomAutoPathExtender extends BaseAppState {
     }
 
     private Direction getDirection(EntityId entityId) {
-        Entity directionEntity = directionEntities.getEntity(entityId);
-        return directionEntity.get(DirectionComponent.class).getDirection();
+        return entityData.getComponent(entityId, DirectionComponent.class).getDirection();
     }
 
     private Vector3f getLocation(EntityId entityId) {
+        directionEntities.applyChanges();
         Entity e = directionEntities.getEntity(entityId);
         return e.get(LocalTransformComponent.class).getLocation();
     }
