@@ -25,7 +25,7 @@ public class ItemGeneratorAppState extends BaseAppState {
 
     // we want to wait a little before the first obstacle is created
     // to make sure the player does not run into one at the right beginning
-    private int initialObstacleWaitCounter = 5;
+    private int initialObstacleWaitCounter = 2;
 
     @Override
     protected void initialize(Application app) {

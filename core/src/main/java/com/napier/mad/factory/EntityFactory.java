@@ -27,7 +27,7 @@ public class EntityFactory {
     public static EntityId createPlayer(EntityData entityData, EntityId pathId) {
         EntityId player = entityData.createEntity();
         entityData.setComponents(player,
-                new ModelComponent(ModelType.Car),
+                new ModelComponent(ModelType.Human),
                 new LocalTransformComponent(new Vector3f(0f, 0, 0)),
                 new FollowPathComponent(pathId),
                 new AttachedToComponent(),
@@ -35,7 +35,7 @@ public class EntityFactory {
                 new AliveStateComponent(true),
                 new CollectorComponent(),
                 new ScoreComponent(),
-                new CollisionShapeComponent(new Vector3f(0.5f, 0.5f, 0.5f))
+                new CollisionShapeComponent(new Vector3f(0.35f, 1f, 0.35f))
         );
         return player;
     }

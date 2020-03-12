@@ -55,6 +55,7 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new LocalTransformAppState());
         add(new CameraAppState());
         add(new ItemRotationAppState());
+        add(new HumanAnimationAppState());
         add(new DebugCollisionBoxAppState());
     }
 

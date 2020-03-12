@@ -90,6 +90,9 @@ public class ModelLoaderAppState extends BaseAppState {
             // for now lets create a player as cube
             return assetManager.loadModel("Models/Coins.j3o");
         }
+        if (type == ModelType.Human) {
+            return assetManager.loadModel("Models/Human.j3o");
+        }
 
         return null;
     }

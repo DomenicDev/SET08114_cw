@@ -5,6 +5,7 @@ public enum ModelType {
     Empty,
     Coin,
     Player,
+    Human,
     Car,
     Road_Straight,
     Road_Corner_Left,
