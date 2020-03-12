@@ -26,6 +26,8 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         getFlyByCamera().setEnabled(false);
+        setDisplayFps(false);
+        setDisplayStatView(false);
 
         // preload models to optimize performance
         stateManager.attach(new ModelPreloaderAppState());

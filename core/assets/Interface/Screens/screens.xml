@@ -30,11 +30,13 @@
                         </panel>
                     </image>
                 </panel>
+                <!--
                 <panel childLayout="center" align="right" backgroundColor="#ff0000" height="100%" width="20%">
                     <control name="button" height="95%" label="Pause" width="95%">
                         <interact onClick="onClickPauseGame()" />
                     </control>
                 </panel>
+                -->
             </panel>
         </layer>
         <!-- this layer is only used to make the screen fade in -->
