@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.napier.mad.components.FollowPathComponent;
 import com.napier.mad.components.MoveOnComponent;
+import com.napier.mad.components.MovementSpeedComponent;
 import com.napier.mad.components.OnMovementFinishedComponent;
 import com.napier.mad.components.PathComponent;
 import com.napier.mad.constants.Constants;
@@ -29,7 +30,7 @@ public class AutoFollowMovementAppState extends BaseAppState {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
         this.finishedMovements = entityData.getEntities(OnMovementFinishedComponent.class);
         this.paths = entityData.getEntities(PathComponent.class);
-        this.follows = entityData.getEntities(FollowPathComponent.class);
+        this.follows = entityData.getEntities(FollowPathComponent.class, MovementSpeedComponent.class);
     }
 
     @Override
@@ -85,9 +86,12 @@ public class AutoFollowMovementAppState extends BaseAppState {
             return;
         }
 
+        // get speed
+        float speed = follows.getEntity(movingEntityId).get(MovementSpeedComponent.class).getSpeed();
+
         // go on next movable object
         EntityId nextMovable = path.get(indexNextMovable);
-        this.entityData.setComponent(movingEntityId, new MoveOnComponent(nextMovable, Constants.DEFAULT_SPEED));
+        this.entityData.setComponent(movingEntityId, new MoveOnComponent(nextMovable, speed));
     }
 
     @Override

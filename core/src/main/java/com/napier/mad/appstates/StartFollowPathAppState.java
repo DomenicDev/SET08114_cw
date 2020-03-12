@@ -4,6 +4,7 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.napier.mad.components.FollowPathComponent;
 import com.napier.mad.components.MoveOnComponent;
+import com.napier.mad.components.MovementSpeedComponent;
 import com.napier.mad.components.PathComponent;
 import com.napier.mad.constants.Constants;
 import com.simsilica.es.Entity;
@@ -11,7 +12,9 @@ import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
 import com.simsilica.es.EntitySet;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class StartFollowPathAppState extends BaseAppState {
@@ -22,10 +25,12 @@ public class StartFollowPathAppState extends BaseAppState {
     private EntitySet followers;
     private EntitySet paths;
 
+    private Map<EntityId, EntityId> lastMovedOnMap = new HashMap<>();
+
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
-        this.followers = entityData.getEntities(FollowPathComponent.class);
+        this.followers = entityData.getEntities(FollowPathComponent.class, MovementSpeedComponent.class);
         this.paths = entityData.getEntities(PathComponent.class);
     }
 
@@ -40,7 +45,7 @@ public class StartFollowPathAppState extends BaseAppState {
             }
 
             for (Entity e : this.followers.getChangedEntities()) {
-                startFollowingPath(e);
+           //     startFollowingPath(e);
             }
 
         }
@@ -66,9 +71,15 @@ public class StartFollowPathAppState extends BaseAppState {
             return;
         }
 
+
+   //     EntityId lastMovedOn = lastMovedOnMap.get(en);
+
+        MovementSpeedComponent movementSpeedComponent = follower.get(MovementSpeedComponent.class);
+        float speed = movementSpeedComponent.getSpeed();
+
         // we start with the first entity
         EntityId entityToMoveOn = path.get(0);
-        entityData.setComponent(followerId, new MoveOnComponent(entityToMoveOn, Constants.DEFAULT_SPEED));
+        entityData.setComponent(followerId, new MoveOnComponent(entityToMoveOn, speed));
         LOGGER.info("entity " + followerId + " is now following path " + pathId);
     }
 

@@ -44,6 +44,7 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new ItemCollectorAppState());
         add(new ObstacleCollisionAppState());
         add(new PlayerAliveAppState());
+        add(new EntityAcceleratorAppState());
         add(new WorldTransformAppState());
     }
 

@@ -2,6 +2,7 @@ package com.napier.mad.factory;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.napier.mad.components.AccelerateComponent;
 import com.napier.mad.components.AliveStateComponent;
 import com.napier.mad.components.AttachedToComponent;
 import com.napier.mad.components.CollectorComponent;
@@ -9,6 +10,7 @@ import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
 import com.napier.mad.components.DestroyPassedEntityOnFinishedMovementComponent;
 import com.napier.mad.components.FollowPathComponent;
+import com.napier.mad.components.MovementSpeedComponent;
 import com.napier.mad.components.ObstacleComponent;
 import com.napier.mad.components.DirectionComponent;
 import com.napier.mad.components.ItemComponent;
@@ -17,6 +19,7 @@ import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
 import com.napier.mad.components.PlayerControlled;
 import com.napier.mad.components.ScoreComponent;
+import com.napier.mad.constants.Constants;
 import com.napier.mad.types.AnchorMovementType;
 import com.napier.mad.types.Direction;
 import com.napier.mad.types.ModelType;
@@ -36,6 +39,8 @@ public class EntityFactory {
                 new AliveStateComponent(true),
                 new CollectorComponent(),
                 new ScoreComponent(),
+                new MovementSpeedComponent(Constants.DEFAULT_SPEED),
+                new AccelerateComponent(0.04f),
                 new DestroyPassedEntityOnFinishedMovementComponent(1.5f),
                 new CollisionShapeComponent(new Vector3f(0.35f, 1f, 0.35f), 0.5f)
         );
