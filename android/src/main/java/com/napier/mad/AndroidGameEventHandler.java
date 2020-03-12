@@ -47,10 +47,7 @@ public class AndroidGameEventHandler implements GameEventListener {
     }
 
     private String getPlayerName() {
-        SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
-        String playerNameKey = activity.getResources().getString(R.string.saved_player_name_key);
-        String defaultName = activity.getResources().getString(R.string.saved_player_name_default);
-        return preferences.getString(playerNameKey, defaultName);
+        return SharedPreferencesHandler.getInstance().readPlayerName(this.activity);
     }
 
 }
