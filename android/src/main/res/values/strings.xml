@@ -19,4 +19,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="code_and_game_design">Game Design and Programming</string>
+    <string name="credits_game_designer">Domenic Cassisi</string>
+    <string name="credits_assets_title">Game Assets</string>
+    <string name="credits_game_assets_content">Landscape Tiles by: eracoon\nGUI images: pzUH\nHuman Model by: quaternius\nCoin by: rubberduck\nSkyBox by: KIIRA</string>
 </resources>

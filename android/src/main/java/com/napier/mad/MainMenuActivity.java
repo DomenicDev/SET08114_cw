@@ -39,6 +39,14 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+        Button creditsButton = findViewById(R.id.main_menu_credits_button);
+        creditsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CreditsActivity.class);
+            }
+        });
+
     }
 
      private void startActivity(Class<? extends Activity> activityClass) {
