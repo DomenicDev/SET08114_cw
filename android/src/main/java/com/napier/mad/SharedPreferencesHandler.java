@@ -1,7 +1,6 @@
 package com.napier.mad;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.jme.game.R;

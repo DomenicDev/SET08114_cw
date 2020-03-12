@@ -16,6 +16,7 @@ public class GameAppStateInitializer extends BaseAppState {
         initEntityAppStates();
         initGameAppStates();
         initViewAppStates();
+        initSoundAppStates();
         initInputAppStates();
         initGameStarter();
 
@@ -59,6 +60,11 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new HumanAnimationAppState());
         add(new LandscapeGeneratorAppState());
      //   add(new DebugCollisionBoxAppState()); // for debugging only
+    }
+
+    private void initSoundAppStates() {
+        add(new BackgroundMusicAppState());
+        add(new CoinSoundAppState());
     }
 
     private void initInputAppStates() {
