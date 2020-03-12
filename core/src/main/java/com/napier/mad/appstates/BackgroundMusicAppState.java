@@ -14,7 +14,7 @@ public class BackgroundMusicAppState extends BaseAppState {
         this.music = new AudioNode(app.getAssetManager(), "Sounds/background_music.wav", AudioData.DataType.Stream);
         this.music.setLooping(true);
         this.music.setPositional(false);
-        this.music.setVolume(0.3f);
+        this.music.setVolume(0.4f);
         this.music.play();
     }
 

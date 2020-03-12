@@ -88,6 +88,20 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/options_button"/>
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"/>
+
+        <Button
+            android:id="@+id/main_menu_help_button"
+            android:layout_gravity="bottom"
+            android:layout_width="@dimen/icon_button_size"
+            android:layout_height="@dimen/icon_button_size"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/help_button"/>
+
     </LinearLayout>
 
 
