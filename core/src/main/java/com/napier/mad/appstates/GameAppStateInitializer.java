@@ -57,7 +57,8 @@ public class GameAppStateInitializer extends BaseAppState {
         add(new CameraAppState());
         add(new ItemRotationAppState());
         add(new HumanAnimationAppState());
-        add(new DebugCollisionBoxAppState());
+        add(new LandscapeGeneratorAppState());
+     //   add(new DebugCollisionBoxAppState()); // for debugging only
     }
 
     private void initInputAppStates() {

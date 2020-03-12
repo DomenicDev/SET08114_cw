@@ -39,7 +39,7 @@ public class HudScreenController implements ScreenController {
 
     @Override
     public void onStartScreen() {
-
+        setScore(0);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.napier.mad.appstates.GameAppStateInitializer;
 import com.napier.mad.appstates.MainGameAppState;
+import com.napier.mad.appstates.ModelPreloaderAppState;
 import com.napier.mad.game.GameEventListener;
 
 public class Main extends SimpleApplication {
@@ -25,6 +26,9 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         getFlyByCamera().setEnabled(false);
+
+        // preload models to optimize performance
+        stateManager.attach(new ModelPreloaderAppState());
 
         // create main game app state
         MainGameAppState mainGameAppState = new MainGameAppState();

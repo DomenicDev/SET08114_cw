@@ -24,7 +24,9 @@ import java.util.Map;
 
 public class ModelLoaderAppState extends BaseAppState {
 
-    private static final String ROAD_TILE_FILE = "Models/roads.j3o";
+    public static final String ROAD_TILE_FILE = "Models/roads.j3o";
+    public static final String SUBURB_TILE_FILE = "Models/buildings.j3o";
+    public static final String LANDSCAPE_TITLE_FILE = "Models/landscape.j3o";
 
     private Map<EntityId, Node> entityModelMap = new HashMap<>();
     private EntitySet modelEntities;
@@ -62,7 +64,7 @@ public class ModelLoaderAppState extends BaseAppState {
         this.entityModelMap.put(e.getId(), modelNode);
     }
 
-    private Spatial loadActualModel(ModelType type) {
+    Spatial loadActualModel(ModelType type) {
         if (type == ModelType.Road_Straight) {
             return getChildFrom(ROAD_TILE_FILE, "road-straight.low");
         }
@@ -71,6 +73,9 @@ public class ModelLoaderAppState extends BaseAppState {
         }
         if (type == ModelType.Road_Corner_Right) {
             return getChildFrom(ROAD_TILE_FILE, "road-corner-right");
+        }
+        if (type == ModelType.Road_Straight_House_2) {
+            return getChildFrom(SUBURB_TILE_FILE, "road-straight-house-2-low");
         }
         if (type == ModelType.Player) {
             // for now lets create a player as cube
@@ -87,11 +92,37 @@ public class ModelLoaderAppState extends BaseAppState {
             return assetManager.loadModel("Models/Empty.j3o");
         }
         if (type == ModelType.Coin) {
-            // for now lets create a player as cube
             return assetManager.loadModel("Models/Coins.j3o");
         }
         if (type == ModelType.Human) {
             return assetManager.loadModel("Models/Human.j3o");
+        }
+        if (type == ModelType.House_Country) {
+            return getChildFrom(SUBURB_TILE_FILE, "house-country");
+        }
+        if (type == ModelType.House_Modern) {
+            return getChildFrom(SUBURB_TILE_FILE, "house-modern");
+        }
+        if (type == ModelType.House_Mid) {
+            return getChildFrom(SUBURB_TILE_FILE, "house-mid");
+        }
+        if (type == ModelType.House_Small_Garage) {
+            return getChildFrom(SUBURB_TILE_FILE, "house-small-garage");
+        }
+        if (type == ModelType.House_Small) {
+            return getChildFrom(SUBURB_TILE_FILE, "house-small");
+        }
+        if (type == ModelType.Hill_Corner_Edge) {
+            return getChildFrom(LANDSCAPE_TITLE_FILE, "hill-corner2");
+        }
+        if (type == ModelType.Hill_Corner_Transition) {
+            return getChildFrom(LANDSCAPE_TITLE_FILE, "hill-corner");
+        }
+        if (type == ModelType.Hill_Grass) {
+            return getChildFrom(LANDSCAPE_TITLE_FILE, "hill-grass");
+        }
+        if (type == ModelType.Grass_Low) {
+            return getChildFrom(LANDSCAPE_TITLE_FILE, "grass-low");
         }
 
         return null;
