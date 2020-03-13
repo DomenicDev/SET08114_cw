@@ -14,14 +14,6 @@ public class GameInputAppState extends BaseAppState {
     private EntityData entityData;
     private EntitySet playerControlledEntities;
 
-    private enum MoveType {
-        Left,
-        Right,
-        Still;
-    }
-
-    private MoveType lastMove = MoveType.Still;
-
     @Override
     protected void initialize(Application app) {
         this.entityData = getState(EntityDataAppState.class).getEntityData();
@@ -33,39 +25,12 @@ public class GameInputAppState extends BaseAppState {
         this.playerControlledEntities.applyChanges();
     }
 
-    public void moveLeft() {
+
+    public void moveSidewards(float targetX) {
         if (!isInitialized()) {
             return;
         }
-        if (lastMove == MoveType.Left) {
-            return;
-        }
-        // move
-        this.lastMove = MoveType.Left;
-        refreshSideMovementComponent(lastMove);
-
-    }
-
-    public void standStill() {
-        if (!isInitialized()) {
-            return;
-        }
-        if (lastMove == MoveType.Still) {
-            return;
-        }
-        this.lastMove = MoveType.Still;
-        refreshSideMovementComponent(lastMove);
-    }
-
-    public void moveRight() {
-        if (!isInitialized()) {
-            return;
-        }
-        if (lastMove == MoveType.Right) {
-            return;
-        }
-        this.lastMove = MoveType.Right;
-        refreshSideMovementComponent(lastMove);
+        refreshSideMovementComponent(targetX);
     }
 
     public void jump() {
@@ -84,23 +49,11 @@ public class GameInputAppState extends BaseAppState {
         }
     }
 
-    private void refreshSideMovementComponent(MoveType type) {
-        int movementType = getMovementTypeFromMoveType(type);
+    private void refreshSideMovementComponent(float targetX) {
         for (Entity e : playerControlledEntities) {
-            this.entityData.setComponent(e.getId(), new SideMovementComponent(movementType));
+            this.entityData.setComponent(e.getId(), new SideMovementComponent(targetX));
         }
     }
-
-    private int getMovementTypeFromMoveType(MoveType type) {
-        if (type == MoveType.Left) {
-            return SideMovementComponent.LEFT;
-        }
-        if (type == MoveType.Right) {
-            return SideMovementComponent.RIGHT;
-        }
-        return SideMovementComponent.STAND;
-    }
-
 
     @Override
     protected void cleanup(Application app) {

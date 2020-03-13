@@ -12,8 +12,11 @@ import com.jme3.app.AndroidHarness;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.napier.mad.appstates.GameInputAppState;
+import com.napier.mad.appstates.MainGameAppState;
 
-public class AndroidLauncher extends AndroidHarness implements SensorEventListener {
+public class AndroidLauncher extends AndroidHarness implements SensorEventListener, GameSensorManager.GameSensorListener {
+
+    private GameSensorManager gameSensorManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,10 +24,16 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
         app=new Main(new AndroidGameEventHandler(this));
         super.onCreate(savedInstanceState);
 
+        /*
         // setup sensor listener
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
         sensorManager.registerListener(this, sensor, 10000);
+
+         */
+
+        // setup game sensor
+        this.gameSensorManager = new GameSensorManager(this, this);
     }
 
     @Override
@@ -58,7 +67,7 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
         float[] q = new float[4];
         SensorManager.getQuaternionFromVector(q, sensorEvent.values);
         Quaternion quat = new Quaternion();
-        quat.set(q[0], q[1], q[2], q[3]);
+        quat.set(q[1], q[2], q[3], q[0]);
         float[] angles = new float[3];
         quat.toAngles(angles);
 
@@ -74,23 +83,71 @@ public class AndroidLauncher extends AndroidHarness implements SensorEventListen
             return;
         }
 
+
+        /*
+
         float toleranceDegree = 7.0f;
+        System.out.println(angle);
 
         if (angle > toleranceDegree) {
             // turn left
-            inputAppState.moveLeft();
+            inputAppState.moveRight();
         } else if (angle < -toleranceDegree) {
             // turn right
-            inputAppState.moveRight();
+            inputAppState.moveLeft();
         } else {
             // stand still
             inputAppState.standStill();
         }
+
+         */
 
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+
+    @Override
+    protected void onPause() {
+        MainGameAppState mainGameAppState = this.app.getStateManager().getState(MainGameAppState.class);
+        if (mainGameAppState != null) {
+            mainGameAppState.togglePauseGame();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        MainGameAppState mainGameAppState = this.app.getStateManager().getState(MainGameAppState.class);
+        if (mainGameAppState != null) {
+            mainGameAppState.togglePauseGame();
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // we want to close the app properly when exiting the application
+        app.stop(true);
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onStop() {
+        this.gameSensorManager.cleanup();
+        super.onStop();
+    }
+
+    @Override
+    public void onSensorChange(float value) {
+        GameInputAppState gameInputAppState = this.app.getStateManager().getState(GameInputAppState.class);
+        if (gameInputAppState == null) {
+            return;
+        }
+
+      //  value = (direction == GameSensorManager.Direction.Left) ? value : -value;
+        gameInputAppState.moveSidewards(value);
     }
 }

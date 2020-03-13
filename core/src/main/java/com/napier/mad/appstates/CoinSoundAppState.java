@@ -48,7 +48,6 @@ public class CoinSoundAppState extends BaseAppState {
         ItemCollectedEventComponent event = e.get(ItemCollectedEventComponent.class);
         if (coins.containsId(event.getItemId())) {
             // play sound
-            System.out.println("sound...");
             coinSound.playInstance();
         }
     }

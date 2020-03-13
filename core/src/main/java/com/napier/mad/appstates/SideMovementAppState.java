@@ -37,26 +37,24 @@ public class SideMovementAppState extends BaseAppState {
         SideMovementComponent sideMovementComponent = e.get(SideMovementComponent.class);
         LocalTransformComponent localTransformComponent = e.get(LocalTransformComponent.class);
         Vector3f currentLocation = localTransformComponent.getLocation();
-        int type = sideMovementComponent.getMovement();
-        if (type == SideMovementComponent.STAND) {
-            return;
+        float acc = sideMovementComponent.getTarget();
+        float speed = 2;
+        float max = 1.5f;
+        float movedDistance = acc * speed * tpf;
+
+        float compVal = Math.min(max, Math.abs(movedDistance));
+
+        movedDistance = (movedDistance > 0) ? compVal : -compVal;
+
+        float newLoc = currentLocation.x + movedDistance;
+        if (newLoc < -max) {
+            newLoc = -max;
+        } else if (newLoc > max) {
+            newLoc = max;
         }
-        float movedDistance = tpf * speed;
 
         Vector3f newLocation = new Vector3f(currentLocation);
-        if (type == SideMovementComponent.LEFT) {
-            float newX = currentLocation.x + movedDistance;
-            if (newX >= limit) {
-                newX = limit;
-            }
-            newLocation.setX(newX);
-        } else if (type == SideMovementComponent.RIGHT) {
-            float newX = currentLocation.x - movedDistance;
-            if (newX <= -limit) {
-                newX = -limit;
-            }
-            newLocation.setX(newX);
-        }
+        newLocation.setX(newLoc);
         entityData.setComponent(e.getId(), new LocalTransformComponent(newLocation));
     }
 

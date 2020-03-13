@@ -8,13 +8,13 @@ public class SideMovementComponent implements EntityComponent {
     public static final int STAND = 0;
     public static final int RIGHT = 1;
 
-    private int movement;
+    private float target;
 
-    public SideMovementComponent(int movement) {
-        this.movement = movement;
+    public SideMovementComponent(float target) {
+        this.target = target;
     }
 
-    public int getMovement() {
-        return movement;
+    public float getTarget() {
+        return target;
     }
 }
