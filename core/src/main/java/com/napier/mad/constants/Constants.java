@@ -14,6 +14,6 @@ public class Constants {
 
     public static final float DEFAULT_SPEED = 8f;
     public static final float DEFAULT_SPEED_CARS = 8f;
-    public static final float DEFAULT_PLAYER_ACCELERATION = 0.08f;
+    public static final float DEFAULT_PLAYER_ACCELERATION = 0.06f;
 
 }
