@@ -8,16 +8,18 @@
     android:gravity="center"
     android:layout_gravity="center"
     android:background="@drawable/green_background"
-    tools:context=".ScoresActivity">
+    tools:context=".ScoresActivity"
+    android:weightSum="100">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
+        android:layout_weight="90"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:background="@drawable/panel_empty">
@@ -36,11 +38,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginRight="80dp"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="0dp">
 
 
             <LinearLayout
@@ -68,27 +71,29 @@
             <ListView
                 android:id="@+id/score_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="340dp"/>
+                android:layout_height="0dp"
+                android:layout_weight="1000"/>
+
+            <Button
+                android:id="@+id/score_activity_home_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="0"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/home_button" />
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"/>
 
-        <Button
-            android:id="@+id/score_activity_home_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_weight="0"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/home_button" />
 
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
 
 
 

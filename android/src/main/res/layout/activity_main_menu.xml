@@ -22,21 +22,24 @@
         android:layout_marginBottom="40dp"
         android:layout_gravity="center"
         android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:contentDescription="@string/app_name"
         android:background="@drawable/header_logo"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        android:layout_weight="0.8"
         android:layout_gravity="center">
 
         <Button
             android:id="@+id/main_menu_start_game_button"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@drawable/game_button"
             android:text="@string/start_game"
             android:fontFamily="@string/font_family_game_button"
@@ -51,7 +54,8 @@
             android:textSize="@dimen/text_size_game_button"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@drawable/game_button"
             android:text="@string/high_scores"/>
 
@@ -59,7 +63,8 @@
             android:id="@+id/main_menu_credits_button"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="@string/credits"
             android:fontFamily="@string/font_family_game_button"
             android:textSize="@dimen/text_size_game_button"
@@ -69,39 +74,38 @@
 
 
     <LinearLayout
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
         android:orientation="horizontal"
         android:gravity="start"
-        android:paddingTop="10dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="5dp">
 
-        <Button
-            android:id="@+id/main_menu_options_button"
-            android:layout_gravity="bottom"
-            android:layout_width="@dimen/icon_button_size"
-            android:layout_height="@dimen/icon_button_size"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/options_button"/>
+            <Button
+                android:id="@+id/main_menu_options_button"
+                android:layout_gravity="bottom"
+                android:layout_width="@dimen/icon_button_size"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/options_button"/>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="100"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/main_menu_help_button"
-            android:layout_gravity="bottom"
-            android:layout_width="@dimen/icon_button_size"
-            android:layout_height="@dimen/icon_button_size"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/help_button"/>
-
+            <Button
+                android:id="@+id/main_menu_help_button"
+                android:layout_gravity="bottom"
+                android:layout_width="@dimen/icon_button_size"
+                android:layout_height="@dimen/icon_button_size"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/help_button"/>
     </LinearLayout>
 
 
