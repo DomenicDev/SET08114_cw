@@ -73,6 +73,9 @@ public class MainGameAppState extends BaseAppState {
     }
 
     public void stopGame() {
+        for (GameEventListener listener : gameEventListeners) {
+            listener.onGameStop();
+        }
         app.stop();
     }
 

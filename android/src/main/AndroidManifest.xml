@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.napier.mad.SettingsActivity"
+        <activity android:name="com.napier.mad.android.activity.SettingsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.napier.mad.CreditsActivity"
+        <activity android:name="com.napier.mad.android.activity.CreditsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.napier.mad.MainMenuActivity"
+        <activity android:name="com.napier.mad.android.activity.MainMenuActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.napier.mad.ScoresActivity"
+        <activity android:name="com.napier.mad.android.activity.ScoresActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.napier.mad.AndroidLauncher"
+            android:name="com.napier.mad.android.activity.AndroidGameLauncherActivity"
             android:keepScreenOn="true"
             android:screenOrientation="portrait" />
     </application>

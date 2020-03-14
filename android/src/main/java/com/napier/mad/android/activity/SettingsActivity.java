@@ -1,7 +1,6 @@
-package com.napier.mad;
+package com.napier.mad.android.activity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jme.game.R;
+import com.napier.mad.android.persistence.SharedPreferencesHandler;
 
 public class SettingsActivity extends Activity {
 

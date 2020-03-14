@@ -23,6 +23,10 @@ public class Main extends SimpleApplication {
         this.gameEventListener = gameEventListener;
     }
 
+    public void setGameEventListener(GameEventListener gameEventListener) {
+        this.gameEventListener = gameEventListener;
+    }
+
     @Override
     public void simpleInitApp() {
         getFlyByCamera().setEnabled(false);

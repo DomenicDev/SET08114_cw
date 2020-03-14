@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.widget.ListView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jme.game.R;
+import com.napier.mad.android.persistence.FirebaseGameScoreHandler;
+import com.napier.mad.android.persistence.FirebaseScoreEntry;
+import com.napier.mad.android.persistence.GameResult;
+import com.napier.mad.android.persistence.PlayerStatsSQLiteDBHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;

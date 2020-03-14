@@ -4,17 +4,13 @@ import com.simsilica.es.EntityComponent;
 
 public class SideMovementComponent implements EntityComponent {
 
-    public static final int LEFT = -1;
-    public static final int STAND = 0;
-    public static final int RIGHT = 1;
+    private float acceleration;
 
-    private float target;
-
-    public SideMovementComponent(float target) {
-        this.target = target;
+    public SideMovementComponent(float acceleration) {
+        this.acceleration = acceleration;
     }
 
-    public float getTarget() {
-        return target;
+    public float getAcceleration() {
+        return acceleration;
     }
 }

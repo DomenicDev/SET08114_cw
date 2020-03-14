@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.jme.game.R;
+import com.napier.mad.android.persistence.GameResult;
 
 import java.util.List;
 

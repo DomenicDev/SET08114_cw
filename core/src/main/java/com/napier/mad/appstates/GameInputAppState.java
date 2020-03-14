@@ -26,11 +26,11 @@ public class GameInputAppState extends BaseAppState {
     }
 
 
-    public void moveSidewards(float targetX) {
+    public void moveSidewards(float acceleration) {
         if (!isInitialized()) {
             return;
         }
-        refreshSideMovementComponent(targetX);
+        refreshSideMovementComponent(acceleration);
     }
 
     public void jump() {
@@ -49,9 +49,9 @@ public class GameInputAppState extends BaseAppState {
         }
     }
 
-    private void refreshSideMovementComponent(float targetX) {
+    private void refreshSideMovementComponent(float value) {
         for (Entity e : playerControlledEntities) {
-            this.entityData.setComponent(e.getId(), new SideMovementComponent(targetX));
+            this.entityData.setComponent(e.getId(), new SideMovementComponent(value));
         }
     }
 

@@ -37,7 +37,7 @@ public class SideMovementAppState extends BaseAppState {
         SideMovementComponent sideMovementComponent = e.get(SideMovementComponent.class);
         LocalTransformComponent localTransformComponent = e.get(LocalTransformComponent.class);
         Vector3f currentLocation = localTransformComponent.getLocation();
-        float acc = sideMovementComponent.getTarget();
+        float acc = sideMovementComponent.getAcceleration();
         float speed = 2;
         float max = 1.5f;
         float movedDistance = acc * speed * tpf;

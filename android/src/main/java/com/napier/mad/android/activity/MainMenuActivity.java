@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,7 @@ public class MainMenuActivity extends Activity {
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AndroidLauncher.class);
+                startActivity(AndroidGameLauncherActivity.class);
             }
         });
 
@@ -54,10 +54,6 @@ public class MainMenuActivity extends Activity {
                 startActivity(SettingsActivity.class);
             }
         });
-
-
-
-
 
     }
 

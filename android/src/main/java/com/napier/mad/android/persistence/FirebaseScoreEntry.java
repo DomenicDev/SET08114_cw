@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.persistence;
 
 public class FirebaseScoreEntry {
 

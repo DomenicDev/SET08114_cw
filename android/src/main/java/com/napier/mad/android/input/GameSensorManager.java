@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.input;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,20 +7,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
-
 public class GameSensorManager implements SensorEventListener {
 
-    private float lastAngleY = 0;
     private GameSensorListener listener;
-
     private SensorManager sensorManager;
-
-    public enum Direction {
-        Left,
-        Right
-    }
 
     public GameSensorManager(Activity activity, GameSensorListener listener) {
         this.listener = listener;
@@ -43,7 +33,7 @@ public class GameSensorManager implements SensorEventListener {
 
         float result = -1 * (rotX + rotZ);
 
-        listener.onSensorChange(result);
+        listener.onAccelerationChanged(result);
     }
 
     @Override
@@ -53,7 +43,7 @@ public class GameSensorManager implements SensorEventListener {
 
     public interface GameSensorListener {
 
-        void onSensorChange(float value);
+        void onAccelerationChanged(float acceleration);
 
     }
 

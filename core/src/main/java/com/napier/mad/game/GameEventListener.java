@@ -8,4 +8,6 @@ public interface GameEventListener {
 
     void onGameOver(PlayerStatistics playerStatistics);
 
+    void onGameStop();
+
 }

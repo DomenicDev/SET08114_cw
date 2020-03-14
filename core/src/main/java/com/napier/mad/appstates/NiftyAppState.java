@@ -77,6 +77,11 @@ public class NiftyAppState extends BaseAppState implements GameEventListener {
         gameOverScreenController.setScore(playerStatistics.getScore());
     }
 
+    @Override
+    public void onGameStop() {
+
+    }
+
     private class NiftyGuiEventHandler implements GuiEventListener {
 
         @Override
