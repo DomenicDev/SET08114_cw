@@ -20,4 +20,11 @@
     <string name="credits_game_assets_content">Landscape Tiles by: eracoon\nGUI images: pzUH\nHuman Model by: quaternius\nCoin by: rubberduck\nSkyBox by: KIIRA</string>
     <string name="settings_set_name">Set your player name</string>
     <string name="settings_no_empty_playername_allowed">Empty player names are not allowed!</string>
+    <string name="settings_too_long_playername">Player name must have less than 14 characters</string>
+    <string name="settings_too_short_playername">Player name must at least have 3 characters</string>
+    <string name="help">Help</string>
+    <string name="help_player_navigation_title">Player Navigation</string>
+    <string name="help_player_navigation_content">Swipe your phone to the left and right to control the characters movement</string>
+    <string name="help_player_jumping_title">Jumping</string>
+    <string name="help_player_jumping_content">Fling your finger up to jump.</string>
 </resources>

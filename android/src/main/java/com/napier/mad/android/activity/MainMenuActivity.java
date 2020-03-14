@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jme.game.R;
+import com.napier.mad.HelpActivity;
 
 public class MainMenuActivity extends Activity {
 
@@ -60,18 +61,7 @@ public class MainMenuActivity extends Activity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainMenuActivity.this);
-                View alertView = getLayoutInflater().inflate(R.layout.help_dialog, null);
-                builder.setView(alertView);
-                final AlertDialog dialog = builder.create();
-                Button okButton = alertView.findViewById(R.id.help_dialog_ok_button);
-                okButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                startActivity(HelpActivity.class);
             }
         });
     }

@@ -30,6 +30,14 @@ public class SettingsActivity extends Activity {
                     Toast.makeText(SettingsActivity.this, getString(R.string.settings_no_empty_playername_allowed), Toast.LENGTH_LONG).show();
                     return;
                 }
+                if (inputName.length() >= 13) {
+                    Toast.makeText(SettingsActivity.this, getString(R.string.settings_too_long_playername), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (inputName.length() <= 2) {
+                    Toast.makeText(SettingsActivity.this, getString(R.string.settings_too_short_playername), Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 // save player name by using Shared Preferences
                 savePlayerName(inputName);

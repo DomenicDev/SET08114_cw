@@ -9,17 +9,17 @@
         android:id="@+id/score_item_position"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_weight="50"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_weight="0"
         android:gravity="start"
         android:textSize="@dimen/score_item_textSize" />
 
     <TextView
         android:id="@+id/score_item_player_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="2dp"
         android:layout_weight="100"
         android:gravity="start"
         android:textAlignment="textStart"
@@ -27,9 +27,9 @@
 
     <TextView
         android:id="@+id/score_item_score"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="100"
+        android:layout_weight="30"
         android:layout_marginEnd="10dp"
         android:gravity="end"
         android:textSize="@dimen/score_item_textSize" />
