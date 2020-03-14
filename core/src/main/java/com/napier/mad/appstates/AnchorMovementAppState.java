@@ -8,7 +8,7 @@ import com.napier.mad.anchors.RotationAnchor;
 import com.napier.mad.anchors.StraightAnchor;
 import com.napier.mad.components.AnchorComponent;
 import com.napier.mad.components.LocalTransformComponent;
-import com.napier.mad.constants.Constants;
+import com.napier.mad.constants.GameConstants;
 import com.napier.mad.types.AnchorMovementType;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
@@ -68,7 +68,7 @@ public class AnchorMovementAppState extends BaseAppState implements AnchorListen
 
         if (movementType == AnchorMovementType.Linear) {
             // create straight movement control
-            anchorLogic = new StraightAnchor(Constants.TILE_LENGTH, localTransform.getLocation());
+            anchorLogic = new StraightAnchor(GameConstants.TILE_LENGTH, localTransform.getLocation());
         } else if (movementType == AnchorMovementType.CornerToLeft) {
             anchorLogic = new RotationAnchor(localTransform, 4, 0, 4, 4);
         } else if (movementType == AnchorMovementType.CornerToRight) {

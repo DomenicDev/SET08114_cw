@@ -4,12 +4,11 @@ import com.jme3.app.Application;
 import com.jme3.app.state.BaseAppState;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.ModelComponent;
-import com.napier.mad.constants.Constants;
+import com.napier.mad.constants.GameConstants;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
@@ -19,8 +18,6 @@ import com.simsilica.es.EntitySet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import jme3tools.optimize.GeometryBatchFactory;
 
 public class LandscapeGeneratorAppState extends BaseAppState {
 
@@ -75,8 +72,8 @@ public class LandscapeGeneratorAppState extends BaseAppState {
             Spatial rightRoad = house.clone(); //getRandomHouseOrGrass();
             resetTransform(leftRoad, rightRoad);
 
-            leftRoad.setLocalTranslation(Constants.TILE_LENGTH, 0, 0);
-            rightRoad.setLocalTranslation(-Constants.TILE_LENGTH, 0, 0);
+            leftRoad.setLocalTranslation(GameConstants.TILE_LENGTH, 0, 0);
+            rightRoad.setLocalTranslation(-GameConstants.TILE_LENGTH, 0, 0);
 
             entityLandscape.attachChild(leftRoad);
             entityLandscape.attachChild(rightRoad);
@@ -95,9 +92,9 @@ public class LandscapeGeneratorAppState extends BaseAppState {
             resetTransform(leftTrans, edge, rightTrans);
 
             // set location
-            leftTrans.setLocalTranslation(factor * Constants.TILE_LENGTH, 0, 0);
-            edge.setLocalTranslation(factor * Constants.TILE_LENGTH, 0, Constants.TILE_LENGTH);
-            rightTrans.setLocalTranslation(0, 0, Constants.TILE_LENGTH);
+            leftTrans.setLocalTranslation(factor * GameConstants.TILE_LENGTH, 0, 0);
+            edge.setLocalTranslation(factor * GameConstants.TILE_LENGTH, 0, GameConstants.TILE_LENGTH);
+            rightTrans.setLocalTranslation(0, 0, GameConstants.TILE_LENGTH);
 
             // set rotation
             rightTrans.setLocalRotation(new Quaternion(angles));

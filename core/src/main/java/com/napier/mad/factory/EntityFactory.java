@@ -19,7 +19,7 @@ import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
 import com.napier.mad.components.PlayerControlled;
 import com.napier.mad.components.ScoreComponent;
-import com.napier.mad.constants.Constants;
+import com.napier.mad.constants.GameConstants;
 import com.napier.mad.types.AnchorMovementType;
 import com.napier.mad.types.Direction;
 import com.napier.mad.types.ModelType;
@@ -39,8 +39,8 @@ public class EntityFactory {
                 new AliveStateComponent(true),
                 new CollectorComponent(),
                 new ScoreComponent(),
-                new MovementSpeedComponent(Constants.DEFAULT_SPEED),
-                new AccelerateComponent(Constants.DEFAULT_PLAYER_ACCELERATION),
+                new MovementSpeedComponent(GameConstants.DEFAULT_SPEED),
+                new AccelerateComponent(GameConstants.DEFAULT_PLAYER_ACCELERATION),
                 new DestroyPassedEntityOnFinishedMovementComponent(2f),
                 new CollisionShapeComponent(new Vector3f(0.35f, 0.8f, 0.35f), 0.8f)
         );

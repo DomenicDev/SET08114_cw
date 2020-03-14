@@ -5,7 +5,7 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.components.MovableComponent;
-import com.napier.mad.constants.Constants;
+import com.napier.mad.constants.GameConstants;
 import com.napier.mad.factory.EntityFactory;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.Entity;
@@ -83,7 +83,7 @@ public class ItemGeneratorAppState extends BaseAppState {
     private void generateCoinsInLine(EntityId movableId, ModelType modelType) {
         float x = generateRandomXOffset();
         for (int i = 0; i < 4; i++) {
-            EntityFactory.createCoin(entityData, movableId, new Vector3f(x, 1.5f, (-Constants.TILE_LENGTH / 2) + i * Constants.TILE_LENGTH / 4f));
+            EntityFactory.createCoin(entityData, movableId, new Vector3f(x, 1.5f, (-GameConstants.TILE_LENGTH / 2) + i * GameConstants.TILE_LENGTH / 4f));
         }
     }
 

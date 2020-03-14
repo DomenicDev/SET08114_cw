@@ -6,7 +6,6 @@ import com.napier.mad.components.FollowPathComponent;
 import com.napier.mad.components.MoveOnComponent;
 import com.napier.mad.components.MovementSpeedComponent;
 import com.napier.mad.components.PathComponent;
-import com.napier.mad.constants.Constants;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntityId;
