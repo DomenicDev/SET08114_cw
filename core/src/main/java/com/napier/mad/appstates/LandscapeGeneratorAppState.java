@@ -26,8 +26,6 @@ public class LandscapeGeneratorAppState extends BaseAppState {
     private Node landscape = new Node("Landscape");
     private ModelLoaderAppState modelLoader;
 
-    private Spatial house;
-
     private Random random = new Random();
 
     @Override
@@ -36,7 +34,6 @@ public class LandscapeGeneratorAppState extends BaseAppState {
         this.models = entityData.getEntities(ModelComponent.class, LocalTransformComponent.class);
         getState(SceneAppState.class).getSceneNode().attachChild(landscape);
         this.modelLoader = getState(ModelLoaderAppState.class);
-        this.house = modelLoader.getModel(ModelType.House_Small);
     }
 
     @Override
@@ -68,12 +65,13 @@ public class LandscapeGeneratorAppState extends BaseAppState {
         if (modelType == ModelType.Road_Straight || modelType == ModelType.Road_Straight_House_2) {
             // create building left and right
 
-            Spatial leftRoad = house.clone(); //getRandomHouseOrGrass();
-            Spatial rightRoad = house.clone(); //getRandomHouseOrGrass();
+            Spatial leftRoad = getRandomHouseOrGrass();
+            Spatial rightRoad = getRandomHouseOrGrass();
             resetTransform(leftRoad, rightRoad);
 
             leftRoad.setLocalTranslation(GameConstants.TILE_LENGTH, 0, 0);
             rightRoad.setLocalTranslation(-GameConstants.TILE_LENGTH, 0, 0);
+            rightRoad.rotate(0, 180 * FastMath.DEG_TO_RAD, 0);
 
             entityLandscape.attachChild(leftRoad);
             entityLandscape.attachChild(rightRoad);
@@ -118,14 +116,13 @@ public class LandscapeGeneratorAppState extends BaseAppState {
     private Spatial getRandomHouseOrGrass() {
         double next = random.nextDouble();
         if (next < 0.2) {
-            // grass
-            return modelLoader.getModel(ModelType.Grass_Low);
+            return modelLoader.getModel(ModelType.House_Mid);
         } else if (next < 0.6) {
             return modelLoader.getModel(ModelType.House_Small);
         } else if (next < 0.8) {
             return modelLoader.getModel(ModelType.House_Small_Garage);
         } else {
-            return modelLoader.getModel(ModelType.House_Mid);
+            return modelLoader.getModel(ModelType.House_Country);
         }
     }
 

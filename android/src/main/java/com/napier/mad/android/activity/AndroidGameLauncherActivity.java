@@ -39,10 +39,7 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
     @Override
     protected void onResume() {
-        MainGameAppState mainGameAppState = this.app.getStateManager().getState(MainGameAppState.class);
-        if (mainGameAppState != null) {
-            mainGameAppState.togglePauseGame();
-        }
+        setPauseGame(false);
         super.onResume();
     }
 
@@ -55,8 +52,21 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
     @Override
     protected void onStop() {
-        app.stop(true);
+        setPauseGame(true);
         super.onStop();
+    }
+
+    private void setPauseGame(boolean pause) {
+        MainGameAppState mainGameAppState = this.app.getStateManager().getState(MainGameAppState.class);
+        if (mainGameAppState != null) {
+            mainGameAppState.setPause(pause);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        app.stop(true);
+        super.onDestroy();
     }
 
 }

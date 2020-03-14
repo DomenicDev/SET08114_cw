@@ -196,8 +196,6 @@ public class RandomAutoPathExtender extends BaseAppState {
 
             // compute next location
             nextLocation = (getNextLocation(nextLocation, direction));
-
-
         }
         return results;
     }

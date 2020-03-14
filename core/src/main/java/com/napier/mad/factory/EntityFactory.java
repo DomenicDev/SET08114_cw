@@ -64,7 +64,7 @@ public class EntityFactory {
     public static EntityId createStraightRoad(EntityData entityData, Vector3f location, Quaternion rotation, Direction direction) {
         EntityId road = entityData.createEntity();
         entityData.setComponents(road,
-                new ModelComponent(ModelType.Road_Straight),
+                new ModelComponent(ModelType.Road_Straight_House_2),
                 new LocalTransformComponent(location, rotation),
                 new AttachedToComponent(),
                 new MovableComponent(AnchorMovementType.Linear),

@@ -72,6 +72,10 @@ public class MainGameAppState extends BaseAppState {
         initializer.setEnabled(!initializer.isEnabled());
     }
 
+    public void setPause(boolean paused) {
+        initializer.setEnabled(!paused);
+    }
+
     public void stopGame() {
         for (GameEventListener listener : gameEventListeners) {
             listener.onGameStop();

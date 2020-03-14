@@ -56,7 +56,7 @@ public class ItemGeneratorAppState extends BaseAppState {
         }
 
         if (random < 0.7) {
-            if (modelType == ModelType.Road_Straight) {
+            if (modelType == ModelType.Road_Straight_House_2 || modelType == ModelType.Road_Straight) {
                 // generate coins
                 generateCoinsInLine(movableId, modelType);
             }
@@ -73,7 +73,7 @@ public class ItemGeneratorAppState extends BaseAppState {
     }
 
     private void generateObstacle(EntityId movableId, ModelType modelType) {
-        if (modelType == ModelType.Road_Straight) {
+        if (modelType == ModelType.Road_Straight_House_2 ||  modelType == ModelType.Road_Straight) {
             float x = generateRandomXOffset();
             float z = 0;
             EntityFactory.createStaticCar(entityData, movableId, new Vector3f(x, 1.0f, z));
