@@ -3,6 +3,7 @@ package com.napier.mad.appstates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.BaseAppState;
+import com.simsilica.es.base.DefaultEntityData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class GameAppStateInitializer extends BaseAppState {
     }
 
     private void initEntityAppStates() {
-        add(new EntityDataAppState());
+        add(new EntityDataAppState(new DefaultEntityData()));
     }
 
     private void initGameAppStates() {

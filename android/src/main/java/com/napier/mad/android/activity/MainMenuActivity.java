@@ -1,6 +1,7 @@
 package com.napier.mad.android.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -55,6 +56,24 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+        Button helpButton = findViewById(R.id.main_menu_help_button);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainMenuActivity.this);
+                View alertView = getLayoutInflater().inflate(R.layout.help_dialog, null);
+                builder.setView(alertView);
+                final AlertDialog dialog = builder.create();
+                Button okButton = alertView.findViewById(R.id.help_dialog_ok_button);
+                okButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
      private void startActivity(Class<? extends Activity> activityClass) {

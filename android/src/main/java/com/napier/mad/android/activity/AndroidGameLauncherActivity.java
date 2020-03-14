@@ -19,12 +19,17 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
         // now let the AndroidHarness set up the OpenGL context for us
         app = mainApp;
+        eglSamples = 0;
+        frameRate = 60;
         super.onCreate(savedInstanceState);
     }
 
 
     @Override
     protected void onPause() {
+        if (app == null) {
+            return;
+        }
         MainGameAppState mainGameAppState = this.app.getStateManager().getState(MainGameAppState.class);
         if (mainGameAppState != null) {
             mainGameAppState.togglePauseGame();

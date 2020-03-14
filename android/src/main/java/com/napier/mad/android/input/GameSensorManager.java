@@ -22,16 +22,26 @@ public class GameSensorManager implements SensorEventListener {
         if (sensorManager == null) {
             throw new IllegalStateException("Sensor Manager not available.");
         }
-        Sensor gameSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        Sensor gameSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (gameSensor == null) {
+            throw new IllegalStateException("TIM YOU FUCKED UP!");
+        }
         this.sensorManager.registerListener(this, gameSensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         float rotX = event.values[1];
+        float rotY = event.values[0];
         float rotZ = -event.values[2];
 
-        float result = -1 * (rotX + rotZ);
+        if (Math.abs(rotY) <= 0.8) {
+            rotY = 0;
+        }
+
+        float sum = rotY;
+
+        float result = 1 * (sum);
 
         listener.onAccelerationChanged(result);
     }

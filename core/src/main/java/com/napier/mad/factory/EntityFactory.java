@@ -10,6 +10,7 @@ import com.napier.mad.components.CollisionShapeComponent;
 import com.napier.mad.components.DeleteAttachedEntitiesOnRemoveComponent;
 import com.napier.mad.components.DestroyPassedEntityOnFinishedMovementComponent;
 import com.napier.mad.components.FollowPathComponent;
+import com.napier.mad.components.JumpComponent;
 import com.napier.mad.components.MovementSpeedComponent;
 import com.napier.mad.components.ObstacleComponent;
 import com.napier.mad.components.DirectionComponent;
@@ -38,6 +39,7 @@ public class EntityFactory {
                 new PlayerControlled(),
                 new AliveStateComponent(true),
                 new CollectorComponent(),
+                new JumpComponent(false),
                 new ScoreComponent(),
                 new MovementSpeedComponent(GameConstants.DEFAULT_SPEED),
                 new AccelerateComponent(GameConstants.DEFAULT_PLAYER_ACCELERATION),

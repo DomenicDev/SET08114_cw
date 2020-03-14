@@ -12,6 +12,7 @@ public class GameConstants {
 
     public static final float TILE_LENGTH = 8f;
 
+    public static final float SIDE_MOVEMENT_SPEED = 1.5f;
     public static final float DEFAULT_SPEED = 8f;
     public static final float DEFAULT_SPEED_CARS = 8f;
     public static final float DEFAULT_PLAYER_ACCELERATION = 0.06f;

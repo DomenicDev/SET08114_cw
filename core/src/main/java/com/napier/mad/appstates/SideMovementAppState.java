@@ -5,6 +5,7 @@ import com.jme3.app.state.BaseAppState;
 import com.jme3.math.Vector3f;
 import com.napier.mad.components.LocalTransformComponent;
 import com.napier.mad.components.SideMovementComponent;
+import com.napier.mad.constants.GameConstants;
 import com.simsilica.es.Entity;
 import com.simsilica.es.EntityData;
 import com.simsilica.es.EntitySet;
@@ -38,7 +39,7 @@ public class SideMovementAppState extends BaseAppState {
         LocalTransformComponent localTransformComponent = e.get(LocalTransformComponent.class);
         Vector3f currentLocation = localTransformComponent.getLocation();
         float acc = sideMovementComponent.getAcceleration();
-        float speed = 2;
+        float speed = GameConstants.SIDE_MOVEMENT_SPEED;
         float max = 1.5f;
         float movedDistance = acc * speed * tpf;
 

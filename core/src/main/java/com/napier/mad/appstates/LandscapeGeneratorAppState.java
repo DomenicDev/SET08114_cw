@@ -36,7 +36,7 @@ public class LandscapeGeneratorAppState extends BaseAppState {
         this.models = entityData.getEntities(ModelComponent.class, LocalTransformComponent.class);
         getState(SceneAppState.class).getSceneNode().attachChild(landscape);
         this.modelLoader = getState(ModelLoaderAppState.class);
-        this.house = modelLoader.loadActualModel(ModelType.House_Small);
+        this.house = modelLoader.getModel(ModelType.House_Small);
     }
 
     @Override
@@ -86,9 +86,9 @@ public class LandscapeGeneratorAppState extends BaseAppState {
 
             int factor = (modelType == ModelType.Road_Corner_Right) ? 1 : -1;
 
-            Spatial leftTrans = modelLoader.loadActualModel(ModelType.Hill_Corner_Transition);
-            Spatial edge = modelLoader.loadActualModel(ModelType.Hill_Corner_Edge);
-            Spatial rightTrans = modelLoader.loadActualModel(ModelType.Hill_Corner_Transition);
+            Spatial leftTrans = modelLoader.getModel(ModelType.Hill_Corner_Transition);
+            Spatial edge = modelLoader.getModel(ModelType.Hill_Corner_Edge);
+            Spatial rightTrans = modelLoader.getModel(ModelType.Hill_Corner_Transition);
             resetTransform(leftTrans, edge, rightTrans);
 
             // set location
@@ -119,13 +119,13 @@ public class LandscapeGeneratorAppState extends BaseAppState {
         double next = random.nextDouble();
         if (next < 0.2) {
             // grass
-            return modelLoader.loadActualModel(ModelType.Grass_Low);
+            return modelLoader.getModel(ModelType.Grass_Low);
         } else if (next < 0.6) {
-            return modelLoader.loadActualModel(ModelType.House_Small);
+            return modelLoader.getModel(ModelType.House_Small);
         } else if (next < 0.8) {
-            return modelLoader.loadActualModel(ModelType.House_Small_Garage);
+            return modelLoader.getModel(ModelType.House_Small_Garage);
         } else {
-            return modelLoader.loadActualModel(ModelType.House_Mid);
+            return modelLoader.getModel(ModelType.House_Mid);
         }
     }
 

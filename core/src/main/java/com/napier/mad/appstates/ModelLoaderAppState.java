@@ -11,7 +11,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Sphere;
 import com.napier.mad.components.ModelComponent;
 import com.napier.mad.types.ModelType;
 import com.simsilica.es.Entity;
@@ -31,6 +30,8 @@ public class ModelLoaderAppState extends BaseAppState {
     private Map<EntityId, Node> entityModelMap = new HashMap<>();
     private EntitySet modelEntities;
 
+    private Map<ModelType, Spatial> loadedModelMap = new HashMap<>();
+
     private AssetManager assetManager;
 
     @Override
@@ -38,6 +39,9 @@ public class ModelLoaderAppState extends BaseAppState {
         this.assetManager = app.getAssetManager();
         EntityData entityData = getState(EntityDataAppState.class).getEntityData();
         this.modelEntities = entityData.getEntities(ModelComponent.class);
+        for (Entity e : modelEntities) {
+            addModel(e);
+        }
     }
 
     @Override
@@ -57,14 +61,27 @@ public class ModelLoaderAppState extends BaseAppState {
         EntityId entityId = e.getId();
         ModelComponent modelComp = e.get(ModelComponent.class);
         ModelType type = modelComp.getType();
-        Spatial model = loadActualModel(type);
+        Spatial model = getModel(type);
         resetTransform(model);
         Node modelNode = new Node("Entity-Node[" + entityId.getId() + "]");
         modelNode.attachChild(model);
         this.entityModelMap.put(e.getId(), modelNode);
     }
 
-    Spatial loadActualModel(ModelType type) {
+    public Spatial getModel(ModelType type) {
+        if (loadedModelMap.containsKey(type)) {
+            return loadedModelMap.get(type).clone();
+        }
+
+        Spatial spatial = loadFromAssetManager(type);
+        if (spatial != null) {
+            loadedModelMap.put(type, spatial);
+            return spatial.clone();
+        }
+        return null;
+    }
+
+    private Spatial loadFromAssetManager(ModelType type) {
         if (type == ModelType.Road_Straight) {
             return getChildFrom(ROAD_TILE_FILE, "road-straight.low");
         }
@@ -162,6 +179,7 @@ public class ModelLoaderAppState extends BaseAppState {
 
         this.entityModelMap.clear();
         this.assetManager.clearCache();
+        this.loadedModelMap.clear();
     }
 
     @Override
