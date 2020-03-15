@@ -44,6 +44,8 @@ public class ScoreListAdapter extends ArrayAdapter<GameResult> {
             convertView.setBackgroundColor(Color.parseColor("#C0C0C0"));
         } else if (position == 2) {
             convertView.setBackgroundColor(Color.parseColor("#cd7f32"));
+        } else {
+            convertView.setBackgroundColor(Color.TRANSPARENT);
         }
 
         // we want the top 3 to be sized bigger
