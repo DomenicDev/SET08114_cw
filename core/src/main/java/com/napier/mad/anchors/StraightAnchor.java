@@ -29,6 +29,7 @@ public class StraightAnchor extends AnchorLogic {
 
         if (movedDistance >= distance) {
             //    movedDistance = distance;
+            movedDistance = distance;
             onMovementFinished();
         }
 
