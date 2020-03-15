@@ -19,7 +19,6 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
         // now let the AndroidHarness set up the OpenGL context for us
         app = mainApp;
-        eglSamples = 0;
         frameRate = 60;
         super.onCreate(savedInstanceState);
     }

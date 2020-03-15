@@ -1,4 +1,4 @@
-package com.napier.mad;
+package com.napier.mad.android.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
