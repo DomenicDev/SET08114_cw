@@ -53,6 +53,7 @@ public class MainGameAppState extends BaseAppState {
     }
 
     public void restartGame() {
+        setNewScore(0);
         getStateManager().detach(initializer);
         this.initializer = new GameAppStateInitializer();
         getStateManager().attach(initializer);
