@@ -6,7 +6,6 @@ public class FirebaseScoreEntry {
     private Long score;
 
     public FirebaseScoreEntry() {
-
     }
 
     public String getName() {

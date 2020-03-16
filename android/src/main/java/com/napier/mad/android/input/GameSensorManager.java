@@ -24,26 +24,21 @@ public class GameSensorManager implements SensorEventListener {
         }
         Sensor gameSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (gameSensor == null) {
-            throw new IllegalStateException("TIM YOU FUCKED UP!");
+            throw new IllegalStateException("This device does not have a accelerometer!");
         }
         this.sensorManager.registerListener(this, gameSensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float rotX = event.values[1];
-        float rotY = event.values[0];
-        float rotZ = -event.values[2];
+        float acceleration = event.values[0];
 
-        if (Math.abs(rotY) <= 0.8) {
-            rotY = 0;
+        // we want to ignore very small movements
+        if (Math.abs(acceleration) <= 0.8) {
+            acceleration = 0;
         }
 
-        float sum = rotY;
-
-        float result = 1 * (sum);
-
-        listener.onAccelerationChanged(result);
+        listener.onAccelerationChanged(acceleration);
     }
 
     @Override
@@ -53,6 +48,10 @@ public class GameSensorManager implements SensorEventListener {
 
     public interface GameSensorListener {
 
+        /**
+         * Called every time the acceleration has changed.
+         * @param acceleration the current acceleration
+         */
         void onAccelerationChanged(float acceleration);
 
     }
