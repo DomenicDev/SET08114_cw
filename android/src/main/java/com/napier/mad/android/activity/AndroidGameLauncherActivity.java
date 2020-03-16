@@ -19,7 +19,7 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
         // now let the AndroidHarness set up the OpenGL context for us
         app = mainApp;
-        frameRate = 60; // lock frame rate to 60fps to save battery life
+        frameRate = -1;
         super.onCreate(savedInstanceState);
     }
 
