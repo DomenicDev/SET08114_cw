@@ -17,7 +17,7 @@
     <string name="code_and_game_design">Game Design and Programming</string>
     <string name="credits_game_designer">Domenic Cassisi</string>
     <string name="credits_assets_title">Game Assets</string>
-    <string name="credits_game_assets_content">Landscape Tiles by: eracoon\nGUI images: pzUH\nHuman Model by: quaternius\nCoin by: rubberduck\nSkyBox by: KIIRA</string>
+    <string name="credits_game_assets_content">Landscape Tiles by: eracoon\nGUI images: pzUH\nHuman Model by: quaternius\nCoin by: rubberduck\nSkyBox by: KIIRA\nMusic by MSTR\nCoin Sound Effect by wobbleboxx</string>
     <string name="settings_set_name">Set your player name</string>
     <string name="settings_no_empty_playername_allowed">Empty player names are not allowed!</string>
     <string name="settings_too_long_playername">Player name must have less than 14 characters</string>
