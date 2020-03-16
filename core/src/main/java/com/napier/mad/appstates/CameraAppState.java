@@ -19,12 +19,9 @@ public class CameraAppState extends BaseAppState {
     private InputManager inputManager;
     private CameraNode camNode;
 
-    private static final Vector3f START_LOCATION = new Vector3f(0, 0.5f, 10);
+    private static final Vector3f START_LOCATION = new Vector3f(0, 5f, -10);
 
-    private EntityId entityToChase;
     private Spatial spatialToChase;
-
-    private VisualisationAppState visualisationAppState;
 
     @Override
     protected void initialize(Application app) {
@@ -35,58 +32,28 @@ public class CameraAppState extends BaseAppState {
         this.cam.setLocation(START_LOCATION);
         this.cam.lookAt(Vector3f.ZERO, Vector3f.UNIT_Y);
         this.cam.setParallelProjection(false);
-        this.cam.setFrustumPerspective(90f, 19.5f/9.0f, 0.2f, 50f);
+        this.cam.setFrustumPerspective(95f, (float) cam.getWidth() / cam.getHeight(), 0.2f, 150f);
         this.cam.resize(cam.getWidth(), cam.getHeight(), true);
-
-        // get application states for later use
-        this.visualisationAppState = getStateManager().getState(VisualisationAppState.class);
     }
 
-    public void chase(EntityId entityId) {
-        this.entityToChase = entityId;
+    public void chase(Spatial spatialToChase) {
+        this.camNode = new CameraNode("CamNode", cam);
+        this.spatialToChase = spatialToChase;
+        ((Node) spatialToChase).attachChild(camNode);
+        this.camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
+        this.camNode.setLocalTranslation(0, 2.0f, -1);
+        this.camNode.setEnabled(true);
+        this.camNode.lookAt(spatialToChase.getWorldTranslation(), Vector3f.UNIT_Y);
     }
 
     @Override
     public void update(float tpf) {
-        if (entityToChase != null) {
-            if (spatialToChase == null) {
-                // load reference to spatial to chase
-                spatialToChase = this.visualisationAppState.getModel(entityToChase);
-                // chase
-                this.camNode = new CameraNode("Camera Node", cam);
-//This mode means that camera copies the movements of the target:
-                camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
-//Attach the camNode to the target:
-                ((Node) spatialToChase).attachChild(camNode);
-//Move camNode, e.g. behind and above the target:
-                camNode.setLocalTranslation(new Vector3f(-0, 5, -8));
-//Rotate the camNode to look at the target:
-                camNode.lookAt(spatialToChase.getLocalTranslation(), Vector3f.UNIT_Y);
-                /*
-                ChaseCamera chaseCamera = new ChaseCamera(cam, spatialToChase, inputManager);
-                chaseCamera.setSmoothMotion(true);
-                chaseCamera.setDragToRotate(false);
-                chaseCamera.setMinDistance(5);
-                chaseCamera.setZoomSensitivity(1000);
-                chaseCamera.setDownRotateOnCloseViewOnly(false);
-                chaseCamera.setChasingSensitivity(300);
-                chaseCamera.setDefaultDistance(5);
-                chaseCamera.setMaxDistance(5);
-                chaseCamera.setTrailingEnabled(false);
-
-                 */
-                return;
-            } else {
-
-                if (camNode != null) {
-
-                }
-
-
-            }
-
-
+        if (spatialToChase == null) {
+            return;
         }
+        // update location and look at to avoid camera issues
+        this.camNode.setLocalTranslation(0, 2.8f, -2.2f);
+        this.camNode.lookAt(spatialToChase.getWorldTranslation().add(0, 2.0f, 0), Vector3f.UNIT_Y);
     }
 
 
@@ -96,8 +63,10 @@ public class CameraAppState extends BaseAppState {
     }
 
     @Override
-    protected void onEnable() {}
+    protected void onEnable() {
+    }
 
     @Override
-    protected void onDisable() {}
+    protected void onDisable() {
+    }
 }

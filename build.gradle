@@ -7,8 +7,9 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
@@ -45,7 +46,7 @@ project(":android") {
     dependencies {
         implementation project(":core")
         implementation fileTree(dir: 'libs', include: ['*.jar'])
-        testImplementation 'junit:junit:4.12'
+    //    testImplementation 'junit:junit:4.12'
         implementation 'com.android.support:appcompat-v7:27.1.0'
         implementation "org.jmonkeyengine:jme3-android:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-android-native:$JMonkey_version"
@@ -61,11 +62,11 @@ project(":core") {
         implementation "org.jmonkeyengine:jme3-core:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-bullet:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-niftygui:$JMonkey_version"
+        implementation "org.jmonkeyengine:jme3-effects:$JMonkey_version"
 
        /* implementation "org.jmonkeyengine:jme3-jbullet:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-terrain:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-niftygui:$JMonkey_version"
-        implementation "org.jmonkeyengine:jme3-effects:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-plugins:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-jogg:$JMonkey_version"
         implementation "org.jmonkeyengine:jme3-networking:$JMonkey_version"*/

@@ -1,89 +1,113 @@
 package com.napier.mad.appstates;
 
 import com.jme3.app.Application;
-import com.jme3.app.state.AppStateManager;
+import com.jme3.app.state.AppState;
 import com.jme3.app.state.BaseAppState;
+import com.simsilica.es.base.DefaultEntityData;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameAppStateInitializer extends BaseAppState {
 
-    private EntityDataAppState entityDataAppState;
-    private CameraAppState cameraAppState;
-    private PhysicsAppState physicsAppState;
-    private PhysicsPushAppState physicsPushAppState;
-    private PhysicalCharacterMovement physicalCharacterMovement;
-    private PhysicsCharacterAppState physicsCharacterAppState;
-    private SceneAppState sceneAppState;
-    private VisualisationAppState visualisationAppState;
-    private SkyAppState skyAppState;
-    private InputAppState inputAppState;
-    private NiftyAppState niftyAppState;
-
-    private TileModelLoaderAppState tileModelLoaderAppState;
-
-
-    private AppStateManager stateManager;
+    private List<AppState> appStates = new ArrayList<>();
 
     @Override
     protected void initialize(Application app) {
-        AppStateManager stateManager = app.getStateManager();
-        this.stateManager = stateManager;
+        initEntityAppStates();
+        initGameAppStates();
+        initViewAppStates();
+        initSoundAppStates();
+        initInputAppStates();
+        initGameStarter();
 
-        this.entityDataAppState = new EntityDataAppState();
-        this.cameraAppState = new CameraAppState();
-        this.physicsAppState = new PhysicsAppState();
-        this.physicalCharacterMovement = new PhysicalCharacterMovement();
-        this.physicsPushAppState = new PhysicsPushAppState();
-        this.physicsCharacterAppState = new PhysicsCharacterAppState();
-        this.sceneAppState = new SceneAppState();
-        this.skyAppState = new SkyAppState();
-        this.visualisationAppState = new VisualisationAppState();
-        this.inputAppState = new InputAppState();
-        this.niftyAppState = new NiftyAppState();
+        addToStateManager();
+    }
 
-        this.tileModelLoaderAppState = new TileModelLoaderAppState();
+    private void initEntityAppStates() {
+        add(new EntityDataAppState(new DefaultEntityData()));
+    }
 
-        stateManager.attach(entityDataAppState);
-        stateManager.attach(physicsAppState);
-        stateManager.attach(physicalCharacterMovement);
-        stateManager.attach(physicsPushAppState);
+    private void initGameAppStates() {
+        add(new DecayAppState());
+        add(new StartFollowPathAppState());
+        add(new NewMovementAppState());
+        add(new AnchorMovementAppState());
+        add(new AutoFollowMovementAppState());
+        add(new RandomAutoPathExtender());
+        add(new PathDecayAppState());
+        add(new SideMovementAppState());
+        add(new CollisionAppState());
+        add(new JumpAppState());
+        add(new ItemGeneratorAppState());
+        add(new ScoreAppState());
+        add(new PlayerAppState());
+        add(new DeleteAttachedEntitiesAppState());
+        add(new ItemCollectorAppState());
+        add(new ObstacleCollisionAppState());
+        add(new PlayerAliveAppState());
+        add(new EntityAcceleratorAppState());
+        add(new WorldTransformAppState());
+    }
 
-        stateManager.attach(sceneAppState);
-        stateManager.attach(skyAppState);
-        stateManager.attach(visualisationAppState);
-        stateManager.attach(physicsCharacterAppState);
-        stateManager.attach(inputAppState);
-        stateManager.attach(cameraAppState);
-        stateManager.attach(niftyAppState);
-        stateManager.attach(tileModelLoaderAppState);
+    private void initViewAppStates() {
+        add(new SceneAppState());
+        add(new SkyAppState());
+        add(new ModelLoaderAppState());
+        add(new ModelAttachAppState());
+        add(new LocalTransformAppState());
+        add(new CameraAppState());
+        add(new ItemRotationAppState());
+        add(new HumanAnimationAppState());
+        add(new LandscapeGeneratorAppState());
+     //   add(new DebugCollisionBoxAppState()); // for debugging only
+    }
 
-        // for now...
-        stateManager.attach(new GameStarterAppState());
+    private void initSoundAppStates() {
+        add(new BackgroundMusicAppState());
+        add(new CoinSoundAppState());
+    }
 
+    private void initInputAppStates() {
+        add(new GameInputAppState());
+    }
+
+    private void initGameStarter() {
+        add(new GameStarterAppState());
+    }
+
+    private void add(AppState appState) {
+        this.appStates.add(appState);
+    }
+
+    private void addToStateManager() {
+        for (AppState appState : appStates) {
+            getStateManager().attach(appState);
+        }
+    }
+
+    private void removeFromStateManager() {
+        for (AppState appState : appStates) {
+            getStateManager().detach(appState);
+        }
     }
 
     @Override
     protected void cleanup(Application app) {
-        this.stateManager.detach(entityDataAppState);
-        this.stateManager.detach(cameraAppState);
-        this.stateManager.detach(visualisationAppState);
-        this.stateManager.detach(physicalCharacterMovement);
-        this.stateManager.detach(physicsAppState);
-        this.stateManager.detach(physicsPushAppState);
-        this.stateManager.detach(inputAppState);
-        this.stateManager.detach(sceneAppState);
-        this.stateManager.detach(skyAppState);
-        this.stateManager.detach(niftyAppState);
-        this.stateManager.detach(tileModelLoaderAppState);
+        removeFromStateManager();
     }
 
     @Override
     protected void onEnable() {
-
+        for (AppState appState : appStates) {
+            appState.setEnabled(true);
+        }
     }
 
     @Override
     protected void onDisable() {
-
+        for (AppState appState : appStates) {
+            appState.setEnabled(false);
+        }
     }
 }

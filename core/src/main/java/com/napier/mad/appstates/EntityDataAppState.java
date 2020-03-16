@@ -9,9 +9,13 @@ public class EntityDataAppState extends BaseAppState {
 
     private EntityData entityData;
 
+    public EntityDataAppState(EntityData entityData) {
+        this.entityData = entityData;
+    }
+
     @Override
     protected void initialize(Application app) {
-        this.entityData = new DefaultEntityData();
+
     }
 
     @Override

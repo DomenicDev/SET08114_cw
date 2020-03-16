@@ -1,28 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
-    <useStyles filename="nifty-default-styles.xml"/>
-    <useControls filename="nifty-default-controls.xml"/>
+<nifty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://nifty-gui.lessvoid.com/nifty-gui"
+    xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" />
 
-    <screen id="start" controller="com.napier.mad.screens.MainGameScreenController">
-        <layer childLayout="vertical">
-            <!-- ... -->
-            <panel height="*" />
-            <panel align="center" width="98%" height="10%" childLayout="horizontal">
-                <panel childLayout="center" width="50%">
-                    <control id="leftDrift" label="LEFT" name="button" width="95%" height="50%" >
-                        <interact onClick="onClickLeft()" />
-                    </control>
-                </panel>
-                <panel childLayout="center" width="50%">
-                    <control id="rightDrift" name="button" width="95%" height="50%" label="RIGHT">
-                        <interact onClick="onClickRight()" />
-                    </control>
-                </panel>
+    <!-- GAME START SCREEN -->
+    <screen controller="com.napier.mad.screens.StartScreenController" id="start">
+        <layer childLayout="center">
+            <panel align="center" childLayout="horizontal" height="10%" width="80%">
+                <control name="button" height="90%" id="startButton" label="Start" width="95%">
+                    <interact onClick="onClickStartGame()" />
+                </control>
             </panel>
-
         </layer>
     </screen>
-    <screen id="hud">
-        <!-- ... -->
+
+    <!-- HUD SCREEN -->
+    <screen controller="com.napier.mad.screens.HudScreenController" id="hud">
+        <layer childLayout="vertical">
+            <panel height="50px" />
+            <panel childLayout="horizontal" width="98%" height="300px">
+                <panel childLayout="center" height="120px" width="294px">
+                    <image childLayout="center" filename="Interface/score_panel.png">
+                        <panel align="center"  childLayout="center" valign="center" width="50%">
+                            <text align="right" font="Interface/Fonts/SansSerif.fnt" height="100%"
+                                id="score" text="Score" valign="center"
+                                width="100%" />
+                        </panel>
+                    </image>
+                </panel>
+                <!--
+                <panel childLayout="center" align="right" backgroundColor="#ff0000" height="100%" width="20%">
+                    <control name="button" height="95%" label="Pause" width="95%">
+                        <interact onClick="onClickPauseGame()" />
+                    </control>
+                </panel>
+                -->
+            </panel>
+        </layer>
+        <!-- this layer is only used to make the screen fade in -->
+        <layer childLayout="center">
+            <panel backgroundColor="#000000" height="100%" width="100%">
+                <effect>
+                    <onStartScreen name="fade" end="#0" length="1500" neverStopRendering="true"
+                        start="#f" />
+                </effect>
+            </panel>
+        </layer>
     </screen>
+
+    <!-- GAME OVER SCREEN -->
+    <!-- Lets the user return to main menu or restart the game -->
+    <screen controller="com.napier.mad.screens.GameOverScreenController" id="game_over">
+        <layer backgroundColor="#0004" childLayout="center" height="100%" width="100%">
+            <panel height="100%" width="100%" />
+        </layer>
+        <layer childLayout="center" height="100%" width="100%">
+            <panel backgroundImage="Interface/panel_empty.png" childLayout="center" height="60%" width="90%">
+                <panel childLayout="vertical">
+                    <text id="game_over_score_result" align="center" color="#040404" text="Your score was: 1234" font="Interface/Fonts/SansSerif.fnt"/>
+                    <panel height="50px" />
+                    <image childLayout="center" align="center" width="400px" height="150px" filename="Interface/button_enabled.png">
+                        <interact onClick="onClickRestart()" />
+                        <text text="RESTART" align="center" color="#040404" valign="center" font="Interface/Fonts/SansSerif.fnt"/>
+                    </image>
+                    <panel height="30px" />
+                    <image childLayout="center" align="center" width="400px" height="150px" filename="Interface/button_enabled.png">
+                        <interact onClick="onClickBackToMenu()" />
+                        <text text="Back to Menu" align="center" color="#040404" valign="center" font="Interface/Fonts/SansSerif.fnt"/>
+                    </image>
+                </panel>
+            </panel>
+        </layer>
+        <layer childLayout="center">
+            <panel width="100%" height="100%" childLayout="center" backgroundColor="#000000">
+                <effect>
+                    <onStartScreen name="fade" start="#f" end="#0" neverStopRendering="true" length="1"/>
+                    <onEndScreen name="fade" start="#0" end="#f" length="500" neverStopRendering="true" />
+                </effect>
+            </panel>
+        </layer>
+    </screen>
+
 </nifty>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "317062236916",
+    "firebase_url": "https://suburb-runner.firebaseio.com",
+    "project_id": "suburb-runner",
+    "storage_bucket": "suburb-runner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317062236916:android:a0abb42f0aea454c08eca1",
+        "android_client_info": {
+          "package_name": "com.napier.mad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317062236916-0bn0fmo6befeaumrvgakscef1cvbnfio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.napier.mad",
+            "certificate_hash": "9a556c32227fa17bcb02d889bb964f05c578e68b"
+          }
+        },
+        {
+          "client_id": "317062236916-01e6ssggg32ncb91abb0r1um1328nb8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBpj6XrWPFShMPz0mcodY43qqe3doYXK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317062236916-01e6ssggg32ncb91abb0r1um1328nb8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

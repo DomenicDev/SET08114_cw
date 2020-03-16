@@ -1,0 +1,7 @@
+Material My Material : Common/MatDefs/Light/Lighting.j3md {
+     MaterialParameters {
+        DiffuseMap : Flip "Textures/buildings-houses_v1.jpg"
+     }
+    AdditionalRenderState {
+    }
+}

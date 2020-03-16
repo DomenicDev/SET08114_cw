@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorDarkGameButton">#020202</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="first_place_color">#D6840B</color>
+    <color name="second_place_color">#ff0202</color>
+    <color name="third_place_color">#00ff00</color>
 </resources>
