@@ -3,7 +3,7 @@ package com.napier.mad.android.activity;
 import android.os.Bundle;
 
 import com.jme3.app.AndroidHarness;
-import com.napier.mad.android.input.AndroidGameEventHandler;
+import com.napier.mad.android.game.AndroidGameEventHandler;
 import com.napier.mad.Main;
 import com.napier.mad.appstates.MainGameAppState;
 
@@ -19,7 +19,7 @@ public class AndroidGameLauncherActivity extends AndroidHarness {
 
         // now let the AndroidHarness set up the OpenGL context for us
         app = mainApp;
-        frameRate = 60;
+        frameRate = 60; // lock frame rate to 60fps to save battery life
         super.onCreate(savedInstanceState);
     }
 

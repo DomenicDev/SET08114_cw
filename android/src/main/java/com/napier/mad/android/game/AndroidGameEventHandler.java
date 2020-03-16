@@ -1,8 +1,10 @@
-package com.napier.mad.android.input;
+package com.napier.mad.android.game;
 
 import android.app.Activity;
 
 import com.jme3.app.Application;
+import com.napier.mad.android.input.GameSensorManager;
+import com.napier.mad.android.input.JumpBySwipeInputAppState;
 import com.napier.mad.appstates.GameInputAppState;
 import com.napier.mad.game.GameEventListener;
 import com.napier.mad.game.PlayerStatistics;
@@ -10,6 +12,10 @@ import com.napier.mad.android.persistence.FirebaseGameScoreHandler;
 import com.napier.mad.android.persistence.PlayerStatsSQLiteDBHelper;
 import com.napier.mad.android.persistence.SharedPreferencesHandler;
 
+/**
+ * This class listens to the main state events of the game.
+ * It makes sure everything is set up and ready when needed.
+ */
 public class AndroidGameEventHandler implements GameEventListener, GameSensorManager.GameSensorListener {
 
     private final GameSensorManager gameSensorManager;
@@ -35,6 +41,7 @@ public class AndroidGameEventHandler implements GameEventListener, GameSensorMan
 
     @Override
     public void onGameStarted() {
+        // we want to attach our touch input app state at game-startup
         if (jumpAppState != null) {
             app.getStateManager().detach(jumpAppState);
         }
@@ -56,6 +63,7 @@ public class AndroidGameEventHandler implements GameEventListener, GameSensorMan
 
     @Override
     public void onGameStop() {
+        // free resources
         this.gameSensorManager.cleanup();
         app.getStateManager().detach(jumpAppState);
     }

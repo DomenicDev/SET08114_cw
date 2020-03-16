@@ -1,4 +1,4 @@
-package com.napier.mad.android.activity;
+package com.napier.mad.android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
